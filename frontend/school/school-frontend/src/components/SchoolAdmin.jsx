@@ -21,7 +21,7 @@ function SchoolAdmin() {
 
       const newCommitments = newIds.map((id) =>
         keccak256(Buffer.from(id)).toString("hex")
-      );
+      ); // Hashing the student IDs
 
       // Step 2: Fetch existing commitments from backend
       const res = await fetch(`http://localhost:3001/commitments/${courseId}`);
