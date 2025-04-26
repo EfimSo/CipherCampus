@@ -1,0 +1,6 @@
+[package]
+name = "verifyWithYesGradeNoMajor"
+type = "bin"
+authors = [""]
+
+[dependencies]

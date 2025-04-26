@@ -1,6 +1,6 @@
 Contract Name: SchoolRootRegistry
 
-Contract Address: 0x4d8464C126DeeAC84C3e8D1102Af06192185FF61
+Contract Address: 0xE8eba6Ff334b8aDF50c5b635ef6653b884E0e01b
 Network: Sepolia (or specify your target network)
 
 Description:
