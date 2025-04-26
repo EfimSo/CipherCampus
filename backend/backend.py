@@ -21,12 +21,13 @@ class Review(db.Model):
     text = db.Column(db.Text)
     rating = db.Column(db.Float) # bool
     recommend = db.Column(db.Boolean)
-    grade = db.Column(db.Text),
-    professor_name = db.Column(db.Text), 
+    grade = db.Column(db.Text)
+    professor_name = db.Column(db.Text)
     class_name = db.Column(db.Text)
+    major = db.Column(db.Text)
 
     def __str__(self):
-        return json.dumps(review_serialize(self), indent=4)
+        return str(review_serialize(self), indent=4)
 
 
 def review_serialize(review):
@@ -36,24 +37,33 @@ def review_serialize(review):
         'recommend': str(review.recommend),
         'grade': review.grade,
         'professor_name': review.professor_name,
-        'class_name': review.class_name
+        'class_name': review.class_name,
+        "major": review.major
     }
-
-
 
 
 @app.route('/')
 def sample():
-    return f'{Review.query.all()}'
+    reviews = db.session.query(Review).all()
+    return jsonify([review_serialize(r) for r in reviews])
 
 @app.route('/write_review', methods = ['POST'])
 def write_review():
     # Verify proof 
-    # Add review to DB
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
+        if data is None:
+            data = request.form.to_dict()
         arg_dict = {
-            arg_name: data.get(arg_name) for arg_name in ["text", "rating", "recommend", "grade", "professor_name", "class_name"]
+            arg_name: data.get(arg_name) for arg_name in [
+                "text",
+                "rating",
+                "recommend",
+                "grade",
+                "professor_name",
+                "class_name",
+                "major"
+            ]
         }
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
         except: arg_dict["rating"] = 1.0
