@@ -28,7 +28,7 @@ function CommentWall() {
         <ReviewForm />
       ) : (
         <div>
-          <h2 className="text-xl font-bold mb-2">📢 Anonymous Reviews</h2>
+          <h2 className="text-xl font-bold mb-2">Anonymous Reviews</h2>
           {reviews.length === 0 ? (
             <p>No reviews yet.</p>
           ) : (
