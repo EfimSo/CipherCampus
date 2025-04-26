@@ -1,0 +1,18 @@
+[package]
+name    = "grumpkin_keygen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# ---- arkworks (all crates on the SAME minor = 0.5) ---------------
+ark-std      = "0.5"
+ark-ec       = "0.5"
+ark-grumpkin = "0.5"
+ark-ff       = "0.5"
+
+# ---- helpers ------------------------------------------------------
+rand         = "0.8"
+
+# ---- JSON output --------------------------------------------------
+serde        = { version = "1.0", features = ["derive"] }
+serde_json   = "1.0"

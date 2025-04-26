@@ -1,0 +1,77 @@
+Contract Name: SchoolRootRegistry
+
+Contract Address: 0x4d8464C126DeeAC84C3e8D1102Af06192185FF61
+Network: Sepolia (or specify your target network)
+
+Description:
+Stores and publishes Merkle roots for each school and semester in a simple on‑chain registry. Only the contract owner may add or update roots. Off‑chain clients can retrieve the latest root and its timestamp for proof verification.
+
+Owner:
+- The deployer address (initial owner) is set in the constructor. Use `transferOwnership(newOwner)` to change the owner.
+
+Key Structs & Mappings:
+```
+struct RootInfo {
+    bytes32 root;
+    uint256 timestamp;
+}
+mapping(string => mapping(string => RootInfo)) private roots;
+```
+Stores `roots[school][semester]` as a `RootInfo` containing the Merkle root and the block timestamp when it was added.
+
+Events:
+```
+event RootAdded(
+    string indexed school,
+    string indexed semester,
+    bytes32 root,
+    uint256 timestamp
+);
+```
+Emitted whenever `addRoot` is called.
+
+Public Read Functions:
+- `getRoot(string school, string semester) → bytes32`
+  - Returns the stored Merkle root (zero if unset).
+- `getRootInfo(string school, string semester) → (bytes32 root, uint256 timestamp)`
+  - Returns both the root and the UNIX timestamp when it was added.
+
+Owner‑Only Functions:
+- `transferOwnership(address newOwner)`
+  - Change the owner. `newOwner` must not be the zero address.
+- `addRoot(string school, string semester, bytes32 root)`
+  - Add or update the Merkle root for a given `school` and `semester`. Updates the timestamp and emits `RootAdded`.
+
+Example Usage (Ethers.js):
+```js
+import { ethers } from "ethers";
+
+const provider = new ethers.providers.JsonRpcProvider("https://...");
+const signer = provider.getSigner();
+const abi = [ /* ABI JSON here */ ];
+const registry = new ethers.Contract(
+  "0x4d8464C126DeeAC84C3e8D1102Af06192185FF61",
+  abi,
+  signer
+);
+
+// Add a new root (owner only)
+await registry.addRoot("CAS", "Fall2025", "0xabc123...".    );
+
+// Read the root
+const root = await registry.getRoot("CAS", "Fall2025");
+console.log("Merkle Root:", root);
+
+// Read root info (root + timestamp)
+const [retrievedRoot, time] = await registry.getRootInfo("CAS", "Fall2025");
+console.log(`Root: ${retrievedRoot}, added at ${new Date(time * 1000).toLocaleString()}`);
+```
+
+Notes:
+- Strings (school & semester) are used as keys; ensure they match exactly when adding and retrieving.
+- The contract uses `block.timestamp` for root timestamps; clients should interpret it in seconds since UNIX epoch.
+- If a root has never been set, `getRoot` returns `0x000...0` and `getRootInfo` returns `(0x000...0, 0)`.
+
+License:
+MIT (SPDX: MIT)
+

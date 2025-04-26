@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noir Proof Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; }
+    label { display: block; margin-top: 1rem; }
+    input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
+    .inline { display: inline-block; width: auto; margin-right: 1rem; }
+    .hidden { display: none; }
+    button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Noir Proof Generator</h1>
+  <form id="proofForm">
+    <label>Secret Key Lo:
+      <input type="text" id="skLo" required />
+    </label>
+    <label>Secret Key Hi:
+      <input type="text" id="skHi" required />
+    </label>
+    <label>Leaf Index:
+      <input type="text" id="leafIndex" required />
+    </label>
+    <label>Merkle Path (comma-separated hex values):
+      <textarea id="path" rows="3" placeholder="0xabc...,0xdef..., ..." required></textarea>
+    </label>
+    <label>Public Key X:
+      <input type="text" id="pkX" required />
+    </label>
+    <label>Public Key Y:
+      <input type="text" id="pkY" required />
+    </label>
+    <label>College Index:
+      <input type="text" id="collegeIdx" required />
+    </label>
+    <label>Department Index:
+      <input type="text" id="deptIdx" required />
+    </label>
+    <label>Course Index:
+      <input type="text" id="courseIdx" required />
+    </label>
+    <label class="inline">
+      <input type="checkbox" id="includeGrade" /> Include Grade & Professor
+    </label>
+    <div id="gradeFields" class="hidden">
+      <label>Grade (numeric representation):
+        <input type="text" id="grade" />
+      </label>
+      <label>Professor ID:
+        <input type="text" id="professor" />
+      </label>
+    </div>
+    <button type="submit">Generate Proof</button>
+  </form>
+  <h2>Output</h2>
+  <pre id="output"></pre>
+
+  <script type="module">
+    import { generateProof } from './generateProof.js';
+
+    const form = document.getElementById('proofForm');
+    const includeGradeCheckbox = document.getElementById('includeGrade');
+    const gradeFields = document.getElementById('gradeFields');
+    const output = document.getElementById('output');
+
+    includeGradeCheckbox.addEventListener('change', () => {
+      gradeFields.classList.toggle('hidden', !includeGradeCheckbox.checked);
+      document.getElementById('grade').required = includeGradeCheckbox.checked;
+      document.getElementById('professor').required = includeGradeCheckbox.checked;
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      output.textContent = '⏳ Generating proof...';
+      const inputs = {
+        skLo: document.getElementById('skLo').value,
+        skHi: document.getElementById('skHi').value,
+        leafIndex: document.getElementById('leafIndex').value,
+        path: document.getElementById('path').value
+n          .split(',')
+          .map(s => s.trim())
+          .filter(s => s),
+        pkX: document.getElementById('pkX').value,
+        pkY: document.getElementById('pkY').value,
+        collegeIdx: document.getElementById('collegeIdx').value,
+        deptIdx: document.getElementById('deptIdx').value,
+        courseIdx: document.getElementById('courseIdx').value
+      };
+      const includeGrade = includeGradeCheckbox.checked;
+      if (includeGrade) {
+        inputs.grade = document.getElementById('grade').value;
+        inputs.professor = document.getElementById('professor').value;
+      }
+
+      try {
+        const proofBytes = await generateProof(inputs, includeGrade);
+        const hex = Array.from(proofBytes)
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+        output.textContent = `✅ Proof (hex): ${hex}`;
+      } catch (err) {
+        output.textContent = `❌ Error: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
