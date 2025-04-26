@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@aztec/bb.js": "^0.85.0",
+    "@noble/secp256k1": "^2.2.3",
+    "csv-parse": "^5.6.0"
+  }
+}
