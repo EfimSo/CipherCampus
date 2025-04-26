@@ -1,23 +1,43 @@
 import { useState } from "react";
+import { generateProof } from '../../../../zero_knowledge/zk-test/generateProof.js';
 
 function ReviewForm() {
   const [course, setCourse] = useState("");
   const [review, setReview] = useState("");
   const [publicKey, setPublicKey] = useState("");
-  const [professor, setProfessor] = useState("");
   const [grade, setGrade] = useState("");
   const [major, setMajor] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async () => {
-    setStatus("Submitting...");
+  const gradeMap = { 'A+':0, 'A':1, 'A-':2, 'B+':3, 'B':4, 'B-':5, 'C+':6, 'C':7, 'C-':8, 'D+':9, 'D':10, 'D-':11, 'F':12 };
+  function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
-    // Placeholder for future ZK circuit logic
-    const proofPlaceholder = {
-      leaf: "0x...",
-      path: [],
-      index: 0,
+  const handleSubmit = async () => {
+    // Map letter grade to integer and generate proof
+    const gradeInt = grade ? gradeMap[grade] : 0;
+    setStatus("Generating ZK proof...");
+    const inputs = {
+      skLo: "0x00d0851a3b1d23ac235650bdca139b80", // TODO: replace with real secret key limbs
+      skHi: "0x1e99271c61d584811f9d008865f66d99",
+      leafIndex: 2048, // TODO: replace with real Merkle leaf index
+      path: [],        // TODO: replace with real Merkle proof path
+      pkX: "0x043109d503c77ce74afa15de64ff93b159acf8a06fea97a079f387d75adf8650",
+      pkY: "0x1f1628c9f05d3f90f8a2f05c2fd88da4cc10ac7d772e6fe4fbb54e322fd74499",
+      collegeIdx: 0,
+      deptIdx: 4,
+      courseIdx: 0,
+      grade: gradeInt,
+      professor: 4
     };
+    let proofHex;
+    try {
+      const proofBytes = await generateProof(inputs, Boolean(grade));
+      proofHex = "0x" + toHex(proofBytes);
+    } catch (err) {
+      setStatus(`Proof generation failed: ${err.message}`);
+      return;
+    }
+    setStatus("Submitting...");
 
     const reviewData = {
       course,
@@ -25,7 +45,7 @@ function ReviewForm() {
       publicKey,
       grade,
       major,
-      ...proofPlaceholder,
+      proof: proofHex,
     };
 
     try {
@@ -49,7 +69,7 @@ function ReviewForm() {
         throw new Error(result.message || "Submission failed");
       }
     } catch (error) {
-      setStatus(` Error: ${error.message}`);
+      setStatus(`❌ Error: ${error.message}`);
     }
   };
 
@@ -74,18 +94,11 @@ function ReviewForm() {
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
-      <label>Public Key: </label>
+      <label>Public Key (ephemeral):</label>
       <input
         value={publicKey}
         onChange={(e) => setPublicKey(e.target.value)}
         placeholder="0x..."
-        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
-      />
-      <label>Professor: </label>
-      <input
-        value={publicKey}
-        onChange={(e) => setProfessor(e.target.value)}
-        placeholder="John Doe"
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
