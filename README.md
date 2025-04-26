@@ -1,6 +1,6 @@
 # Zero-Knowledge Proofs + Ethereum + BU Terrier
 
-![Zero-Knowledge Terrier](cipher_image.png)
+![Zero-Knowledge Terrier](pr00fesor.png)
 
 ## Project Overview
 
