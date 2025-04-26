@@ -4,6 +4,7 @@ function ReviewForm() {
   const [course, setCourse] = useState("");
   const [review, setReview] = useState("");
   const [publicKey, setPublicKey] = useState("");
+  const [professor, setProfessor] = useState("");
   const [grade, setGrade] = useState("");
   const [major, setMajor] = useState("");
   const [status, setStatus] = useState("");
@@ -78,6 +79,14 @@ function ReviewForm() {
         value={publicKey}
         onChange={(e) => setPublicKey(e.target.value)}
         placeholder="0x..."
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+
+      <label>Professor:</label>
+      <input
+        value={professor}
+        onChange={(e) => setProfessor(e.target.value)}
+        placeholder="e.g. Dr. Smith"
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
