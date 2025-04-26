@@ -4,13 +4,12 @@ function ReviewForm() {
   const [course, setCourse] = useState("");
   const [review, setReview] = useState("");
   const [publicKey, setPublicKey] = useState("");
-  const [professor, setProfessor] = useState("");
   const [grade, setGrade] = useState("");
   const [major, setMajor] = useState("");
   const [status, setStatus] = useState("");
 
   const handleSubmit = async () => {
-    setStatus("Submitting...");
+    setStatus("⏳ Submitting...");
 
     // Placeholder for future ZK circuit logic
     const proofPlaceholder = {
@@ -49,7 +48,7 @@ function ReviewForm() {
         throw new Error(result.message || "Submission failed");
       }
     } catch (error) {
-      setStatus(` Error: ${error.message}`);
+      setStatus(`❌ Error: ${error.message}`);
     }
   };
 
@@ -74,18 +73,11 @@ function ReviewForm() {
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
-      <label>Public Key: </label>
+      <label>Public Key (ephemeral):</label>
       <input
         value={publicKey}
         onChange={(e) => setPublicKey(e.target.value)}
         placeholder="0x..."
-        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
-      />
-      <label>Professor: </label>
-      <input
-        value={publicKey}
-        onChange={(e) => setProfessor(e.target.value)}
-        placeholder="John Doe"
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
