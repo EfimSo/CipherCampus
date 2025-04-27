@@ -32,7 +32,7 @@ function ReviewForm() {
     };
     let proofHex;
     try {
-      const proofBytes = await generateProof(inputs, Boolean(grade));
+      const proofBytes = await generateProof(inputs, Boolean(grade), Boolean(major));
       proofHex = "0x" + toHex(proofBytes);
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);

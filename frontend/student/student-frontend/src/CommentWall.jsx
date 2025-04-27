@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ReviewForm from "./ReviewForm"; // Assuming your form is in this component
+import ReviewForm from "./ReviewForm"; 
 
 function CommentWall() {
   const [viewMode, setViewMode] = useState("comments"); // or 'write'
