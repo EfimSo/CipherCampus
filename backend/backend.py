@@ -2,15 +2,12 @@ from flask import Flask
 from flask import jsonify, request, json
 from flask_sqlalchemy import SQLAlchemy
 import os.path
+from verify_test import verify_proof
 # from flask_cors import CORS
 basedir = os.path.abspath(os.path.dirname(__file__))
-from trees import Tree
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-
-
-test_tree = Tree(None)
 
 
 db = SQLAlchemy(app)
@@ -19,12 +16,13 @@ class Review(db.Model):
     __tablename__ = 'review'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
-    rating = db.Column(db.Float) # bool
+    rating = db.Column(db.Float)
     recommend = db.Column(db.Boolean)
     grade = db.Column(db.Text)
     professor_name = db.Column(db.Text)
     class_name = db.Column(db.Text)
     major = db.Column(db.Text)
+    proof = db.Column(db.Text)
 
     def __str__(self):
         return str(review_serialize(self), indent=4)
@@ -54,21 +52,29 @@ def write_review():
         data = request.get_json(silent=True)
         if data is None:
             data = request.form.to_dict()
+        if not data: return
+
         arg_dict = {
-            arg_name: data.get(arg_name) for arg_name in [
+            arg_name: data.get(arg_name, None) for arg_name in [
                 "text",
                 "rating",
                 "recommend",
                 "grade",
                 "professor_name",
                 "class_name",
-                "major"
+                "major",
+                "proof"
             ]
         }
+        
+        proof = arg_dict["proof"]
+        if not proof or not verify_proof(proof):
+            return
+
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
         except: arg_dict["rating"] = 1.0
 
-        arg_dict["recommend"] = True if arg_dict["recommend"] == "true" else False
+        arg_dict["recommend"] = True if arg_dict["recommend"] in ["true", "True"] else False
         
         review = Review(**arg_dict)
         db.session.add(review)
@@ -79,11 +85,12 @@ def write_review():
 
 @app.route('/read_reviews', methods = ['GET'])
 def read_reviews():
-    
-    pass
+    reviews = db.session.query(Review).all()
+    return jsonify([review_serialize(r) for r in reviews])
 
 
 if __name__ == '__main__':
-    with app.app_context():  # Needed for DB operations
-        db.create_all()      # Creates the database and tables
+    if not os.path.exists("data.sqlite"):
+        with app.app_context(): 
+            db.create_all()      
     app.run(debug=True)
