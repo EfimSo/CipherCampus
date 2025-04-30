@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { generateProof } from './zk/generateProof';
+import { generateSampleProof } from './zk/generateSampleProof';
 
 function ReviewForm() {
   const [course, setCourse] = useState("");
@@ -33,6 +34,7 @@ function ReviewForm() {
     let proofHex;
     try {
       const proofBytes = await generateProof(inputs, Boolean(grade), Boolean(major));
+      
       proofHex = "0x" + toHex(proofBytes);
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);
@@ -77,12 +79,13 @@ function ReviewForm() {
       pkY:"0x1f1628c9f05d3f90f8a2f05c2fd88da4cc10ac7d772e6fe4fbb54e322fd74499",
       collegeIdx: 0,
       deptIdx: 4,
-      courseIdx: parseInt(course),
-      grade: gradeMap[grade],
-      professor: parseInt(professorId)
+      courseIdx: 1,
+      grade: gradeMap[1],
+      professor: (4)
     };
     try {
-      const proofBytes = await generateProof(inputs, Boolean(grade));
+      //const proofBytes = await generateProof(inputs, Boolean(grade), Boolean(major));
+      const proofBytes = await generateSampleProof();
       const proofHex = "0x" + toHex(proofBytes);
       console.log("Generated proof hex:", proofHex);
       setStatus(`Test proof: ${proofHex}`);

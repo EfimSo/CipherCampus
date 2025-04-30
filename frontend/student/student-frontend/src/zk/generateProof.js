@@ -1,34 +1,43 @@
-import { ACVM } from "@noir-lang/acvm_js";
+import { Noir } from "@noir-lang/noir_js";
+import { UltraHonkBackend } from "@aztec/bb.js";
+import noGradeNoMajorCircuit from "./verifyNoGradeNoMajor/verifyWithNoGradeNoMajor.json";
+import noGradeYesMajorCircuit from "./verifyNoGradeYesMajor/verifyWithNoGradeYesMajor.json";
+import yesGradeNoMajorCircuit from "./verifyYesGradeNoMajor/verifyWithYesGradeNoMajor.json";
+import yesGradeYesMajorCircuit from "./verifyYesGradeYesMajor/verifyWithYesGradeYesMajor.json";
+
+
+// Map each variant to its JSON bundle
+const circuits = {
+  verifyNoGradeNoMajor: noGradeNoMajorCircuit,
+  verifyNoGradeYesMajor: noGradeYesMajorCircuit,
+  verifyYesGradeNoMajor: yesGradeNoMajorCircuit,
+  verifyYesGradeYesMajor: yesGradeYesMajorCircuit,
+};
 
 /**
- * Generate a zero-knowledge proof in-browser.
- * @param {object} inputs - Circuit inputs (hex strings or numbers).
- * @param {boolean} hasGrade - Whether a grade was provided (selects circuit variant).
- * @param {boolean} hasMajor - Whether a major was provided (selects circuit variant).
- * @returns {Uint8Array} - Proof bytes ready for submission.
+ * Generate a zero-knowledge proof using Noir and UltraHonk.
+ * @param {object} inputs
+ * @param {boolean} hasGrade
+ * @param {boolean} hasMajor
  */
 export async function generateProof(inputs, hasGrade, hasMajor) {
-  // Choose the correct circuit folder
-  const circuit = hasGrade
+
+  const key = hasGrade
     ? (hasMajor ? "verifyYesGradeYesMajor" : "verifyYesGradeNoMajor")
     : (hasMajor ? "verifyNoGradeYesMajor" : "verifyNoGradeNoMajor");
+  console.log("Selected circuit:", key);
+  const bundle = circuits[key];
+  console.log("Circuit bundle:", bundle);
+  // 1) Execute circuit to get witness
+  const noir = new Noir(bundle);
+  const backend = new UltraHonkBackend(bundle.bytecode);
+  console.log("Noir instance:", noir);
+  console.log("inputs", inputs);
+  const { witness } = await noir.execute(inputs);
 
-  // Fetch compiled artifacts & TOML
-  const [acirBuf, wasmBuf, tomlStr] = await Promise.all([
-    fetch(`/zk/${circuit}/${circuit}.json`).then((r) => r.json()),
-    fetch(`/zk/${circuit}/${circuit}.wasm`).then((r) => r.arrayBuffer()),
-    fetch(`/zk/${circuit}/Prover.toml`).then((r) => r.text()),
-  ]);
-
-  // Initialize the ACVM instance
-  const wasmBytes = new Uint8Array(wasmBuf);
-  const acvm = await ACVM.new(
-    acirBuf,
-    wasmBytes,
-    tomlStr
-  );
-
-  // Run the prover
-  const proof = await acvm.run(inputs);
-  return proof;
+  console.log("Witness:", witness);
+  // 2) Generate proof with UltraHonk
+  //const backend = new UltraHonkBackend(bundle.bytecode);
+  //return backend.prove(witness);
+  return backend.generateProof(witness);
 }

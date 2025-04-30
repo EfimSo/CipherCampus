@@ -1,0 +1,77 @@
+import subprocess
+import os
+
+
+def write_toml(inputs, path):
+    with open(path, "w") as f:
+        for key, value in inputs.items():
+            if isinstance(value, list):
+                # Write TOML array
+                arr = ", ".join(f"\"{v}\"" for v in value)
+                f.write(f"{key} = [{arr}]\n")
+            else:
+                # Write as a quoted string
+                f.write(f"{key} = \"{value}\"\n")
+def generate_proof(circuit_dir, inputs, prover_name="Prover"):
+    # Write Prover.toml
+    prover_path = os.path.join(circuit_dir, f"{prover_name}.toml")
+    write_toml(inputs, prover_path)
+
+    # Run nargo execute
+    subprocess.run(["nargo", "execute"], cwd=circuit_dir, check=True)
+    out_dir = os.path.join(circuit_dir, "out")
+    os.makedirs(out_dir, exist_ok=True) 
+    # Find witness and acir files
+    witness = [f for f in os.listdir(os.path.join(circuit_dir, "target")) if f.endswith(".gz")][0]
+
+    
+    witness_path = os.path.join(circuit_dir, "target", witness)
+    proof_path = os.path.join(circuit_dir, "out", "proof")
+
+    # Run bb prove
+    subprocess.run([
+        "bb", "prove",
+        "-w", witness_path,
+    ], check=True)
+
+    # Read and return proof
+    with open(proof_path, "rb") as f:
+        return f.read()
+
+# Example usage:
+if __name__ == "__main__":
+    inputs = {
+  "leaf_index": "2048",
+  "path": [
+    "0x0501175153932a0324695b9512b926445a0fe693892aac9d2345838509d9326e",
+    "0x0a8c622768cfe96c90736394d427daf8e8afb776d6d1a684c05bfa1f257d496e",
+    "0x180a511b8b74c890fe9735056a4f731cff5b917f8eaf65b167f870c61be8e624",
+    "0x1d782a50b9895788449b16e04da4833fbfeb156e5a0157e42ed13671a9166a39",
+    "0x2d53871d8ba0d281131688a533a7b84a69f17901afc3e5deb9a921c8847a71f5",
+    "0x042c2b94323279699c5843b5df500ee976da92c585190f3db8492b061a3c808c",
+    "0x12c134b47544ceda1c5ee86b4b836911336bc0bfb56817dbb93e5fbcd26fea57",
+    "0x069a7dbc7071efec83372fe563ed9b14280292159b241911becae4f6f8786063",
+    "0x284470996674816a6562d21babb0686789730c31c7c8694426e6b27a5a5cf95c",
+    "0x1fbb9d54a87c64b4b785bcb413dad87af178945bc319248183a91ef31f366de6",
+    "0x2ec19b49e0d5634d93010f0ddd30dff7ff1649b90e98b8062c9b195145557038",
+    "0x062636ca8160532911b41b5effb7c98391992f44fcd617d8ec5b77cf2eba8b95",
+    "0x29ccf0195d437b84f66df5b5ec3ebce8e73a012da30556813201eeb8469bcdd0",
+    "0x062199e3448284d45e73a1f3930310dd96e88eae1c8ec6c1f4401656dfb4d583",
+    "0x0aed6e955b97b8c6d47098f28c85ebd4d24eb6d67aa558f7ad4f7c68d7905a8d",
+    "0x0d57e1c39ac1268e36824155361060a653ca8ade9085258db106282a40cf9c35",
+    "0x19aefadc9e04d828dbf405922674a05b5709be53d8b5979701d11b36b5a8393e",
+    "0x2926e085d1be175628db95101af810515ac71b7a4dede6ec9b43bd1f732ab9ff"
+  ],
+  "pk_x": "0x043109d503c77ce74afa15de64ff93b159acf8a06fea97a079f387d75adf8650",
+  "pk_y": "0x1f1628c9f05d3f90f8a2f05c2fd88da4cc10ac7d772e6fe4fbb54e322fd74499",
+  "sk_lo": "0x00d0851a3b1d23ac235650bdca139b80",
+  "sk_hi": "0x1e99271c61d584811f9d008865f66d99",
+  "professor": "4",
+  "grade": "6",
+  "major": "0",
+  "college_idx": "0",
+  "dept_idx": "0",
+  "course_idx": "4"
+}
+    proof = generate_proof(".", inputs)
+    print("Proof (hex):", proof.hex())
