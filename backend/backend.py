@@ -66,9 +66,23 @@ def write_review():
                 "proof"
             ]
         }
+
+        null_flag = "NOT_USED"
+        grade, major = arg_dict["grade"], arg_dict["major"]
+        if grade == null_flag:
+            if major == null_flag:
+                vk = 0
+            else:
+                vk = 1
+        else:
+            if major == null_flag:
+                vk = 2
+            else:
+                vk = 3
+            
         
         proof = arg_dict["proof"]
-        if not proof or not verify_proof(proof):
+        if not proof or not verify_proof(proof, vk):
             return
 
         try: arg_dict["rating"] = float(arg_dict["rating"]) 

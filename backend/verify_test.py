@@ -17,6 +17,13 @@ def write_proof_binary(hex_str: str, path: str = "./proof") -> None:
     with open(path, "wb") as f:
         f.write(data)
 
+vk_paths = {
+    0: "vk_no_grade_no_major",
+    1: "vk_no_grade_yes_major",
+    2: "vk_yes_grade_no_major",
+    3: "vk_no_grade_yes_major"
+}
+
 
 def verify(path: str = "./proof", vk_path: str = "./vk",
            out_path: str = "verify_output.txt") -> None:
@@ -44,7 +51,7 @@ def proof_verified(out_path: str = "verify_output.txt") -> bool:
         return False
 
 
-def verify_proof(proof_hex):
+def verify_proof(proof_hex, vk_index):
     write_proof_binary(proof_hex)
-    verify()
+    verify(vk_path= vk_paths[vk_index])
     return proof_verified()
