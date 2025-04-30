@@ -12,6 +12,8 @@ def write_toml(inputs, path):
             else:
                 # Write as a quoted string
                 f.write(f"{key} = \"{value}\"\n")
+
+
 def generate_proof(circuit_dir, inputs, prover_name="Prover"):
     # Write Prover.toml
     prover_path = os.path.join(circuit_dir, f"{prover_name}.toml")
@@ -25,14 +27,14 @@ def generate_proof(circuit_dir, inputs, prover_name="Prover"):
     witness = [f for f in os.listdir(os.path.join(circuit_dir, "target")) if f.endswith(".gz")][0]
 
     
-    witness_path = os.path.join(circuit_dir, "target", witness)
+    witness_path = os.path.join( "target", witness)
     proof_path = os.path.join(circuit_dir, "out", "proof")
 
     # Run bb prove
     subprocess.run([
         "bb", "prove",
         "-w", witness_path,
-    ], check=True)
+    ], cwd = circuit_dir, check=True)
 
     # Read and return proof
     with open(proof_path, "rb") as f:
@@ -40,6 +42,7 @@ def generate_proof(circuit_dir, inputs, prover_name="Prover"):
 
 # Example usage:
 if __name__ == "__main__":
+    print("hello, generate Proof is triggered")
     inputs = {
   "leaf_index": "2048",
   "path": [
@@ -73,5 +76,5 @@ if __name__ == "__main__":
   "dept_idx": "0",
   "course_idx": "4"
 }
-    proof = generate_proof(".", inputs)
+    proof = generate_proof("../../zero_knowledge/circuits/verifyNoGradeNoMajor", inputs)
     print("Proof (hex):", proof.hex())

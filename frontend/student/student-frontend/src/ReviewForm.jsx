@@ -68,6 +68,8 @@ function ReviewForm() {
     }
   };
 
+
+  /*
   const testProof = async () => {
     setStatus("Generating test ZK proof...");
     const inputs = {
@@ -91,6 +93,18 @@ function ReviewForm() {
       setStatus(`Test proof: ${proofHex}`);
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);
+    }
+  }; */
+
+  const testProof = async () => {
+    setStatus("Calling Python proof generator...");
+    try {
+      const res = await fetch("http://localhost:3002/run-proof", { method: "POST" });
+      const data = await res.json();
+      setStatus(`Test proof: ${data.proof}`);
+      console.log("Generated proof hex:", data.proof);
+    } catch (err) {
+      setStatus(`Error calling Python: ${err.message}`);
     }
   };
 
