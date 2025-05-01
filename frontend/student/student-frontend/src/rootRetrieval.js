@@ -1,7 +1,5 @@
-
 import { ethers } from "ethers";
 
-// Replace with your contract's address and ABI
 const contractAddress = "0xE8eba6Ff334b8aDF50c5b635ef6653b884E0e01b";
 const contractABI = [
 	{
@@ -153,9 +151,8 @@ async function getContract() {
   return new ethers.Contract(contractAddress, contractABI, signer);
 }
 
-// Retrieve the current review root from the contract
-export async function getReviewRoot() {
+// Retrieve the current review root from the contract for given school and semester
+export async function getReviewRoot(school, semester) {
   const contract = await getContract();
-  
-  return await contract.getRoot("Boston University", "Spring 2025"); // this is hard coded for now
+  return await contract.getRoot(school, semester);
 }

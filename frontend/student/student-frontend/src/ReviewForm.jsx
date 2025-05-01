@@ -21,13 +21,15 @@ function ReviewForm() {
   const [SkY, setSkY] = useState("");
   const [leafIndex, setLeafIndex] = useState("");
   const [deptIdx, setDeptIdx] = useState("")
+  const [school, setSchool] = useState("");
+  const [semester, setSemester] = useState("");
 
   const gradeMap = { 'A+':0, 'A':1, 'A-':2, 'B+':3, 'B':4, 'B-':5, 'C+':6, 'C':7, 'C-':8, 'D+':9, 'D':10, 'D-':11, 'F':12 };
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
   const fetchRoot = async () => {
     try {
-      const root = await getReviewRoot();
+      const root = await getReviewRoot(school, semester);
       console.log("Current root:", root);
       setRoot(root);
       // You can store it in state if you want to display it:
@@ -134,8 +136,28 @@ function ReviewForm() {
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial" }}>
       <h2>Submit Anonymous Course Review</h2>
-
-  
+      <label>School:</label>
+      <input
+        value={school}
+        onChange={(e) => setSchool(e.target.value)}
+        placeholder="School Name"
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+      <label>Semester:</label>
+      <input
+        value={semester}
+        onChange={(e) => setSemester(e.target.value)}
+        placeholder="Semester (e.g., Spring 2025)"
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+      <button onClick={fetchRoot}>Get Root</button>
+      <br />
+      {root && (
+        <div style={{ marginBottom: "1rem", padding: "8px", backgroundColor: "blue" }}>
+          Current Review Root: {root}
+        </div>
+      )}
+      
       <label>Course:</label>
       <input
         type="text"
@@ -231,7 +253,6 @@ function ReviewForm() {
         placeholder="CS, Math, etc."
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
-<button onClick={fetchRoot}>Get Review Root</button>
       <button onClick={testProof} style={{ marginRight: "1rem", padding: "10px 20px" }}>
         Test ZK Proof
       </button>
