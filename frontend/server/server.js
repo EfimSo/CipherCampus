@@ -7,7 +7,39 @@ app.use(cors()); // Allow frontend to access
 app.use(express.json());
 
 app.post('/run-proof', (req, res) => {
-  const python = spawn('python3', ['../../zero_knowledge/circuits/verifyNoGradeNoMajor/generate_proof.py']); // adjust path as needed
+  const {
+    leaf_index,
+    path,
+    pk_x,
+    pk_y,
+    sk_lo,
+    sk_hi,
+    professor,
+    grade,
+    major,
+    college_idx,
+    dept_idx,
+    course_idx,
+  } = req.body;
+
+  const args = [
+    '../../zero_knowledge/circuits/verifyNoGradeNoMajor/generate_proof.py',
+    '--leaf_index',  leaf_index,
+    '--path',        ...path,           
+    '--pk_x',        pk_x,
+    '--pk_y',        pk_y,
+    '--sk_lo',       sk_lo,
+    '--sk_hi',       sk_hi,
+    '--professor',   professor,
+    '--grade',       grade,
+    '--major',       major,
+    '--college_idx', college_idx,
+    '--dept_idx',    dept_idx,
+    '--course_idx',  course_idx,
+  ];
+
+  // Launch Python with all flags
+  const python = spawn('python3', args);
 
   let result = '';
   python.stdout.on('data', (data) => {

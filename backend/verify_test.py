@@ -1,6 +1,5 @@
 import subprocess
 import os
-import subprocess
 
 
 def write_proof_binary(hex_str: str, path: str = "./proof") -> None:
