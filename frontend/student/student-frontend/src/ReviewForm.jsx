@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { generateProof } from './zk/generateProof';
 import { generateSampleProof } from './zk/generateSampleProof';
+import { getReviewRoot } from "./rootRetrieval.js";
 
 function ReviewForm() {
   const [course, setCourse] = useState("");
@@ -13,6 +14,9 @@ function ReviewForm() {
   const [pkX, setPkX] = useState("");
   const [pkY, setPkY] = useState("");
 
+  const [root, setRoot] = useState(""); //for the meta mask 
+
+
   const [SkX, setSkX] = useState("");
   const [SkY, setSkY] = useState("");
   const [leafIndex, setLeafIndex] = useState("");
@@ -20,6 +24,20 @@ function ReviewForm() {
 
   const gradeMap = { 'A+':0, 'A':1, 'A-':2, 'B+':3, 'B':4, 'B-':5, 'C+':6, 'C':7, 'C-':8, 'D+':9, 'D':10, 'D-':11, 'F':12 };
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
+
+  const fetchRoot = async () => {
+    try {
+      const root = await getReviewRoot();
+      console.log("Current review root:", root);
+      setRoot(root);
+      // You can store it in state if you want to display it:
+      // setStatus(`Current review root: ${root}`);
+    } catch (err) {
+      console.error("Error fetching root:", err);
+      // setStatus("Error fetching root");
+    }
+  };
+
 
   const handleSubmit = async () => {
     setStatus("Generating ZK proof...");
