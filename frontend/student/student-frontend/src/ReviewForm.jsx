@@ -13,6 +13,11 @@ function ReviewForm() {
   const [pkX, setPkX] = useState("");
   const [pkY, setPkY] = useState("");
 
+  const [SkX, setSkX] = useState("");
+  const [SkY, setSkY] = useState("");
+  const [leafIndex, setLeafIndex] = useState("");
+  const [deptIdx, setDeptIdx] = useState("")
+
   const gradeMap = { 'A+':0, 'A':1, 'A-':2, 'B+':3, 'B':4, 'B-':5, 'C+':6, 'C':7, 'C-':8, 'D+':9, 'D':10, 'D-':11, 'F':12 };
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
@@ -166,13 +171,39 @@ function ReviewForm() {
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
-      <label>Public Key (ephemeral):</label>
+      <label>Secret Key X:</label>
       <input
-        value={publicKey}
-        onChange={(e) => setPublicKey(e.target.value)}
+        value={SkX}
+        onChange={(e) => setSkX(e.target.value)}
         placeholder="0x..."
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
+
+      <label>Secret Key Y:</label>
+      <input
+        value={SkY}
+        onChange={(e) => setSkY(e.target.value)}
+        placeholder="0x..."
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+
+      <label>Leaf Index</label>
+      <input
+        value={leafIndex}
+        onChange={(e) => setLeafIndex(e.target.value)}
+        placeholder="Leaf index"
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+
+
+      <label>Department Index</label>
+      <input
+        value={deptIdx}
+        onChange={(e) => setDeptIdx(e.target.value)}
+        placeholder="Dept Index"
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+      
 
       <label>Optional Major:</label>
       <input
