@@ -28,7 +28,7 @@ function ReviewForm() {
   const fetchRoot = async () => {
     try {
       const root = await getReviewRoot();
-      console.log("Current review root:", root);
+      console.log("Current root:", root);
       setRoot(root);
       // You can store it in state if you want to display it:
       // setStatus(`Current review root: ${root}`);
