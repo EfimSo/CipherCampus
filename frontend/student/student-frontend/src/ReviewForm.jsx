@@ -135,6 +135,7 @@ function ReviewForm() {
     <div style={{ padding: "2rem", fontFamily: "Arial" }}>
       <h2>Submit Anonymous Course Review</h2>
 
+  
       <label>Course:</label>
       <input
         type="text"
@@ -230,7 +231,7 @@ function ReviewForm() {
         placeholder="CS, Math, etc."
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
-
+<button onClick={fetchRoot}>Get Review Root</button>
       <button onClick={testProof} style={{ marginRight: "1rem", padding: "10px 20px" }}>
         Test ZK Proof
       </button>
