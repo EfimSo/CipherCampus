@@ -1,5 +1,5 @@
 import { Noir } from "@noir-lang/noir_js";
-import { UltraHonkBackend } from "@aztec/bb.js";
+//import { UltraHonkBackend } from "@aztec/bb.js";
 import noGradeNoMajorCircuit from "./verifyNoGradeNoMajor/verifyWithNoGradeNoMajor.json";
 import noGradeYesMajorCircuit from "./verifyNoGradeYesMajor/verifyWithNoGradeYesMajor.json";
 import yesGradeNoMajorCircuit from "./verifyYesGradeNoMajor/verifyWithYesGradeNoMajor.json";
@@ -30,7 +30,7 @@ export async function generateProof(inputs, hasGrade, hasMajor) {
   console.log("Circuit bundle:", bundle);
   // 1) Execute circuit to get witness
   const noir = new Noir(bundle);
-  const backend = new UltraHonkBackend(bundle.bytecode);
+  //const backend = new UltraHonkBackend(bundle.bytecode);
   console.log("Noir instance:", noir);
   console.log("inputs", inputs);
   const { witness } = await noir.execute(inputs);

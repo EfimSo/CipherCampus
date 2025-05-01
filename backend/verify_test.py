@@ -53,5 +53,5 @@ def proof_verified(out_path: str = "verify_output.txt") -> bool:
 
 def verify_proof(proof_hex, vk_index):
     write_proof_binary(proof_hex)
-    verify(vk_path= vk_paths[vk_index])
+    verify(vk_path=vk_paths[vk_index])
     return proof_verified()
