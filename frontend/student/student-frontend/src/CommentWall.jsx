@@ -8,7 +8,7 @@ function CommentWall() {
   // Fetch reviews from backend
   useEffect(() => {
     if (viewMode === "comments") {
-      fetch("http://localhost:3001/api/reviews") // Example endpoint
+      fetch("http://localhost:5000/read_reviews")
         .then(res => res.json())
         .then(data => setReviews(data))
         .catch(err => console.error("Failed to fetch reviews:", err));
@@ -35,10 +35,12 @@ function CommentWall() {
             <ul className="space-y-4">
               {reviews.map((rev, idx) => (
                 <li key={idx} className="p-4 border rounded bg-gray-100">
-                  <p><strong>Course:</strong> {rev.course}</p>
+                  <p><strong>Class:</strong> {rev.class_name}</p>
                   <p><strong>Review:</strong> {rev.text}</p>
                   {rev.grade && <p><strong>Grade:</strong> {rev.grade}</p>}
                   {rev.major && <p><strong>Major:</strong> {rev.major}</p>}
+                  {rev.rating && <p><strong>Rating:</strong> {rev.rating}</p>}
+                  {typeof rev.recommend === 'boolean' && <p><strong>Recommend:</strong> {rev.recommend ? 'Yes' : 'No'}</p>}
                 </li>
               ))}
             </ul>
