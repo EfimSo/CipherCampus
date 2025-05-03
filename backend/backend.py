@@ -3,12 +3,13 @@ from flask import jsonify, request, json
 from flask_sqlalchemy import SQLAlchemy
 import os.path
 from verify_test import verify_proof
-# from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+# Allow CORS from any origin on all routes
+CORS(app, origins=["http://localhost:5173"])
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-
 
 db = SQLAlchemy(app)
 
@@ -46,6 +47,7 @@ def sample():
     return jsonify([review_serialize(r) for r in reviews])
 
 @app.route('/write_review', methods = ['POST'])
+
 def write_review():
     # Verify proof 
     try:
@@ -98,6 +100,7 @@ def write_review():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/read_reviews', methods = ['GET'])
+@cross_origin(origin='http://localhost:5173')
 def read_reviews():
     reviews = db.session.query(Review).all()
     return jsonify([review_serialize(r) for r in reviews])
@@ -107,4 +110,4 @@ if __name__ == '__main__':
     if not os.path.exists("data.sqlite"):
         with app.app_context(): 
             db.create_all()      
-    app.run(debug=True)
+    app.run(debug=True, port=5003)
