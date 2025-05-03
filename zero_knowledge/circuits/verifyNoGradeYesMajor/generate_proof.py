@@ -59,7 +59,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Secret-key high word (hex).")
     parser.add_argument("--professor", required=True, type=int,
                         help="Professor identifier.")
-    parser.add_argument("--grade", required=True, type=int,
+    parser.add_argument("--grade", required=True, type=int, 
+    # the required should be set to false no?
                         help="Grade value.")
     parser.add_argument("--major", required=True, type=int,
                         help="Major identifier.")
@@ -87,6 +88,6 @@ if __name__ == "__main__":
 
     # Convert Namespace to ordinary dict (optional)
     inputs = vars(args)
-    print("hello, generate Proof - No No is triggered")
-    proof = generate_proof("../../zero_knowledge/circuits/verifyNoGradeNoMajor", inputs)
+    print("hello, generate Proof - No Yes is triggered")
+    proof = generate_proof("../../zero_knowledge/circuits/verifyNoGradeYesMajor", inputs)
     print("Proof (hex):", proof.hex())

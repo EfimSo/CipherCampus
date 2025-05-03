@@ -87,6 +87,6 @@ if __name__ == "__main__":
 
     # Convert Namespace to ordinary dict (optional)
     inputs = vars(args)
-    print("hello, generate Proof - No No is triggered")
-    proof = generate_proof("../../zero_knowledge/circuits/verifyNoGradeNoMajor", inputs)
+    print("hello, generate Proof - Yes Yes is triggered")
+    proof = generate_proof("../../zero_knowledge/circuits/verifyYesGradeYesMajor", inputs)
     print("Proof (hex):", proof.hex())

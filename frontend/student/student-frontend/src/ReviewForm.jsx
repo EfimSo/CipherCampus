@@ -2,6 +2,7 @@ import { useState } from "react";
 import { generateProof } from './zk/generateProof';
 import { generateSampleProof } from './zk/generateSampleProof';
 import { getReviewRoot } from "./rootRetrieval.js";
+import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT } from "./mappings";
 
 function ReviewForm() {
   const [course, setCourse] = useState("");
@@ -24,7 +25,6 @@ function ReviewForm() {
   const [school, setSchool] = useState("");
   const [semester, setSemester] = useState("");
 
-  const gradeMap = { 'A+':0, 'A':1, 'A-':2, 'B+':3, 'B':4, 'B-':5, 'C+':6, 'C':7, 'C-':8, 'D+':9, 'D':10, 'D-':11, 'F':12 };
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
   const fetchRoot = async () => {
@@ -50,11 +50,11 @@ function ReviewForm() {
       path: [],        // TODO replace
       pkX,
       pkY,
-      collegeIdx: 0,
-      deptIdx: 4,
-      courseIdx: parseInt(course),
-      grade: gradeMap[grade],
-      professor: parseInt(professorId)
+      collegeIdx: COLLEGE_MULT[0], //0           
+      deptIdx: DEPT_MULT[4],     //4         
+      courseIdx: COURSE_FIXED[course],
+      grade: GRADE_CODES[grade],
+      professor: PROFESSOR_CODES[professorId]  // assumes professorId matches key in PROFESSOR_CODES
     };
     let proofHex;
     try {
@@ -123,8 +123,31 @@ function ReviewForm() {
 
   const testProof = async () => {
     setStatus("Calling Python proof generator...");
+    // determine which circuit to use
+    const hasGrade = grade !== "";
+    const hasMajor = major !== "";
+    const payload = {
+      leaf_index: leafIndex,
+      path: [],
+      pk_x: pkX,
+      pk_y: pkY,
+      sk_lo: SkX,
+      sk_hi: SkY,
+      professor: professorId,
+      grade,
+      major,
+      college_idx: 0,         // default or user-provided
+      dept_idx: deptIdx,
+      course_idx: course,
+      hasGrade,
+      hasMajor,
+    };
     try {
-      const res = await fetch("http://localhost:3002/run-proof", { method: "POST" });
+      const res = await fetch("http://localhost:3002/run-proof", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json();
       setStatus(`Test proof: ${data.proof}`);
       console.log("Generated proof hex:", data.proof);

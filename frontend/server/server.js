@@ -22,8 +22,13 @@ app.post('/run-proof', (req, res) => {
     course_idx,
   } = req.body;
 
+  // Select the appropriate proof-generation script based on provided flags
+  let script = 'verifyNoGradeNoMajor';
+  if (grade && major) script = 'verifyYesGradeYesMajor';
+  else if (grade) script = 'verifyYesGradeNoMajor';
+  else if (major) script = 'verifyNoGradeYesMajor';
   const args = [
-    '../../zero_knowledge/circuits/verifyNoGradeNoMajor/generate_proof.py',
+    `../../zero_knowledge/circuits/${script}/generate_proof.py`,
     '--leaf_index',  leaf_index,
     '--path',        ...path,           
     '--pk_x',        pk_x,
