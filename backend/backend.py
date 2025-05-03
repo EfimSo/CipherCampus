@@ -25,7 +25,7 @@ class Review(db.Model):
     proof = db.Column(db.Text)
 
     def __str__(self):
-        return str(review_serialize(self), indent=4)
+        return str(review_serialize(self))
 
 
 def review_serialize(review):

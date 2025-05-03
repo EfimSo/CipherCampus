@@ -2,7 +2,9 @@ import { useState } from "react";
 import { generateProof } from './zk/generateProof';
 import { generateSampleProof } from './zk/generateSampleProof';
 import { getReviewRoot } from "./rootRetrieval.js";
-import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT } from "./mappings";
+import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT, COLLEGES, 
+  collegeMap, departmentMap, majorMap
+ } from "./mappings";
 
 function ReviewForm() {
   const [course, setCourse] = useState("");
@@ -14,16 +16,18 @@ function ReviewForm() {
   const [grade, setGrade] = useState("");
   const [pkX, setPkX] = useState("");
   const [pkY, setPkY] = useState("");
-
   const [root, setRoot] = useState(""); //for the meta mask 
-
-
-  const [SkX, setSkX] = useState("");
-  const [SkY, setSkY] = useState("");
+  const [skLow, setSkX] = useState("");
+  const [skHi, setSkY] = useState("");
   const [leafIndex, setLeafIndex] = useState("");
   const [deptIdx, setDeptIdx] = useState("")
   const [school, setSchool] = useState("");
   const [semester, setSemester] = useState("");
+  const [rating, setRating] = useState("");
+  const [recommend, setRecommend] = useState(false)
+  const [pathStr, setPathStr]   = useState("");
+  const [college, setCollege] = useState('');
+
 
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
@@ -59,7 +63,6 @@ function ReviewForm() {
     let proofHex;
     try {
       const proofBytes = await generateProof(inputs, Boolean(grade), Boolean(major));
-      
       proofHex = "0x" + toHex(proofBytes);
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);
@@ -67,10 +70,19 @@ function ReviewForm() {
     }
     setStatus("Submitting...");
 
-    const reviewData = { course, text: review, publicKey, grade, major, proof: proofHex };
+    const reviewData = {
+      class_name: course,
+      text: review,
+      grade,
+      major, 
+      recommend,
+      proof: proofHex,
+      rating,
+      grade
+    };
 
     try {
-      const response = await fetch("http://localhost:3001/api/submit", {
+      const response = await fetch("http://localhost:5000/write_review", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,34 +133,36 @@ function ReviewForm() {
     }
   }; */
 
+  const parsePath = (str) =>
+    str
+      .split(/\s+/)       // newline or spaces
+      .filter(Boolean);   // drop empty entries
+  
   const testProof = async () => {
     setStatus("Calling Python proof generator...");
-    // determine which circuit to use
-    const hasGrade = grade !== "";
-    const hasMajor = major !== "";
+  
     const payload = {
-      leaf_index: leafIndex,
-      path: [],
-      pk_x: pkX,
-      pk_y: pkY,
-      sk_lo: SkX,
-      sk_hi: SkY,
-      professor: professorId,
-      grade,
-      major,
-      college_idx: 0,         // default or user-provided
-      dept_idx: deptIdx,
-      course_idx: course,
-      hasGrade,
-      hasMajor,
+      leaf_index:   leafIndex,                   
+      path:         parsePath(pathStr),          
+      pk_x:         pkX,
+      pk_y:         pkY,
+      sk_lo:        skLow,
+      sk_hi:        skHi,
+      professor:    professorId,
+      grade:        grade,
+      major:        major ,
+      college_idx:  collegeIdx,                 
+      dept_idx:     deptIdx ,
+      course_idx:   course,
     };
+  
     try {
-      const res = await fetch("http://localhost:3002/run-proof", {
-        method: "POST",
+      const res   = await fetch("http://localhost:3002/run-proof", {
+        method : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body   : JSON.stringify(payload),
       });
-      const data = await res.json();
+      const data  = await res.json();
       setStatus(`Test proof: ${data.proof}`);
       console.log("Generated proof hex:", data.proof);
     } catch (err) {
@@ -186,6 +200,15 @@ function ReviewForm() {
         type="text"
         value={course}
         onChange={(e) => setCourse(e.target.value)}
+        placeholder="Enter course number"
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+  
+      <label>Rating:</label>
+      <input
+        type="text"
+        value={rating}
+        onChange={(e) => setRating(e.target.value)}
         placeholder="Enter course number"
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
@@ -235,20 +258,29 @@ function ReviewForm() {
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
-      <label>Secret Key X:</label>
+      <label>Secret Key Low:</label>
       <input
-        value={SkX}
+        value={skLow}
         onChange={(e) => setSkX(e.target.value)}
         placeholder="0x..."
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
 
-      <label>Secret Key Y:</label>
+      <label>Secret Key High:</label>
       <input
-        value={SkY}
+        value={skHi}
         onChange={(e) => setSkY(e.target.value)}
         placeholder="0x..."
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
+      />
+      
+      <label>Merkle-path (one hash per line):</label>
+      <textarea
+        value={pathStr}
+        onChange={(e) => setPathStr(e.target.value)}
+        placeholder="0x0501…\n0x0a8c…\n…"
+        rows={6}
+        style={{ width: "100%", marginBottom: "1rem", padding: "8px", fontFamily:"monospace" }}
       />
 
       <label>Leaf Index</label>
@@ -268,6 +300,32 @@ function ReviewForm() {
         style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
       />
       
+      <label style={{ cursor: 'pointer' }}>
+      <input
+        type="checkbox"
+        checked={recommend}
+        onChange={e => setRecommend(e.target.checked)}
+      />
+      I recommend the course
+    </label>
+
+    <label style={{ display: 'block', marginTop: 16 }}>
+      <span style={{ marginRight: 8 }}>Choose College</span>
+      <select
+        value={college}
+        onChange={(e) => setCollege(e.target.value)}
+        style={{ padding: 4 }}
+      >
+        <option value="" disabled>
+          -- college --
+        </option>
+        {COLLEGES.map((c) => (
+          <option key={c} value={c}>
+            {c}
+          </option>
+        ))}
+      </select>
+    </label>
 
       <label>Optional Major:</label>
       <input
