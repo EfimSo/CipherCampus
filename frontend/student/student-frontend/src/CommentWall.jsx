@@ -8,11 +8,12 @@ function CommentWall() {
   // Fetch reviews from backend
   useEffect(() => {
     if (viewMode === "comments") {
-      fetch("http://localhost:5000/read_reviews")
+      fetch("http://localhost:5003/read_reviews")
         .then(res => res.json())
         .then(data => setReviews(data))
         .catch(err => console.error("Failed to fetch reviews:", err));
     }
+    console.log("reviews",reviews)
   }, [viewMode]);
 
   return (
