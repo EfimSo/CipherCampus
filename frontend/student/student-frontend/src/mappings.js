@@ -54,22 +54,16 @@ export const departmentMap = {
 
 export const majorMap = {
   'ENG': 
-    {'Electrical and Computer Engineering': 0,
-    'Systems Engineering': 1,
-    'English': 2,
-    'Mathematics': 3,
-    'Biomedical Engineering': 4,
-    'Mechanical Engineering': 5,
-    'Economics': 6,
-    'Computer Science': 7},
-  'CAS':  
     {
     'Electrical and Computer Engineering': 0,
     'Systems Engineering': 1,
-    'English': 2,
-    'Mathematics': 3,
     'Biomedical Engineering': 4,
     'Mechanical Engineering': 5,
+  },
+  'CAS':  
+    {
+    'English': 2,
+    'Mathematics': 3,
     'Economics': 6,
     'Computer Science': 7
   }};

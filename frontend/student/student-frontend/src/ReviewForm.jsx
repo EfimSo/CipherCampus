@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo} from "react";
 import { generateProof } from './zk/generateProof';
 import { generateSampleProof } from './zk/generateSampleProof';
 import { getReviewRoot } from "./rootRetrieval.js";
@@ -27,7 +27,18 @@ function ReviewForm() {
   const [recommend, setRecommend] = useState(false)
   const [pathStr, setPathStr]   = useState("");
   const [college, setCollege] = useState('');
+  const [department, setDepartment] = useState("");  
 
+
+  const majorsForCollege = useMemo(
+    () => (college ? Object.keys(majorMap[college]) : []),
+    [college]
+  );
+
+  const departmentsForCollege = useMemo(
+    () => (college ? Object.keys(departmentMap[college]) : []),
+    [college]
+  );
 
   function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
 
@@ -150,9 +161,9 @@ function ReviewForm() {
       sk_hi:        skHi,
       professor:    professorId,
       grade:        grade,
-      major:        major ,
-      college_idx:  collegeIdx,                 
-      dept_idx:     deptIdx ,
+      major:        majorMap[college][department] ,
+      college_idx:  collegeMap[college],                 
+      dept_idx:     departmentMap[college][department] ,
       course_idx:   course,
     };
   
@@ -327,13 +338,45 @@ function ReviewForm() {
       </select>
     </label>
 
-      <label>Optional Major:</label>
-      <input
+    <label style={{ display: "block", marginTop: 16 }}>
+      <span style={{ marginRight: 8 }}>Choose Major</span>
+      <select
         value={major}
         onChange={(e) => setMajor(e.target.value)}
-        placeholder="CS, Math, etc."
-        style={{ width: "100%", marginBottom: "1rem", padding: "8px" }}
-      />
+        disabled={!college}
+        style={{ padding: 4 }}
+      >
+        <option value="" disabled>
+          -- major --
+        </option>
+        {majorsForCollege.map((m) => (
+          <option key={m} value={m}>
+            {m}
+          </option>
+        ))}
+      </select>
+    </label>
+
+
+      <label style={{ display: "block", marginTop: 16 }}>
+    <span style={{ marginRight: 8 }}>Choose Department</span>
+    <select
+      value={department}
+      onChange={(e) => setDepartment(e.target.value)}
+      disabled={!college}
+      style={{ padding: 4 }}
+    >
+      <option value="" disabled>
+        -- department --
+      </option>
+      {departmentsForCollege.map((d) => (
+        <option key={d} value={d}>
+          {d}
+        </option>
+      ))}
+    </select>
+  </label>
+
       <button onClick={testProof} style={{ marginRight: "1rem", padding: "10px 20px" }}>
         Test ZK Proof
       </button>
