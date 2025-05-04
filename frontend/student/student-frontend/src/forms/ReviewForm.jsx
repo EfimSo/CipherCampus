@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Box, FormControlLabel, Switch  } from "@mui/material";
+import { Button, Box, FormControlLabel, Switch, Typography  } from "@mui/material";
 import LabeledTextField from "../components/LabeledTextField";
 import LabeledSelect from "../components/LabeledSelect";
 import Section from "../components/Section";
