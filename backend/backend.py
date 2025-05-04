@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify, request, json
+from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import os.path
 from verify_test import verify_proof
