@@ -19,6 +19,7 @@ const ReviewPage = () => {
   const [skHi, setSkHi] = useState("");
   const [path, setPath] = useState("");
   const [root, setRoot] = useState("");
+  const [leafIndex, setLeafIndex] = useState("");
   const [isCollegeDisabled, setIsCollegeDisabled] = useState(true);
 
   const setCollegeWrapper = (college) => {
@@ -170,6 +171,7 @@ const ReviewPage = () => {
       colleges={COLLEGES}
       courses={courses}
       path={path} setPath={setPath}
+      leafIndex={leafIndex} setLeafIndex={setLeafIndex}
     />
   );
 };
