@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
-import ReviewForm from "./ReviewForm"; 
+import ReviewForm from "./ReviewForm";
+import {
+  Box,
+  Button,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 
 function CommentWall() {
-  const [viewMode, setViewMode] = useState("comments"); // or 'write'
+  const [viewMode, setViewMode] = useState("comments");
   const [reviews, setReviews] = useState([]);
 
-  // Fetch reviews from backend
   useEffect(() => {
     if (viewMode === "comments") {
       fetch("http://localhost:5003/read_reviews")
@@ -13,42 +22,56 @@ function CommentWall() {
         .then(data => setReviews(data))
         .catch(err => console.error("Failed to fetch reviews:", err));
     }
-    console.log("reviews",reviews)
   }, [viewMode]);
 
   return (
-    <div className="p-4">
-      <button
+    <Box p={3}>
+      <Button
+        variant="contained"
+        color="primary"
         onClick={() => setViewMode(viewMode === "comments" ? "write" : "comments")}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+        sx={{ mb: 3 }}
       >
-        {viewMode === "comments" ? " Write Anonymous Review" : " View All Comments"}
-      </button>
+        {viewMode === "comments" ? "Write Anonymous Review" : "View All Comments"}
+      </Button>
 
       {viewMode === "write" ? (
         <ReviewForm />
       ) : (
-        <div>
-          <h2 className="text-xl font-bold mb-2">Anonymous Reviews</h2>
+        <Box>
+          <Typography variant="h5" gutterBottom>
+            Anonymous Reviews
+          </Typography>
+
           {reviews.length === 0 ? (
-            <p>No reviews yet.</p>
+            <Typography>No reviews yet.</Typography>
           ) : (
-            <ul className="space-y-4">
+            <List>
               {reviews.map((rev, idx) => (
-                <li key={idx} className="p-4 border rounded bg-gray-100">
-                  <p><strong>Class:</strong> {rev.class_name}</p>
-                  <p><strong>Review:</strong> {rev.text}</p>
-                  {rev.grade && <p><strong>Grade:</strong> {rev.grade}</p>}
-                  {rev.major && <p><strong>Major:</strong> {rev.major}</p>}
-                  {rev.rating && <p><strong>Rating:</strong> {rev.rating}</p>}
-                  {typeof rev.recommend === 'boolean' && <p><strong>Recommend:</strong> {rev.recommend ? 'Yes' : 'No'}</p>}
-                </li>
+                <Paper key={idx} elevation={2} sx={{ mb: 2, p: 2 }}>
+                  <ListItem alignItems="flex-start">
+                    <ListItemText
+                      primary={`Class: ${rev.class_name}`}
+                      secondary={
+                        <>
+                          <Typography variant="body2"><strong>Review:</strong> {rev.text}</Typography>
+                          {rev.grade && <Typography variant="body2"><strong>Grade:</strong> {rev.grade}</Typography>}
+                          {rev.major && <Typography variant="body2"><strong>Major:</strong> {rev.major}</Typography>}
+                          {rev.rating && <Typography variant="body2"><strong>Rating:</strong> {rev.rating}</Typography>}
+                          {typeof rev.recommend === 'boolean' && (
+                            <Typography variant="body2"><strong>Recommend:</strong> {rev.recommend ? 'Yes' : 'No'}</Typography>
+                          )}
+                        </>
+                      }
+                    />
+                  </ListItem>
+                </Paper>
               ))}
-            </ul>
+            </List>
           )}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

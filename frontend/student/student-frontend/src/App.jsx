@@ -1,12 +1,17 @@
-import React from "react";
+import { Container, Typography, CssBaseline } from "@mui/material";
 import CommentWall from "./CommentWall";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 p-6 font-sans">
-      <h1 className="text-2xl font-bold mb-4">Course Review Portal</h1>
-      <CommentWall />
-    </div>
+    <>
+      <CssBaseline /> {/* Provides a consistent baseline for styles */}
+      <Container maxWidth="md" sx={{ minHeight: "100vh", bgcolor: "#f9fafb", py: 4 }}>
+        <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+          Course Review Portal
+        </Typography>
+        <CommentWall />
+      </Container>
+    </>
   );
 }
 
