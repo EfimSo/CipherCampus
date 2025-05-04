@@ -30,3 +30,85 @@ Protect your identity, secure your data, and unleash your Terrier spirit!
 - [Learn more about Zero-Knowledge Proofs](https://zkproof.org/)
 - [Ethereum Official Site](https://ethereum.org/)
 - [Boston University Terrier Pride](https://www.bu.edu/terriers/)
+
+
+
+
+## Installation & Setup
+
+Follow these steps to install the necessary packages and run each component.
+
+---
+
+### 1. Frontend
+
+**Location:** `/frontend`  
+**Port:** `http://localhost:5173` (default for Vite)
+
+#### Install Dependencies:
+```bash
+cd frontend/student/student-frontend
+npm install
+```
+
+#### Start the Frontend:
+```bash
+npm run dev
+```
+
+---
+
+### 2. Proof Generation Server
+
+**Location:** `/frontend/server.js`  
+**Port:** `http://localhost:3001` (or whatever `server.js` is configured to use)
+
+#### Start the Server:
+```bash
+cd frontend/server
+npm install
+node server.js
+```
+
+> This server handles proof generation and must run separately from the Vite frontend.
+
+---
+
+### 3. Backend (Python)
+
+**Location:** `/backend`  
+**Port:** `http://localhost:5000` (or based on what's set in `backend.py`)
+
+#### Create and Activate Virtual Environment:
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate 
+```
+
+#### Install Python Packages:
+```bash
+pip install -r requirements.txt
+```
+
+#### Run the Backend Server:
+```bash
+./venv/bin/python backend.py
+```
+
+---
+
+### 4. Demo Website (Static Display)
+
+**Location:** `/display`  
+**Port:** `http://localhost:8000`
+
+#### Start the HTTP Server:
+```bash
+cd display
+python3 -m http.server 8000
+```
+
+> This is a static site used as a demo for displaying proofs or results.
+
+
