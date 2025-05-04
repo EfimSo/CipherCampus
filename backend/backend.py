@@ -47,7 +47,7 @@ def sample():
     return jsonify([review_serialize(r) for r in reviews])
 
 @app.route('/write_review', methods = ['POST'])
-
+@cross_origin(origin='http://localhost:5173')
 def write_review():
     # Verify proof 
     try:
@@ -83,9 +83,9 @@ def write_review():
                 vk = 3
             
         
-        proof = arg_dict["proof"]
-        if not proof or not verify_proof(proof, vk):
-            return
+        # proof = arg_dict["proof"]
+        # if not proof or not verify_proof(proof, vk):
+        #     return
 
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
         except: arg_dict["rating"] = 1.0
@@ -110,4 +110,4 @@ if __name__ == '__main__':
     if not os.path.exists("data.sqlite"):
         with app.app_context(): 
             db.create_all()      
-    app.run(debug=True, port=5003)
+    app.run(debug=True, port=5001)

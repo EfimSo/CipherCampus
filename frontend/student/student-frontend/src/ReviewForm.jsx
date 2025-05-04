@@ -5,6 +5,7 @@ import { getReviewRoot } from "./rootRetrieval.js";
 import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT, COLLEGES, collegeMap, departmentMap, majorMap} from "./mappings";
 
 const ReviewPage = () => {
+  const [school, setSchool] = useState("");
   const [semester, setSemester] = useState("");
   const [college, setCollege] = useState("");
   const [department, setDepartment] = useState("");
@@ -135,7 +136,7 @@ const ReviewPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/write_review", {
+      const response = await fetch("http://localhost:5001/write_review/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,6 +161,7 @@ const ReviewPage = () => {
 
   return (
     <ReviewForm
+      school={school} setSchool={setSchool}
       semester={semester} setSemester={setSemester}
       college={college} setCollegeWrapper={setCollegeWrapper}
       department={department} setDepartment={setDepartment}
