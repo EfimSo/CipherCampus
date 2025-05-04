@@ -19,13 +19,25 @@ export const GRADE_CODES = GRADES.reduce((acc, g, idx) => {
 }, {});
 
 export const COURSE_FIXED = {
-  "101": 0,
-  "102": 1,
-  "201": 2,
-  "202": 3,
-  "301": 4,
-  "302": 5,
-  "595": 6,
+  "ENG": 
+  {
+    "101": 0,
+    "102": 1,
+    "201": 2,
+    "202": 3,
+    "301": 4,
+    "302": 5,
+  },
+  "CAS": 
+  {
+    "101": 0,
+    "102": 1,
+    "201": 2,
+    "202": 3,
+    "301": 4,
+    "302": 5,
+    "595": 6
+  }
 };
 
 export const collegeMap = {
@@ -52,21 +64,30 @@ export const departmentMap = {
   }
 };
 
-export const majorMap = {
-  'ENG': 
-    {
+export const majorMap =  {
+  'ENG':
+  {
     'Electrical and Computer Engineering': 0,
     'Systems Engineering': 1,
-    'Biomedical Engineering': 4,
-    'Mechanical Engineering': 5,
-  },
-  'CAS':  
-    {
     'English': 2,
     'Mathematics': 3,
+    'Biomedical Engineering': 4,
+    'Mechanical Engineering': 5,
     'Economics': 6,
     'Computer Science': 7
-  }};
+  },
+  'CAS': 
+  {
+    'Electrical and Computer Engineering': 0,
+    'Systems Engineering': 1,
+    'English': 2,
+    'Mathematics': 3,
+    'Biomedical Engineering': 4,
+    'Mechanical Engineering': 5,
+    'Economics': 6,
+    'Computer Science': 7
+  }
+};
 
 export const COLLEGE_MULT = 1 << 15;
 export const DEPT_MULT = 1 << 12;

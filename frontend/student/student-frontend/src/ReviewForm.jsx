@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ReviewForm from "./forms/ReviewForm";
 import "./ReviewForm.css";
+import { getReviewRoot } from "./rootRetrieval.js";
+import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT, COLLEGES, collegeMap, departmentMap, majorMap} from "./mappings";
 
 const ReviewPage = () => {
   const [semester, setSemester] = useState("");
@@ -15,20 +17,141 @@ const ReviewPage = () => {
   const [pkY, setPkY] = useState("");
   const [skLo, setSkLo] = useState("");
   const [skHi, setSkHi] = useState("");
+  const [path, setPath] = useState("");
+  const [root, setRoot] = useState("");
+  const [isCollegeDisabled, setIsCollegeDisabled] = useState(true);
 
-  const departments = ["CS", "Math", "Physics"];
-  const majors = ["CS", "Biology"];
-  const isCollegeDisabled = false;
+  const setCollegeWrapper = (college) => {
+    setCollege(college)
+    if (college){
+      setIsCollegeDisabled(false)
+    }
+    else{
+      setIsCollegeDisabled(true)
+    }
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // form logic
+  const majors = useMemo(
+    () => (college ? Object.keys(majorMap[college]) : []),
+    [college]
+  );
+
+  const departments = useMemo(
+    () => (college ? Object.keys(departmentMap[college]) : []),
+    [college]
+  );
+
+  const courses = useMemo(
+    () => (college ? Object.keys(COURSE_FIXED[college]) : []),
+    [college]
+  );
+
+  const professors = Object.keys(PROFESSOR_CODES)
+
+  function toHex(bytes) { return Array.from(bytes).map(b => b.toString(16).padStart(2,'0')).join(''); }
+
+  const fetchRoot = async () => {
+    try {
+      const root = await getReviewRoot(school, semester);
+      console.log("Current root:", root);
+      setRoot(root);
+      // You can store it in state if you want to display it:
+      // setStatus(Current review root: ${root});
+    } catch (err) {
+      console.error("Error fetching root:", err);
+      // setStatus("Error fetching root");
+    }
+  };
+
+  const parsePath = (str) =>
+    str
+      .split(/\s+/)      
+      .filter(Boolean); 
+  
+  const generateProof = async () => {
+    setStatus("Calling Python proof generator...");
+  
+    const payload = {
+      leaf_index:   leafIndex,                   
+      path:         parsePath(pathStr),          
+      pk_x:         pkX,
+      pk_y:         pkY,
+      sk_lo:        skLo,
+      sk_hi:        skHi,
+      professor:    professor,
+      grade:        grade,
+      major:        majorMap[college][major] ,
+      college_idx:  collegeMap[college],                 
+      dept_idx:     departmentMap[college][department] ,
+      course_idx:   course
+    };
+  
+    try {
+      const res   = await fetch("http://localhost:3002/run-proof", {
+        method : "POST",
+        headers: { "Content-Type": "application/json" },
+        body   : JSON.stringify(payload),
+      });
+      const data  = await res.json();
+      setStatus(`Test proof: ${data.proof}`);
+      console.log("Generated proof hex:", data.proof);
+      return data.proof
+    } catch (err) {
+      setStatus(`Error calling Python: ${err.message}`);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setStatus("Generating ZK proof...");
+    let proofHex;
+    try {
+      const proofBytes = await generateProof();
+      proofHex = "0x" + toHex(proofBytes);
+    } catch (err) {
+      setStatus(`Proof generation failed: ${err.message}`);
+      return;
+    }
+    setStatus("Submitting...");
+
+    const reviewData = {
+      class_name: course,
+      text: review,
+      grade,
+      major, 
+      recommend,
+      proof: proofHex,
+      rating,
+      grade
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/write_review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reviewData),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("Review submitted successfully!");
+        setCourse("");
+        setReview("");
+        setPublicKey("");
+        setMajor("");
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (error) {
+      setStatus(`Error: ${error.message}`);
+    }
   };
 
   return (
     <ReviewForm
       semester={semester} setSemester={setSemester}
-      college={college} setCollege={setCollege}
+      college={college} setCollegeWrapper={setCollegeWrapper}
       department={department} setDepartment={setDepartment}
       major={major} setMajor={setMajor}
       professor={professor} setProfessor={setProfessor}
@@ -43,6 +166,10 @@ const ReviewPage = () => {
       isCollegeDisabled={isCollegeDisabled}
       departments={departments}
       majors={majors}
+      professors={professors}
+      colleges={COLLEGES}
+      courses={courses}
+      path={path} setPath={setPath}
     />
   );
 };
