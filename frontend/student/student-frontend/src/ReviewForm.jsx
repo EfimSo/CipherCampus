@@ -21,6 +21,10 @@ const ReviewPage = () => {
   const [root, setRoot] = useState("");
   const [leafIndex, setLeafIndex] = useState("");
   const [isCollegeDisabled, setIsCollegeDisabled] = useState(true);
+  const [recommend, setRecommend] = useState(false);
+  const [grade, setGrade] = useState("")
+
+  const setStatus = (text) => {console.log(`Status: ${text}`)}
 
   const setCollegeWrapper = (college) => {
     setCollege(college)
@@ -74,7 +78,7 @@ const ReviewPage = () => {
   
     const payload = {
       leaf_index:   leafIndex,                   
-      path:         parsePath(pathStr),          
+      path:         parsePath(path),          
       pk_x:         pkX,
       pk_y:         pkY,
       sk_lo:        skLo,
@@ -102,12 +106,17 @@ const ReviewPage = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setStatus("Generating ZK proof...");
     let proofHex;
     try {
       const proofBytes = await generateProof();
       proofHex = "0x" + toHex(proofBytes);
+      // if (!proofHex){
+      //   setStatus(`Proof generation failed: ${err.message}`);
+      //   return;
+      // }          
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);
       return;
@@ -171,7 +180,10 @@ const ReviewPage = () => {
       colleges={COLLEGES}
       courses={courses}
       path={path} setPath={setPath}
+      grade={grade} setGrade={setGrade}
       leafIndex={leafIndex} setLeafIndex={setLeafIndex}
+      recommend={recommend} setRecommend={setRecommend}
+      root={root} fetchRoot={fetchRoot}
     />
   );
 };
