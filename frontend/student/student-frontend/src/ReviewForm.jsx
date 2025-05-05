@@ -102,9 +102,14 @@ const ReviewPage = () => {
         body   : JSON.stringify(payload),
       });
       const data  = await res.json();
-      setStatus(`Test proof: ${data.proof}`);
-      console.log("Generated proof hex:", data.proof);
-      return data.proof
+      const firstZeroIndex = data.proof.indexOf('0');
+
+      const proof = firstZeroIndex !== -1 
+        ? data.proof.slice(firstZeroIndex) 
+        : '';
+      setStatus(`Test proof: ${proof}`);
+      console.log("Generated proof hex:", proof);
+      return proof
     } catch (err) {
       setStatus(`Error calling Python: ${err.message}`);
     }
@@ -117,10 +122,10 @@ const ReviewPage = () => {
     try {
       const proofBytes = await generateProof();
       proofHex = "0x" + toHex(proofBytes);
-      // if (!proofHex){
-      //   setStatus(`Proof generation failed: ${err.message}`);
-      //   return;
-      // }          
+      if (!proofHex){
+        setStatus(`Proof generation failed: ${err.message}`);
+        return;
+      }          
     } catch (err) {
       setStatus(`Proof generation failed: ${err.message}`);
       return;
@@ -130,12 +135,11 @@ const ReviewPage = () => {
     const reviewData = {
       class_name: `${department} ${course}`,
       text: review,
-      grade,
-      major, 
+      "grade": includeGradeInReview ? grade: "NOT_USED",
+      "major": includeMajorInReview ? major: "NOT_USED", 
       recommend,
       proof: proofHex,
-      rating,
-      grade
+      rating
     };
 
     try {

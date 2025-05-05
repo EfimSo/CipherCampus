@@ -83,9 +83,9 @@ def write_review():
                 vk = 3
             
         
-        # proof = arg_dict["proof"]
-        # if not proof or not verify_proof(proof, vk):
-        #     return
+        proof = arg_dict["proof"]
+        if not proof or not verify_proof(proof, vk):
+            return jsonify({'error': "Proof Verification Failed"}), 500
 
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
         except: arg_dict["rating"] = 1.0

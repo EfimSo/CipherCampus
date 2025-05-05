@@ -17,10 +17,10 @@ def write_proof_binary(hex_str: str, path: str = "./proof") -> None:
         f.write(data)
 
 vk_paths = {
-    0: "vk_no_grade_no_major",
-    1: "vk_no_grade_yes_major",
-    2: "vk_yes_grade_no_major",
-    3: "vk_no_grade_yes_major"
+    0: "VKs/vk_no_grade_no_major",
+    1: "VKs/vk_no_grade_yes_major",
+    2: "VKs/vk_yes_grade_no_major",
+    3: "VKs/vk_no_grade_yes_major"
 }
 
 
