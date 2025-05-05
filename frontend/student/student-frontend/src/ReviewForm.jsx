@@ -84,12 +84,12 @@ const ReviewPage = () => {
       pk_y:         pkY,
       sk_lo:        skLo,
       sk_hi:        skHi,
-      professor:    professor,
-      grade:        grade,
+      professor:    PROFESSOR_CODES[professor],
+      grade:        GRADE_CODES[grade],
       major:        majorMap[college][major] ,
       college_idx:  collegeMap[college],                 
       dept_idx:     departmentMap[college][department] ,
-      course_idx:   course
+      course_idx:   COURSE_FIXED[college][course]
     };
   
     try {
