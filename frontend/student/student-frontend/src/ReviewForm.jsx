@@ -23,6 +23,8 @@ const ReviewPage = () => {
   const [leafIndex, setLeafIndex] = useState("");
   const [isCollegeDisabled, setIsCollegeDisabled] = useState(true);
   const [recommend, setRecommend] = useState(false);
+  const [includeMajorInReview, setIncludeMajorInReview] = useState(false);
+  const [includeGradeInReview, setIncludeGradeInReview] = useState(false);
   const [grade, setGrade] = useState("")
 
   const setStatus = (text) => {console.log(`Status: ${text}`)}
@@ -89,7 +91,9 @@ const ReviewPage = () => {
       major:        majorMap[college][major] ,
       college_idx:  collegeMap[college],                 
       dept_idx:     departmentMap[college][department] ,
-      course_idx:   COURSE_FIXED[college][course]
+      course_idx:   COURSE_FIXED[college][course],
+      include_grade: includeGradeInReview,
+      include_major: includeMajorInReview
     };
   
     try {
@@ -186,6 +190,8 @@ const ReviewPage = () => {
       leafIndex={leafIndex} setLeafIndex={setLeafIndex}
       recommend={recommend} setRecommend={setRecommend}
       root={root} fetchRoot={fetchRoot}
+      includeMajorInReview={includeMajorInReview} setIncludeMajorInReview={setIncludeMajorInReview}
+      includeGradeInReview={includeGradeInReview} setIncludeGradeInReview={setIncludeGradeInReview}
     />
   );
 };

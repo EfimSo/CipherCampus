@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Box, FormControlLabel, Switch, Typography  } from "@mui/material";
+import { Button, Box, FormControlLabel, Switch, Typography, Checkbox  } from "@mui/material";
 import LabeledTextField from "../components/LabeledTextField";
 import LabeledSelect from "../components/LabeledSelect";
 import Section from "../components/Section";
@@ -24,7 +24,9 @@ const ReviewForm = ({
   leafIndex, setLeafIndex,
   isCollegeDisabled, departments, majors, professors, colleges, courses,
   recommend, setRecommend,
-  root, fetchRoot
+  root, fetchRoot,
+  includeMajorInReview, setIncludeMajorInReview,
+  includeGradeInReview, setIncludeGradeInReview
 }) => {
   const RATINGS = ["1", "2", "3", "4", "5"];
   const GRADES = ["A", "B", "C", "D", "F"];
@@ -42,9 +44,31 @@ const ReviewForm = ({
         <LabeledSelect label="College" value={college} onChange={(e) => setCollegeWrapper(e.target.value)} options={colleges} />
         <LabeledSelect label="Department" value={department} onChange={(e) => setDepartment(e.target.value)} options={departments} disabled={isCollegeDisabled}/>
         <LabeledSelect label="Major" value={major} onChange={(e) => setMajor(e.target.value)} options={majors} disabled={isCollegeDisabled} />
+        <FormControlLabel
+        control={
+          <Checkbox
+            checked={includeMajorInReview}
+            onChange={(e) => setIncludeMajorInReview(!includeMajorInReview)}
+            name="includeMajorInReview"
+            color="primary"
+          />
+        }
+        label="Include in review"
+      />
         <LabeledSelect label="Professor" value={professor} onChange={(e) => setProfessor(e.target.value)} options={professors} disabled={isCollegeDisabled} />
         <LabeledSelect label="Course" value={course} onChange={(e) => setCourse(e.target.value)} options={courses} disabled={isCollegeDisabled} />
         <LabeledSelect label="Grade" value={grade} onChange={(e) => setGrade(e.target.value)} options={GRADES} disabled={isCollegeDisabled} />
+        <FormControlLabel
+        control={
+          <Checkbox
+            checked={includeGradeInReview}
+            onChange={(e) => setIncludeGradeInReview(!includeGradeInReview)}
+            name="includeGradeInReview"
+            color="primary"
+          />
+        }
+        label="Include in review"
+      />
         <LabeledTextField label="Review" value={review} onChange={(e) => setReview(e.target.value)} multiline rows={4} />
         <LabeledSelect label="Rating" value={rating} onChange={(e) => setRating(e.target.value)} options={RATINGS} />
         <FormControlLabel
@@ -56,7 +80,7 @@ const ReviewForm = ({
               name="recommend"
             />
           }
-          label={recommend ? "Recommend" : "Don't Recommend"}
+          label={"Do you recommend this course?"}
         />
       </Section>
 
