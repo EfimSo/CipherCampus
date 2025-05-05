@@ -4,7 +4,7 @@ import os
 
 def write_proof_binary(hex_str: str, path: str = "./proof") -> None:
     """Convert a hex string to raw bytes and write it to *path*."""
-    hex_str = hex_str.strip().lower().replace("0x", "")
+    hex_str = hex_str.strip().lower() # .replace("0x", "")
     try:
         data = bytes.fromhex(hex_str)
     except ValueError as e:
@@ -20,12 +20,12 @@ vk_paths = {
     0: "VKs/vk_no_grade_no_major",
     1: "VKs/vk_no_grade_yes_major",
     2: "VKs/vk_yes_grade_no_major",
-    3: "VKs/vk_no_grade_yes_major"
+    3: "VKs/vk_yes_grade_yes_major"
 }
 
 
 def verify(path: str = "./proof", vk_path: str = "./vk",
-           out_path: str = "verify_output.txt") -> None:
+           out_path: str = "./verify_output.txt") -> None:
     """Run the bb verifier and pipe stdout+stderr to *out_path*."""
     cmd = [
         "bb",

@@ -16,31 +16,46 @@ def write_toml(inputs, path):
 
 
 def generate_proof(circuit_dir, inputs, prover_name="Prover"):
-    # Write Prover.toml
+    # 1) make circuit_dir absolute
+    circuit_dir = os.path.abspath(circuit_dir)
+
+    # 2) write Prover.toml
     prover_path = os.path.join(circuit_dir, f"{prover_name}.toml")
     write_toml(inputs, prover_path)
 
-    # Run nargo execute
-    subprocess.run(["nargo", "execute"], cwd=circuit_dir, check=True)
+    # 3) build the witness
+    subprocess.run(
+        ["nargo", "execute"],
+        cwd=circuit_dir,
+        check=True
+    )
+
+    # 4) locate ACIR (.json) and witness (.gz)
+    target_dir   = os.path.join(circuit_dir, "target")
+    acir_path    = os.path.join(target_dir, "program.json")
+    witness_path = os.path.join(target_dir, "verifyWithYesGradeNoMajor.gz")
+
+    # 5) prepare your output directory (for BB to write into)
     out_dir = os.path.join(circuit_dir, "out")
-    os.makedirs(out_dir, exist_ok=True) 
-    # Find witness and acir files
-    witness = [f for f in os.listdir(os.path.join(circuit_dir, "target")) if f.endswith(".gz")][0]
+    os.makedirs(out_dir, exist_ok=True)
 
-    
-    witness_path = os.path.join( "target", witness)
-    proof_path = os.path.join(circuit_dir, "out", "proof")
-
-    # Run bb prove
+    # 6) run bb prove *with* scheme & oracle flags, pointing -o at the directory
     subprocess.run([
         "bb", "prove",
-        "-w", witness_path,
-    ], cwd = circuit_dir, check=True)
+        "--scheme",      "ultra_honk",
+        "--oracle_hash", "keccak",
+        "-b",            acir_path,
+        "-w",            witness_path,
+        "-o",            out_dir,            # <-- this must be a directory
+    ], check=True)
 
-    # Read and return proof
+    # 7) now BB has created `<out_dir>/proof`
+    proof_path = os.path.join(out_dir, "proof")
+
+    # 8) read & return the raw proof bytes
     with open(proof_path, "rb") as f:
         return f.read()
-
+    
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Parse the input parameters required by the program."
@@ -87,6 +102,6 @@ if __name__ == "__main__":
 
     # Convert Namespace to ordinary dict (optional)
     inputs = vars(args)
-    print("hello, generate Proof - Yes No is triggered")
+    print("hello, generate Proof - Yes Yes is triggered")
     proof = generate_proof("../../zero_knowledge/circuits/verifyYesGradeNoMajor", inputs)
-    print("Proof (hex):", proof.hex())
+    print("∑", proof.hex())

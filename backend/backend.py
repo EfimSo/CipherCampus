@@ -68,7 +68,7 @@ def write_review():
                 "proof"
             ]
         }
-
+        print("reached here 0")
         null_flag = "NOT_USED"
         grade, major = arg_dict["grade"], arg_dict["major"]
         if grade == null_flag:
@@ -86,7 +86,7 @@ def write_review():
         proof = arg_dict["proof"]
         if not proof or not verify_proof(proof, vk):
             return jsonify({'error': "Proof Verification Failed"}), 500
-
+        print("reached here")
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
         except: arg_dict["rating"] = 1.0
 
@@ -95,6 +95,7 @@ def write_review():
         review = Review(**arg_dict)
         db.session.add(review)
         db.session.commit()
+        print("reached here2")
         return jsonify({'message': 'Review added successfully'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
