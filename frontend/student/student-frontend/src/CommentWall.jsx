@@ -55,8 +55,8 @@ function CommentWall() {
                       secondary={
                         <>
                           <Typography variant="body2"><strong>Review:</strong> {rev.text}</Typography>
-                          {rev.grade && <Typography variant="body2"><strong>Grade:</strong> {rev.grade}</Typography>}
-                          {rev.major && <Typography variant="body2"><strong>Major:</strong> {rev.major}</Typography>}
+                          {rev.grade && <Typography variant="body2"><strong>Grade:</strong> {rev.grade === "NOT_USED" ? "Not disclosed" : rev.grade}</Typography>}
+                          {rev.major && <Typography variant="body2"><strong>Major:</strong> {rev.major === "NOT_USED" ? "Not disclosed" : rev.major}</Typography>}
                           {rev.rating && <Typography variant="body2"><strong>Rating:</strong> {rev.rating}</Typography>}
                           {typeof rev.recommend === 'boolean' && (
                             <Typography variant="body2"><strong>Recommend:</strong> {rev.recommend ? 'Yes' : 'No'}</Typography>
