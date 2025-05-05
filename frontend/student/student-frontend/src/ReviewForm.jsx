@@ -63,11 +63,10 @@ const ReviewPage = () => {
       const root = await getReviewRoot(school, semester);
       console.log("Current root:", root);
       setRoot(root);
-      // You can store it in state if you want to display it:
-      // setStatus(Current review root: ${root});
+      setStatus(`Current review root: ${root}`);
     } catch (err) {
       console.error("Error fetching root:", err);
-      // setStatus("Error fetching root");
+      setStatus("Error fetching root");
     }
   };
 
@@ -129,7 +128,7 @@ const ReviewPage = () => {
     setStatus("Submitting...");
 
     const reviewData = {
-      class_name: course,
+      class_name: `${department} ${course}`,
       text: review,
       grade,
       major, 
@@ -140,7 +139,7 @@ const ReviewPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5001/write_review/", {
+      const response = await fetch("http://localhost:5001/write_review", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

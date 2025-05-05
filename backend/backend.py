@@ -47,7 +47,7 @@ def sample():
     return jsonify([review_serialize(r) for r in reviews])
 
 @app.route('/write_review', methods = ['POST'])
-@cross_origin(origin='http://localhost:5173')
+@cross_origin(origins=['http://localhost:5173'])
 def write_review():
     # Verify proof 
     try:
@@ -100,7 +100,7 @@ def write_review():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/read_reviews', methods = ['GET'])
-@cross_origin(origin='http://localhost:5173')
+@cross_origin(origins=['http://localhost:5173'])
 def read_reviews():
     reviews = db.session.query(Review).all()
     return jsonify([review_serialize(r) for r in reviews])

@@ -17,7 +17,7 @@ function CommentWall() {
 
   useEffect(() => {
     if (viewMode === "comments") {
-      fetch("http://localhost:5003/read_reviews")
+      fetch("http://localhost:5001/read_reviews")
         .then(res => res.json())
         .then(data => setReviews(data))
         .catch(err => console.error("Failed to fetch reviews:", err));
