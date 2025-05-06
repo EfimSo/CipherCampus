@@ -29,12 +29,19 @@ function CommentWall() {
   useEffect(() => {
     if (viewMode === "comments") {
       fetch("http://localhost:5001/read_reviews")
-        .then(setReviews)
-        .catch((err) => {
-          console.error("Failed to fetch reviews:", err);
-        });
+      .then((res) => {
+        if (!res.ok) throw new Error(res.statusText);
+        return res.json();
+      })
+      .then((data) => setReviews(data))
+      .catch((err) => console.error("Failed to fetch reviews:", err));
     }
   }, [viewMode]);
+
+    const displayedReviews = useMemo(
+      () => (reviews[college] && reviews[college][department]) ? reviews[college][department] : [],
+      [college, department]
+    );
 
   return (
     <Box p={3}>
@@ -60,7 +67,7 @@ function CommentWall() {
             <Typography>No reviews yet.</Typography>
           ) : (
             <List>
-              {(reviews[college] && reviews[college][department]) ? reviews[college][department].map((rev, idx) => (
+              {displayedReviews.map((rev, idx) => (
                 <Paper key={idx} elevation={2} sx={{ mb: 2, p: 2 }}>
                   <ListItem alignItems="flex-start">
                     <ListItemText
@@ -79,7 +86,7 @@ function CommentWall() {
                     />
                   </ListItem>
                 </Paper>
-              )) : []}
+              ))}
             </List>
           )}
         </Box>
