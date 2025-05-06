@@ -92,7 +92,8 @@ const ReviewPage = () => {
       dept_idx:     departmentMap[college][department] ,
       course_idx:   COURSE_FIXED[college][course],
       include_grade: includeGradeInReview,
-      include_major: includeMajorInReview
+      include_major: includeMajorInReview,
+      root
     };
   
     try {
@@ -138,7 +139,9 @@ const ReviewPage = () => {
       "major": includeMajorInReview ? major: "NOT_USED", 
       recommend,
       "proof": proofHex,
-      rating
+      rating,
+      department,
+      college
     };
 
     try {

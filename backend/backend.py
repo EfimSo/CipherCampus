@@ -5,6 +5,7 @@ import os.path
 from verify_test import verify_proof
 from flask_cors import CORS, cross_origin
 basedir = os.path.abspath(os.path.dirname(__file__))
+from collections import defaultdict
 
 app = Flask(__name__)
 # Allow CORS from any origin on all routes
@@ -24,6 +25,8 @@ class Review(db.Model):
     class_name = db.Column(db.Text)
     major = db.Column(db.Text)
     proof = db.Column(db.Text)
+    college = db.Column(db.Text)
+    department = db.Column(db.Text)
 
     def __str__(self):
         return str(review_serialize(self))
@@ -37,7 +40,9 @@ def review_serialize(review):
         'grade': review.grade,
         'professor_name': review.professor_name,
         'class_name': review.class_name,
-        "major": review.major
+        "major": review.major,
+        "college": review.college,
+        "department": review.department
     }
 
 
@@ -103,8 +108,12 @@ def write_review():
 @app.route('/read_reviews', methods = ['GET'])
 @cross_origin(origins=['http://localhost:5173'])
 def read_reviews():
-    reviews = db.session.query(Review).all()
-    return jsonify([review_serialize(r) for r in reviews])
+    reviews = Review.query.all()
+    result = defaultdict(lambda: defaultdict(list))
+    for r in reviews:
+        result[r.college][r.department].append(review_serialize(r))
+
+    return jsonify(result)
 
 
 if __name__ == '__main__':

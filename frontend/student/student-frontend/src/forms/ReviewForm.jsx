@@ -29,7 +29,7 @@ const ReviewForm = ({
   includeGradeInReview, setIncludeGradeInReview
 }) => {
   const RATINGS = ["1", "2", "3", "4", "5"];
-  const GRADES = ["A", "B", "C", "D", "F"];
+  const GRADES = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', 'F'];
 
   return (
     <Box component="form" onSubmit={submitHandler}>

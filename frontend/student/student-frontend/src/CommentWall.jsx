@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo} from "react";
 import ReviewForm from "./ReviewForm";
+import LabeledSelect from "./components/LabeledSelect";
 import {
   Box,
   Button,
@@ -10,10 +11,20 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
+import { COLLEGES, departmentMap} from "./mappings";
+
 
 function CommentWall() {
   const [viewMode, setViewMode] = useState("comments");
   const [reviews, setReviews] = useState([]);
+
+  const [college, setCollege] = useState("");
+  const [department, setDepartment] = useState("");
+  
+  const departments = useMemo(
+    () => (college ? Object.keys(departmentMap[college]) : []),
+    [college]
+  );
 
   useEffect(() => {
     if (viewMode === "comments") {
@@ -42,7 +53,8 @@ function CommentWall() {
           <Typography variant="h5" gutterBottom>
             Anonymous Reviews
           </Typography>
-
+          <LabeledSelect label="College" value={college} onChange={(e) => setCollege(e.target.value)} options={COLLEGES} />
+          <LabeledSelect label="Department" value={department} onChange={(e) => setDepartment(e.target.value)} options={departments}/>
           {reviews.length === 0 ? (
             <Typography>No reviews yet.</Typography>
           ) : (
