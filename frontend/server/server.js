@@ -1,6 +1,11 @@
 const express = require('express');
+const { createSign } = require("crypto");
 const { spawn } = require('child_process');
 const cors = require('cors');
+
+const { ec: EC } = require("elliptic");
+const ec = new EC("secp256k1");
+const crypto = require("crypto");
 
 const app = express();
 app.use(cors()); // Allow frontend to access
@@ -63,6 +68,42 @@ app.post('/run-proof', (req, res) => {
     console.log(`Python script exited with code ${code}`);
     res.json({ proof: result.trim() });
   });
+});
+
+
+
+app.post("/sign-review", (req, res) => {
+  let { message, sk } = req.body;
+
+  if (!message || !sk) {
+    return res.status(400).json({ error: "Missing message or sk" });
+  }
+
+  // Convert the sk into a proper PEM format
+  const formattedSK = sk.replace(/ /g, "\n");
+
+  // Wrap with PEM headers
+  const privateKeyPEM = `-----BEGIN PRIVATE KEY-----\n${formattedSK}\n-----END PRIVATE KEY-----`;
+
+  console.log("Private key:", privateKeyPEM);
+
+  try {
+    // Create a signer using ECDSA with SHA256
+    const sign = crypto.createSign('SHA256');
+
+    // Update the signer with the message
+    sign.update(message);
+    sign.end();
+
+    // Generate the signature using the private key
+    const signature = sign.sign(privateKeyPEM, 'hex');
+
+    // Return the signature
+    res.json({ signature });
+  } catch (err) {
+    console.error("Signing error:", err);
+    res.status(500).json({ error: "Failed to sign message" });
+  }
 });
 
 app.listen(3002, () => console.log('Server listening on http://localhost:3002'));

@@ -4,6 +4,10 @@ import "./ReviewForm.css";
 import { getReviewRoot } from "./rootRetrieval.js";
 import { PROFESSOR_CODES, GRADE_CODES, COURSE_FIXED, COLLEGE_MULT, DEPT_MULT, COURSE_MULT, COLLEGES, collegeMap, departmentMap, majorMap} from "./mappings";
 
+
+
+
+
 const ReviewPage = () => {
   const [school, setSchool] = useState("");
   const [semester, setSemester] = useState("");
@@ -18,6 +22,7 @@ const ReviewPage = () => {
   const [pkY, setPkY] = useState("");
   const [skLo, setSkLo] = useState("");
   const [skHi, setSkHi] = useState("");
+  const [sk, setSk] = useState(""); // newly added given the changed schema 
   const [path, setPath] = useState("");
   const [root, setRoot] = useState("");
   const [leafIndex, setLeafIndex] = useState("");
@@ -77,7 +82,8 @@ const ReviewPage = () => {
   
   const generateProof = async () => {
     setStatus("Calling Python proof generator...");
-  
+
+
     const payload = {
       leaf_index:   leafIndex,                   
       path:         parsePath(path),          
@@ -118,6 +124,7 @@ const ReviewPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus("Generating ZK proof...");
+    /*
     let proofHex;
     try {
       const proofBytes = await generateProof();
@@ -130,7 +137,19 @@ const ReviewPage = () => {
       setStatus(`Proof generation failed: ${err.message}`);
       return;
     }
+      */
     setStatus("Submitting...");
+
+    // Send the message to sign to the backend
+const res = await fetch("http://localhost:3002/sign-review", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: review, sk }),
+});
+const { signature } = await res.json();
+console.log("Received signature:", signature);
+
+
 
     const reviewData = {
       class_name: `${department} ${course}`,
@@ -181,7 +200,7 @@ const ReviewPage = () => {
       rating={rating} setRating={setRating}
       pkX={pkX} setPkX={setPkX}
       pkY={pkY} setPkY={setPkY}
-      skLo={skLo} setSkLo={setSkLo}
+      skLo={sk} setSkLo={setSk}
       skHi={skHi} setSkHi={setSkHi}
       submitHandler={handleSubmit}
       isCollegeDisabled={isCollegeDisabled}
