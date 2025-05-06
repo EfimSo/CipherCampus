@@ -16,7 +16,7 @@ import { COLLEGES, departmentMap} from "./mappings";
 
 function CommentWall() {
   const [viewMode, setViewMode] = useState("comments");
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState({});
 
   const [college, setCollege] = useState("");
   const [department, setDepartment] = useState("");
@@ -29,9 +29,10 @@ function CommentWall() {
   useEffect(() => {
     if (viewMode === "comments") {
       fetch("http://localhost:5001/read_reviews")
-        .then(res => res.json())
-        .then(data => setReviews(data))
-        .catch(err => console.error("Failed to fetch reviews:", err));
+        .then(setReviews)
+        .catch((err) => {
+          console.error("Failed to fetch reviews:", err);
+        });
     }
   }, [viewMode]);
 
@@ -59,7 +60,7 @@ function CommentWall() {
             <Typography>No reviews yet.</Typography>
           ) : (
             <List>
-              {reviews.map((rev, idx) => (
+              {(reviews[college] && reviews[college][department]) ? reviews[college][department].map((rev, idx) => (
                 <Paper key={idx} elevation={2} sx={{ mb: 2, p: 2 }}>
                   <ListItem alignItems="flex-start">
                     <ListItemText
@@ -78,7 +79,7 @@ function CommentWall() {
                     />
                   </ListItem>
                 </Paper>
-              ))}
+              )) : []}
             </List>
           )}
         </Box>
