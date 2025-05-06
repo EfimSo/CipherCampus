@@ -43,6 +43,7 @@ app.post('/run-proof', (req, res) => {
     '--college_idx', college_idx,
     '--dept_idx',    dept_idx,
     '--course_idx',  course_idx,
+    '--root',        root
   ];
 
   // Launch Python with all flags
