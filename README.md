@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-This project combines the spirit of **Boston University** 🐾 with the cutting-edge technology of **Zero-Knowledge Proofs** and **Ethereum** 🔒⛓️.
+This project combines the spirit of **Boston University** with the cutting-edge technology of **Zero-Knowledge Proofs** and **Ethereum**.
 
 We aim to explore privacy-enhancing cryptographic protocols, blockchain applications, and decentralized identity — all symbolized by our fierce and fearless mascot, **Rhett the Terrier**.
 
@@ -29,14 +29,42 @@ Protect your identity, secure your data, and unleash your Terrier spirit!
 ## Quick Links
 - [Learn more about Zero-Knowledge Proofs](https://zkproof.org/)
 - [Ethereum Official Site](https://ethereum.org/)
-- [Boston University Terrier Pride](https://www.bu.edu/terriers/)
+
+
+## Features
+- Anonymous course review submission
+- Zero-knowledge proof verification
+- Optional grade and major disclosure
+- Secure proof generation and verification
+- Modern, hacker-themed UI
+
+## Technical Stack
+### Frontend
+- React
+- Material-UI (MUI)
+- Vite build system
+- TypeScript 
+
+### Backend
+- Flask
+- SQLAlchemy (for database)
+- Python (for proof verification)
+
+### Zero-Knowledge
+- Noir (for circuit implementation)
+- Barretenberg (for proof generation)
+- Merkle Trees (for data integrity)
 
 
 
+## Setup Instructions
 
-## Installation & Setup
+### Prerequisites
+- Node.js (v14 or higher)
+- Python 3.8+
+- Docker (optional, for development)
+- Barretenberg (for proof generation)
 
-Follow these steps to install the necessary packages and run each component.
 
 ---
 
