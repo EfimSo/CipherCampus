@@ -11,7 +11,8 @@ fn main(
     pk_x:  Field, 
     pk_y:  Field,
     major: Field,
-
+    
+    rootSchool: pub Field,
     grade: pub Field,
     professor: pub Field,
     college_idx: pub Field,     
@@ -49,6 +50,5 @@ fn main(
 
 
     let computed_root = compute_merkle_root(leaf, leaf_index, path);
-    let root = 0x2bb036fa47012291aaa0ce4a290191f9776cdf08b8356a4aadf84f2b6699e922;
-    assert(computed_root == root);
+    assert(computed_root == rootSchool);
 }
