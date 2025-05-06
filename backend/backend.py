@@ -2,16 +2,11 @@ from flask import Flask
 from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import os.path
-from verify_test import verify_proof
+from verify_proof import verify_proof
 from flask_cors import CORS, cross_origin
 basedir = os.path.abspath(os.path.dirname(__file__))
 from collections import defaultdict
-
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import ec, utils
-from cryptography.exceptions import InvalidSignature
-import hashlib
-
+from signature_check import check_signature
 
 app = Flask(__name__)
 # Allow CORS from any origin on all routes
@@ -68,7 +63,7 @@ def write_review():
         if not data: return
 
         arg_dict = {
-            arg_name: data.get(arg_name, None) for arg_name in [
+            arg_name: data.get(arg_name, "") for arg_name in [
                 "text",
                 "rating",
                 "recommend",
@@ -101,30 +96,11 @@ def write_review():
         if not proof or not verify_proof(proof, vk):
             return jsonify({'error': "Proof Verification Failed"}), 500
         
-        try:
-            message = arg_dict["text"]
-            signature = bytes.fromhex(arg_dict["signature"])
-            pem_key = (
-                arg_dict["public_key"].encode()
-            )
-        except KeyError as err:
-            return jsonify({"error": f"Missing field: {repr(err)}"}), 400
+        signature = arg_dict["signature"]
+        pkX, pkY = arg_dict["public_keyX"], arg_dict["public_keyY"]
+        message = arg_dict["text"]
 
-        try:
-            public_key = serialization.load_pem_public_key(pem_key)
-        except:
-            return jsonify({"error": "Invalid PEM public key"}), 400
-
-
-        message_hash = hashlib.sha256(message.encode()).digest()
-
-        try:
-            public_key.verify(
-                signature,
-                message_hash,
-                ec.ECDSA(utils.Prehashed(hashes.SHA256()))
-            )
-        except InvalidSignature:
+        if not check_signature(signature, pkX, pkY, message):
             return jsonify({"error": "Invalid Signature"}), 500
 
         try: arg_dict["rating"] = float(arg_dict["rating"]) 
