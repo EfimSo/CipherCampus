@@ -21,7 +21,8 @@ app.post('/run-proof', (req, res) => {
     dept_idx,
     course_idx,
     include_grade,
-    include_major
+    include_major,
+    root
   } = req.body;
 
   // Select the appropriate proof-generation script based on provided flags

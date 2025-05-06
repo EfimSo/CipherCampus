@@ -84,7 +84,7 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Department index.")
     parser.add_argument("--course_idx", required=True, type=int,
                         help="Course index.")
-    parser.add_argument("--root", required=True,
+    parser.add_argument("--rootSchool", required=True,
                         help="Root of the Merkle tree.")
 
     # The Merkle proof path: variable-length positional list after --path
