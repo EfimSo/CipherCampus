@@ -21,7 +21,8 @@ Our solution revolves around two key components:
   Employ an off‑chain Noir ZK proof to confirm a reviewer’s membership in the course before accepting their review.
 
 ## Changes after the Presentation
-
+### Demo Video
+https://drive.google.com/file/d/1uSqtrUCTPob2ucQws5w1o-GlJkYjqI0x/view?usp=sharing
 ### Digital Signatures for Review Integrity
 
 To enhance the security and integrity of the review system, we've implemented a digital signature mechanism using ECDSA with the secp256k1 curve. This addition provides several key security benefits review authenticity and data integrity.
