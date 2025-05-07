@@ -86,8 +86,8 @@ const ReviewPage = () => {
           throw new Error("Public key hex must be 64 characters (256 bits).");
         }
         return {
-          hi: hex.slice(0, 32),
-          lo: hex.slice(32),
+          hi: "0x" + hex.slice(0, 32),
+          lo: "0x" + hex.slice(32),
         };
       };
   
@@ -106,8 +106,6 @@ const ReviewPage = () => {
         pk_x_lo,
         pk_y_hi,
         pk_y_lo,
-        sk_lo: skLo,
-        sk_hi: skHi,
         professor: PROFESSOR_CODES[professor],
         grade: GRADE_CODES[grade],
         major: majorMap[college][major],
