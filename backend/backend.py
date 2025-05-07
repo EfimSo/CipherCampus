@@ -28,10 +28,22 @@ class Review(db.Model):
     proof = db.Column(db.Text)
     college = db.Column(db.Text)
     department = db.Column(db.Text)
+    signature = db.Column(db.Text)
 
     def __str__(self):
         return str(review_serialize(self))
 
+class Nulifier(db.Model):
+    __tablename__ = 'nullifier'
+    id = db.Column(db.Integer, primary_key=True)
+    college = db.Column(db.Text)
+    department = db.Column(db.Text)
+    class_name = db.Column(db.Text)
+    pk_x = db.Column(db.Text)
+    pk_y = db.Column(db.Text)
+
+    def __str__(self):
+        return str(nullifier_serialize(self))
 
 def review_serialize(review):
     return {
@@ -44,6 +56,15 @@ def review_serialize(review):
         "major": review.major,
         "college": review.college,
         "department": review.department
+    }
+
+def nullifier_serialize(nullifier):
+    return {
+        "college": nullifier.college,
+        "department": nullifier.department,
+        'class_name': nullifier.class_name,
+        "pk_x": nullifier.pk_x,
+        "pk_y": nullifier.pk_y
     }
 
 
@@ -74,9 +95,34 @@ def write_review():
                 "proof",
                 "department",
                 "college",
-                "signature"
+                "signature",
+                "public_keyX",
+                "public_keyY"
             ]
         }
+
+        nullifier_args = {
+            "college": arg_dict["college"],
+            "department": arg_dict["department"],
+            'class_name': arg_dict["class_name"],
+            "pk_x": arg_dict["public_keyX"],
+            "pk_y": arg_dict["public_keyY"]
+        }
+
+        stmt = (
+        db.select(Nulifier.id)       
+        .where(db.and_(
+            Nulifier.college    == nullifier_args["college"],
+            Nulifier.department == nullifier_args["department"],
+            Nulifier.class_name == nullifier_args["class_name"],
+            Nulifier.pk_x       == nullifier_args["pk_x"],
+            Nulifier.pk_y       == nullifier_args["pk_y"],
+        ))
+        .limit(1)
+    )
+
+        if db.session.execute(stmt).first() is not None:
+            return jsonify({"error": "Review already submitted - nullifier triggered"}), 500
        
         null_flag = "NOT_USED"
         grade, major = arg_dict["grade"], arg_dict["major"]
@@ -90,7 +136,6 @@ def write_review():
                 vk = 2
             else:
                 vk = 3
-            
         
         proof = arg_dict["proof"]
         if not proof or not verify_proof(proof, vk):
@@ -108,8 +153,16 @@ def write_review():
 
         arg_dict["recommend"] = True if arg_dict["recommend"] in ["true", "True"] else False
         
+        del arg_dict["public_keyX"]
+        del arg_dict["public_keyY"]
+        del arg_dict["signature"]
+        
         review = Review(**arg_dict)
         db.session.add(review)
+        db.session.commit()
+
+        nullifier = Nulifier(**nullifier_args)
+        db.session.add(nullifier)
         db.session.commit()
         
         return jsonify({'message': 'Review added successfully'}), 201
