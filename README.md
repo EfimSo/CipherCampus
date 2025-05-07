@@ -29,18 +29,21 @@ To enhance the security and integrity of the review system, we've implemented a 
 The signature process works as follows:
 
 1. Students generate their private/public key pair using secp256k1
-2. When submitting a review, the student's private key signs the review text
-3. The signature is verified against the student's public key before storing the review
-4. Only reviews with valid signatures are accepted into the system
+2. Students' public key is hashed together with other information in the Merkle tree leaf.
+3. When submitting a review, the student's private key signs the hash of the review text
+4. The backend verifies that the public key is a in the Merkle tree and in the index range for the class the student wishes to review, using the proof. 
+5. The backend verifies the public key has not submitted a review for the chosen class before (nullifier).
+6. The signature is verified against the student's public key before storing the review. 
+7. Only reviews with valid signatures are accepted into the system.
 
-This enhancement makes our system more robust against malicious attacks while maintaining the privacy benefits of our zero-knowledge proofs.
+This enhancement makes our system more robust against malicious attacks while maintaining the privacy benefits of our zero-knowledge proofs. The school is unable to submit reviews on students' behalf as they are able to generate proofs but not sign. 
 
 ### Nullifier
+We added backend nullifiers by implementing a new SQL table mapping courses to public keys. If the user submits a review with the same public key, for the same class, the server returns a 500 code error. View the response in the network tab to see the error code. 
 
-### SQL Schema Changes
 
 ### Encryption Changes
-
+The original encryption scheme used (grumpkin) was specialized to be used in the noir circuit. It was not popularly supported by Python or Javascript libraries, which forced us to switch to different elyptic curve (SECP256R1). We removed the private key from the Noir circuit inputs. We made public key a public input. In order to keep the public key below the module size of the noir circut, we had to split both the x and y-coordinates of the public key into low and high values (first and last 16 bytes). We also used the PEM format to encode the private key to be input into the front-end. The key is used without the begin and end tags which are appended by the frontend. 
 ---
 
 ## Topics Covered
@@ -124,6 +127,7 @@ zero_knowledge/
 │   ├── private_keys.pem             # Private keys in PEM format
 │   ├── public_keys.txt              # Public key coordinates (x, y) in hex
 │   ├── contract_info.txt            # Contains deployed contract addresses/info
+|   ├── generate_key_pair.py         # Generate public-private key pairs
 │   ├── package.json
 │   └── package-lock.json
 │
@@ -161,6 +165,9 @@ npx ts-node --transpile-only compute_proof.ts
 Prints a Prover.toml-compatible block, index can be modified for different leaves.
 
 ## Backend breakdown
+- signature_check.py: file containing helper functions for signature verification
+- verify_proof.py: file containing helper functions for proof verification. Verifies the proof by writing proof to binary and executing the verification using Barretenberg. 
+- backend.py: main backend file. Defines the SQL schemas and creates the database. Exposes the endpoints. Executes signature and proof verification. Maintains nullifiers and performs uniqueness checks. 
 
 ---
 
