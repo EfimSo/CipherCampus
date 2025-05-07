@@ -79,30 +79,46 @@ const ReviewPage = () => {
     str
       .split(/\s+/)      
       .filter(Boolean); 
+
+      
+  const splitHex256 = (hex) => {
+        if (!hex || hex.length !== 64) {
+          throw new Error("Public key hex must be 64 characters (256 bits).");
+        }
+        return {
+          hi: hex.slice(0, 32),
+          lo: hex.slice(32),
+        };
+      };
   
   const generateProof = async () => {
     setStatus("Calling Python proof generator...");
 
 
-    const payload = {
-      leaf_index:   leafIndex,                   
-      path:         parsePath(path),          
-      pk_x:         pkX,
-      pk_y:         pkY,
-      sk_lo:        skLo,
-      sk_hi:        skHi,
-      professor:    PROFESSOR_CODES[professor],
-      grade:        GRADE_CODES[grade],
-      major:        majorMap[college][major] ,
-      college_idx:  collegeMap[college],                 
-      dept_idx:     departmentMap[college][department] ,
-      course_idx:   COURSE_FIXED[college][course],
-      include_grade: includeGradeInReview,
-      include_major: includeMajorInReview,
-      root
-    };
-  
     try {
+      const { hi: pk_x_hi, lo: pk_x_lo } = splitHex256(pkX);
+      const { hi: pk_y_hi, lo: pk_y_lo } = splitHex256(pkY);
+  
+      const payload = {
+        leaf_index: leafIndex,
+        path: parsePath(path),
+        pk_x_hi,
+        pk_x_lo,
+        pk_y_hi,
+        pk_y_lo,
+        sk_lo: skLo,
+        sk_hi: skHi,
+        professor: PROFESSOR_CODES[professor],
+        grade: GRADE_CODES[grade],
+        major: majorMap[college][major],
+        college_idx: collegeMap[college],
+        dept_idx: departmentMap[college][department],
+        course_idx: COURSE_FIXED[college][course],
+        include_grade: includeGradeInReview,
+        include_major: includeMajorInReview,
+        root,
+      };
+    
       const res   = await fetch("http://localhost:3002/run-proof", {
         method : "POST",
         headers: { "Content-Type": "application/json" },
