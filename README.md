@@ -1,6 +1,19 @@
+# CipherCampus
+
 ## Problem Statement:
 
 - Current course rating platforms lack reliable verification of reviewer enrollment, undermining the credibility of student evaluations and impairing decision-making for future students.
+
+  ## High‑level Solution:
+
+  Our solution revolves around two key components:
+
+  1. **Blockchain Merkle roots**: Each school stores the Merkle root of enrolled students
+     for corresponding courses on the blockchain. This provides a public,
+     tamper-evident record of enrolled students.
+  2. **Off-chain Noir ZK proof**: Before accepting a review, a Noir ZK proof is generated
+     to confirm the reviewer's membership in the course. This proof is computed
+     off-chain to ensure the privacy of the reviewer's personal information.
 
 ## High‑level Solution:
 
