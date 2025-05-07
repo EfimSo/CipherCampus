@@ -1,160 +1,171 @@
-# CipherCampus
+# zk-Merkle Utilities
 
-
-This repository provides a complete workflow for constructing, serializing, and verifying Merkle trees over student–course assignment data, powered by Grumpkin-based key generation and TypeScript utilities. It also includes a Python script for preparing and augmenting the raw CSV of course enrollments.
-
----
-
-## 🚀 Features
-
-- **Key Generation**: Rust-based `grumpkin_keygen` module to produce Grumpkin keypairs.
-- **Course Augmentation**: `modify_courses.py` assigns public/private keypairs, professor(s), and random letter grades to each student–course record.
-- **Merkle Tree Builder**: TypeScript scripts to build a full Merkle tree (`build_full_merkle_tree.ts`) and to generate a single‑leaf tree (`compute_root.ts`).
-- **Proof Generation & Verification**:
-  - Compute Merkle proofs (`compute_proof.ts`).
-  - Verify single-leaf proofs (`verify_single_leaf.ts`).
-  - Specialized verifiers in `verifyWithGrade/` and `verifyWithoutGrade/` for scenarios with or without grade data.
-- **Contract Info**: `contract_info.txt` holds on‑chain Merkle root publishing details (address, ABI, etc.).
+A collection of Python and TypeScript scripts (plus accompanying data files) for constructing, verifying, and manipulating Merkle trees using Aztec’s Barretenberg library and standard data formats.
 
 ---
 
-## 📁 Repository Structure
+## Table of Contents
 
-```
-CipherCampus/
-├── __pycache__/                  # Python bytecode (ignored in Git)
-├── grumpkin_keygen/              # Rust module for Grumpkin keypair generation
-├── node_modules/                 # Installed npm dependencies
-├── verifyWithGrade/              # TS verifier including grade checks
-├── verifyWithoutGrade/           # TS verifier excluding grade
-├── build_full_merkle_tree.ts     # TS: assemble full Merkle tree from CSV + keypairs
-├── compute_merkle_root.ts        # TS: compute root from serialized tree
-├── compute_proof.ts              # TS: generate a proof for a leaf index
-├── compute_root.ts               # TS: build a single‑leaf tree and extract its root
-├── verify_single_leaf.ts         # TS: verify a proof against a given root
-├── contract_info.txt             # On‑chain contract address and ABI details
-├── courses_assigned.csv          # Raw student‑course enrollments (input)
-├── full_tree.json                # Serialized full Merkle tree (output)
-├── single_leaf_tree.json         # Serialized single‑leaf tree (output)
-├── modify_courses.py             # Python: augment CSV with keys, professors, grades
-├── package.json                  # npm project metadata & scripts
-└── package-lock.json             # npm lockfile
-```
+* [Description](#description)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+
+  * [Python](#python)
+  * [Node.js & TypeScript](#nodejs--typescript)
+* [Files & Data](#files--data)
+* [Usage](#usage)
+
+  * [Python Scripts](#python-scripts)
+  * [TypeScript Scripts](#typescript-scripts)
+* [Dependencies](#dependencies)
+* [Contributing](#contributing)
+* [License](#license)
 
 ---
 
-## ⚙️ Prerequisites
+## Description
 
-- **Rust & Cargo**: for running the Grumpkin key generator
-- **Node.js & npm** (v14+)
-- **ts-node**: execute TypeScript files directly (`npm install -g ts-node` or `npm install` locally)
-- **Python 3.x**
-  - `pandas` (for CSV manipulation)
+This repository provides:
+
+* **Python utilities** for parsing and transforming course datasets and key files
+* **TypeScript tools** for building full Merkle trees, computing proofs, and deriving roots
+* **Sample CSV/JSON/TXT keys** and PEM files used as inputs/outputs
+
+Use cases include academic ledger verification, zero-knowledge proof demos, and blockchain data integrity checks.
 
 ---
 
-## 🛠 Installation
+## Prerequisites
 
-1. **Clone the repository**
+* **Python** 3.8 or higher
+* **Node.js** 16.x or higher (bundles `npm`)
+
+---
+
+## Installation
+
+### Python
+
+1. Create and activate a virtual environment:
+
    ```bash
-   git clone <REPO_URL>
-   cd CipherCampus
+   python3 -m venv venv
+   source venv/bin/activate   # Windows: venv\\Scripts\\activate
+   ```
+2. Upgrade pip and install packages:
+
+   ```bash
+   pip install --upgrade pip
+   pip install pandas cryptography
    ```
 
-2. **Install Node dependencies**
+### Node.js & TypeScript
+
+1. Initialize npm (if not already initialized):
+
    ```bash
-   npm install
+   npm init -y
+   ```
+2. Install runtime dependencies and dev tools:
+
+   ```bash
+   npm install @aztec/bb.js csv-parse msgpackr
+   npm install --save-dev typescript ts-node
+   ```
+3. (Optional) Generate `tsconfig.json` for stricter typing:
+
+   ```bash
+   npx tsc --init
    ```
 
-3. **Install Python dependencies**
-   ```bash
-   pip install pandas
-   ```
+---
 
-4. **Build Grumpkin keygen**
-   ```bash
-   cd grumpkin_keygen
-   cargo build --release
-   cd ..
-   ```
+## Files & Data
+
+| Filename                           | Description                                                |
+| ---------------------------------- | ---------------------------------------------------------- |
+| `courses.csv`                      | Raw course listing source                                  |
+| `courses_assigned.csv`             | CSV used to build Merkle tree (merkle leaves)              |
+| `public_keys.txt`                  | Plain-text ECC public key blocks (input to `parse_pks.py`) |
+| `parsed_keys.json`                 | JSON key output from `parse_pks.py`                        |
+| `private_keys.pem`                 | PEM‑encoded private keys (for decryption/encryption tasks) |
+| `full_tree.json`                   | Merkle tree dump generated by `build_full_merkle_tree.ts`  |
+| `parsed_keys.json`                 | JSON result of splitting 256‑bit coordinates               |
+| `package.json`/`package-lock.json` | NPM manifests for TS dependencies                          |
 
 ---
 
-## 💡 Usage Guide
+## Usage
 
-### 1. Augment Course CSV
-Use the Python script to enrich your enrollment data:
+### Python Scripts
+
+#### `modify_courses.py`
+
+Modify and transform course listings CSVs (e.g., `courses.csv` → `courses_assigned.csv`).
+
 ```bash
-python modify_courses.py --input courses_assigned.csv --output courses_augmented.csv
-```
-This will:
-- Assign each student a Grumpkin public/private key pair
-- Randomly select up to two professors per course
-- Assign a random letter grade (A+, A, A-, ..., F)
-
-
-### 2. Generate Keypairs
-```bash
-cd grumpkin_keygen
-cargo run --release
-```
-- Outputs `grumpkin_keypairs.json` in the `grumpkin_keygen/` folder.
-
-
-### 3. Build the Full Merkle Tree
-```bash
-npx ts-node build_full_merkle_tree.ts \
-  --csv courses_augmented.csv \
-  --keys grumpkin_keygen/grumpkin_keypairs.json \
-  --out full_tree.json
+python modify_courses.py \
+  --input courses.csv \
+  --output courses_assigned.csv
 ```
 
+#### `parse_pks.py`
 
-### 4. Compute & Inspect Merkle Root
+Parse ECC public keys from `public_keys.txt` into a 256‑bit split JSON (`parsed_keys.json`).
+
 ```bash
-npx ts-node compute_merkle_root.ts --tree full_tree.json --level 0
-```
-Outputs the root hash for the specified tree level.
-
-
-### 5. Generate a Proof for a Leaf
-```bash
-npx ts-node compute_proof.ts \
-  --tree full_tree.json \
-  --index <leafIndex> \
-  --out proof.json
+python parse_pks.py \
+  --input public_keys.txt \
+  --output parsed_keys.json
 ```
 
+### TypeScript Scripts
 
-### 6. Verify a Single‑Leaf Proof
+> All TS commands assume `ts-node` is installed.
+
+#### `build_full_merkle_tree.ts`
+
+Reads `courses_assigned.csv`, builds a full Merkle tree, and writes the dump to `full_tree.json`.
+
 ```bash
-npx ts-node verify_single_leaf.ts \
-  --root <rootHash> \
-  --proof proof.json \
-  --leaf <serializedLeafData>
+npm run build-tree -- \
+  --input courses_assigned.csv \
+  --output full_tree.json
 ```
 
+#### `compute_proof.ts`
 
-### 7. Grade‑Aware vs Grade‑Agnostic Verification
-Choose the `verifyWithGrade/` or `verifyWithoutGrade/` subdirectory for specialized proof verifiers.
+Generates a Merkle proof (TOML snippet) for a record at given index in `courses_assigned.csv`.
+
 ```bash
-cd verifyWithGrade
-npm install
-npx ts-node verify.ts --help
+npm run compute-proof -- \
+  --input courses_assigned.csv \
+  --index 0
+```
+
+#### `compute_root_from_json.ts`
+
+Computes the Merkle root from an existing `full_tree.json` dump.
+
+```bash
+npm run compute-root -- \
+  --input full_tree.json
 ```
 
 ---
 
-## Contract Info
-All on‑chain details for Merkle root publication can be found in `contract_info.txt`.
+## Dependencies
+
+**Python**
+
+* `pandas>=1.0.0`
+* `cryptography>=3.4.7`
+
+**Node.js**
+
+* `@aztec/bb.js@^0.86.0`
+* `csv-parse@^5.6.0`
+* `msgpackr@^1.11.2`
+* Dev: `typescript`, `ts-node`
 
 ---
-
-## Contributing
-Contributions, issues, and feature requests are welcome! Please submit a PR or open an issue.
-
----
-
-## License
-This project is released under the **MIT License**.
-
