@@ -2,30 +2,29 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.backends import default_backend
 
-# 1) Generate a private key
-private_key = ec.generate_private_key(ec.SECP256R1(), default_backend())
+# Output files
+with open("private_keys.pem", "w") as priv_file, open("public_keys.txt", "w") as pub_file:
+    for i in range(2048):
+        # Generate private key
+        private_key = ec.generate_private_key(ec.SECP256R1(), default_backend())
+        public_key = private_key.public_key()
 
-# 2) Get the corresponding public key
-public_key = private_key.public_key()
+        # Serialize private key in PEM (PKCS#8 format)
+        pem_private = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption()
+        ).decode()
 
-# 3) Serialize to PEM ---------------------------------------------------------
-# ----- Private key in PKCS#8 PEM -----
-pem_private = private_key.private_bytes(
-    encoding=serialization.Encoding.PEM,
-    format=serialization.PrivateFormat.PKCS8,
-    encryption_algorithm=serialization.NoEncryption(),   # or BestAvailableEncryption(b"passphrase")
-)
+        # Get public key coordinates
+        numbers = public_key.public_numbers()
+        x_hex = hex(numbers.x)
+        y_hex = hex(numbers.y)
 
-# ----- Public key in SubjectPublicKeyInfo PEM -----
-pem_public = public_key.public_bytes(
-    encoding=serialization.Encoding.PEM,
-    format=serialization.PublicFormat.SubjectPublicKeyInfo,
-)
+        # Write private key to PEM file
+        priv_file.write(f"### KEY {i} ###\n{pem_private}\n")
 
-print("Private key (PEM):\n", pem_private.decode())
-print("Public key  (PEM):\n", pem_public.decode())
-
-# 4) Optional: get raw coordinates / compressed form --------------------------
-numbers = public_key.public_numbers()
-x_int, y_int = numbers.x, numbers.y
-print(f"Public‑key coordinates:\n  x = {hex(x_int)}\n  y = {hex(y_int)}")
+        # Write public key to TXT file in hex format
+        pub_file.write(f"### KEY {i} ###\n")
+        pub_file.write(f"x = {x_hex}\n")
+        pub_file.write(f"y = {y_hex}\n\n")

@@ -1,6 +1,5 @@
 use std::hash::pedersen_hash;
 use std::merkle::compute_merkle_root;
-use std::embedded_curve_ops::{fixed_base_scalar_mul, EmbeddedCurveScalar};
 use std::convert::AsPrimitive;
 
 fn main(
@@ -8,9 +7,11 @@ fn main(
     path: [Field; 18],      
     grade: Field,
     major: Field,
-    
-    pk_x:  pub Field, 
-    pk_y:  pub Field,
+
+    pk_x_hi: pub Field, 
+    pk_x_lo: pub Field,
+    pk_y_hi: pub Field, 
+    pk_y_lo: pub Field,
     rootSchool: pub Field,
     professor: pub Field,
     college_idx: pub Field,     
@@ -30,11 +31,12 @@ fn main(
     let course   = rem2 / 512;                    
     assert(Field::from(course) == course_idx);
 
-    let h1    = pedersen_hash([pk_x, pk_y]);      
+    let hx    = pedersen_hash([pk_x_lo, pk_x_hi]);     
+    let hy    = pedersen_hash([pk_y_lo, pk_y_hi]);
+    let h1    = pedersen_hash([hx, hy]);    
     let h2    = pedersen_hash([professor, grade]); 
     let leaf0 = pedersen_hash([h1, h2]);           
     let leaf  = pedersen_hash([leaf0, major]);     
-
 
     let computed_root = compute_merkle_root(leaf, leaf_index, path);
     assert(computed_root == rootSchool);

@@ -10,9 +10,8 @@ import path from "path";
 
 // Base directory for data files
 const BASE_DIR        = process.cwd();
-const KEYPAIRS_FILE   = path.join(BASE_DIR, "grumpkin_keygen", "grumpkin_keypairs.json");
-const FULL_TREE_FILE  = path.join(BASE_DIR, "full_tree.json");
-const CSV_FILE        = path.join(BASE_DIR, "courses_assigned.csv");
+const FULL_TREE_FILE  = path.join(BASE_DIR, "/zero_knowledge/tree_creation/full_tree.json");
+const CSV_FILE        = path.join(BASE_DIR, "/zero_knowledge/tree_creation/courses_assigned.csv");
 
 // Helper: bigint → 32-byte Fr
 function toFr(n: bigint): Fr {
@@ -35,25 +34,15 @@ const GRADE_CODES: Record<string, bigint> = Object.fromEntries(
 
 // Expected root (update if needed)
 const EXPECTED_ROOT =
-  "0x2bb036fa47012291aaa0ce4a290191f9776cdf08b8356a4aadf84f2b6699e922";
+  "0x04c904ec344f5d4b7c6dd0f82605c7aa698f8775feb2238ac48903378159c5a3";
 
 interface StoredTree {
   levels: number;
   zeroValue: string;
   storage: [string, string][];
 }
-interface KeyPair { sk_lo: string; sk_hi: string; pk_x: string; pk_y: string; }
 
-// Load keypairs
-let keypairs: KeyPair[];
-try {
-  keypairs = JSON.parse(fs.readFileSync(KEYPAIRS_FILE, "utf8"));
-} catch (e: any) {
-  console.error("Failed to load keypairs:", e.message);
-  process.exit(1);
-}
-
-// Sparse Merkle tree class (unchanged) ...
+// Sparse Merkle tree class
 class MerkleTree {
   zeroValue: Fr;
   levels: number;
@@ -113,8 +102,10 @@ interface Row {
   college: string;
   department: string;
   course_number: string;
-  pk_x: string;
-  pk_y: string;
+  pk_x_hi: string;
+  pk_x_lo: string;
+  pk_y_hi: string;
+  pk_y_lo: string;
   professor: string;
   grade: string;
   major: string;
@@ -173,7 +164,7 @@ interface Row {
     const k = COURSE_FIXED[r.course_number]!;
 
     // student (unique per course+major)
-    const studentKey = `${deptKey}|${r.course_number}|${r.pk_x}|${r.pk_y}|${r.professor}|${r.grade}|${r.major}`;
+    const studentKey = `${deptKey}|${r.course_number}|${r.pk_x_hi}|${r.pk_x_lo}|${r.pk_y_hi}|${r.pk_y_lo}|${r.professor}|${r.grade}|${r.major}`;
     if (!studentMap.has(studentKey)) {
       studentMap.set(
         studentKey,
@@ -189,21 +180,18 @@ interface Row {
     }
   }
 
-  // 4) Find keypair by pk_x/pk_y
-  const kp = keypairs.find(kp => kp.pk_x === target.pk_x && kp.pk_y === target.pk_y)!;
-
-  // 5) Compute proof
+  // 4) Compute proof
   const { root, pathElements, pathIndices } = tree.proof(Number(leafIndex));
 
-  // 6) Print prover.toml snippet
+  // 5) Print prover.toml snippet
   console.log(`leaf_index   = "${leafIndex}"`);
   console.log(`path         = [`);
   pathElements.forEach((e, i) => console.log(`  "${e.toString()}", // idx ${i}, dir=${pathIndices[i]}`));
   console.log(`]`);
-  console.log(`pk_x         = "${target.pk_x}"`);
-  console.log(`pk_y         = "${target.pk_y}"`);
-  console.log(`sk_lo        = "${kp.sk_lo}"`);
-  console.log(`sk_hi        = "${kp.sk_hi}"`);
+  console.log(`pk_x_hi      = "${target.pk_x_hi}"`);
+  console.log(`pk_x_lo      = "${target.pk_x_lo}"`);
+  console.log(`pk_y_hi      = "${target.pk_y_hi}"`);
+  console.log(`pk_y_lo      = "${target.pk_y_lo}"`);
   console.log(`professor    = "${PROFESSOR_CODES[target.professor]}"`);
   console.log(`grade        = "${GRADE_CODES[target.grade]}"`);
   console.log(`major        = "${majorMap.get(`${target.college}|${target.major}`)}"`);

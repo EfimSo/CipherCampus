@@ -1,0 +1,1001 @@
+college,department,course_number,student_id
+ENG,Mechanical Engineering,301,U17711949
+CAS,English,301,U17711949
+CAS,Economics,302,U17711949
+ENG,Biomedical Engineering,101,U17711949
+ENG,Mechanical Engineering,101,U23969310
+CAS,Mathematics,102,U23969310
+ENG,Mechanical Engineering,301,U23969310
+CAS,Economics,302,U23969310
+ENG,Electrical and Computer Engineering,302,U94973602
+CAS,Mathematics,102,U94973602
+CAS,Computer Science,102,U94973602
+CAS,Economics,201,U94973602
+CAS,Mathematics,101,U35894713
+CAS,Computer Science,301,U35894713
+ENG,Systems Engineering,201,U35894713
+CAS,Economics,302,U35894713
+CAS,English,202,U87338865
+ENG,Mechanical Engineering,102,U87338865
+CAS,English,302,U87338865
+CAS,Economics,102,U87338865
+CAS,Economics,202,U83687048
+CAS,Mathematics,301,U83687048
+CAS,English,301,U83687048
+ENG,Electrical and Computer Engineering,201,U83687048
+CAS,Mathematics,301,U62899436
+ENG,Mechanical Engineering,301,U62899436
+CAS,English,201,U62899436
+ENG,Mechanical Engineering,201,U62899436
+ENG,Electrical and Computer Engineering,101,U20449879
+ENG,Biomedical Engineering,102,U20449879
+ENG,Mechanical Engineering,301,U20449879
+CAS,Economics,101,U20449879
+ENG,Biomedical Engineering,102,U05116053
+CAS,English,101,U05116053
+ENG,Systems Engineering,301,U05116053
+ENG,Mechanical Engineering,202,U05116053
+CAS,Economics,101,U92915558
+CAS,Mathematics,301,U92915558
+ENG,Electrical and Computer Engineering,202,U92915558
+CAS,Economics,301,U92915558
+CAS,English,102,U02115623
+ENG,Mechanical Engineering,102,U02115623
+ENG,Mechanical Engineering,301,U02115623
+CAS,Mathematics,101,U02115623
+ENG,Biomedical Engineering,302,U26962951
+ENG,Mechanical Engineering,202,U26962951
+ENG,Biomedical Engineering,202,U26962951
+ENG,Biomedical Engineering,201,U26962951
+ENG,Electrical and Computer Engineering,101,U67112820
+ENG,Biomedical Engineering,302,U67112820
+ENG,Biomedical Engineering,202,U67112820
+CAS,Computer Science,301,U67112820
+CAS,Mathematics,301,U52267871
+ENG,Electrical and Computer Engineering,202,U52267871
+ENG,Mechanical Engineering,102,U52267871
+CAS,English,202,U52267871
+ENG,Electrical and Computer Engineering,302,U28854702
+ENG,Mechanical Engineering,201,U28854702
+ENG,Electrical and Computer Engineering,201,U28854702
+CAS,Mathematics,202,U28854702
+CAS,Computer Science,302,U11338545
+CAS,Mathematics,302,U11338545
+ENG,Mechanical Engineering,301,U11338545
+ENG,Systems Engineering,201,U11338545
+ENG,Electrical and Computer Engineering,201,U47861592
+CAS,English,102,U47861592
+CAS,Economics,102,U47861592
+ENG,Systems Engineering,302,U47861592
+ENG,Systems Engineering,301,U39723455
+CAS,Mathematics,302,U39723455
+CAS,English,201,U39723455
+ENG,Biomedical Engineering,201,U39723455
+CAS,Economics,201,U34776413
+ENG,Biomedical Engineering,202,U34776413
+ENG,Systems Engineering,102,U34776413
+CAS,English,102,U34776413
+ENG,Mechanical Engineering,101,U78040269
+ENG,Electrical and Computer Engineering,202,U78040269
+ENG,Biomedical Engineering,101,U78040269
+CAS,Economics,201,U78040269
+ENG,Biomedical Engineering,301,U95730188
+CAS,English,101,U95730188
+CAS,English,202,U95730188
+CAS,Computer Science,595,U95730188
+CAS,Economics,202,U92867243
+ENG,Electrical and Computer Engineering,101,U92867243
+CAS,Computer Science,301,U92867243
+CAS,Economics,301,U92867243
+ENG,Electrical and Computer Engineering,302,U14642763
+ENG,Mechanical Engineering,202,U14642763
+ENG,Electrical and Computer Engineering,101,U14642763
+CAS,English,201,U14642763
+ENG,Mechanical Engineering,302,U38495099
+CAS,English,101,U38495099
+ENG,Systems Engineering,202,U38495099
+ENG,Electrical and Computer Engineering,302,U38495099
+ENG,Mechanical Engineering,301,U47457619
+CAS,Computer Science,202,U47457619
+CAS,Computer Science,101,U47457619
+ENG,Electrical and Computer Engineering,101,U47457619
+CAS,Computer Science,202,U56887216
+CAS,Economics,301,U56887216
+ENG,Systems Engineering,102,U56887216
+ENG,Mechanical Engineering,301,U56887216
+CAS,English,102,U46695072
+CAS,Mathematics,102,U46695072
+ENG,Systems Engineering,102,U46695072
+CAS,Mathematics,101,U46695072
+CAS,English,101,U28185749
+CAS,Economics,201,U28185749
+CAS,Computer Science,301,U28185749
+CAS,Economics,202,U28185749
+ENG,Mechanical Engineering,301,U03237069
+CAS,English,201,U03237069
+CAS,Mathematics,301,U03237069
+ENG,Biomedical Engineering,102,U03237069
+ENG,Electrical and Computer Engineering,301,U64729884
+ENG,Systems Engineering,202,U64729884
+CAS,Computer Science,301,U64729884
+CAS,Economics,202,U64729884
+CAS,Economics,302,U61831656
+CAS,English,302,U61831656
+CAS,Economics,101,U61831656
+CAS,English,202,U61831656
+ENG,Electrical and Computer Engineering,202,U28908494
+ENG,Biomedical Engineering,102,U28908494
+CAS,Economics,302,U28908494
+ENG,Mechanical Engineering,202,U28908494
+CAS,English,201,U32929716
+ENG,Systems Engineering,301,U32929716
+CAS,Economics,102,U32929716
+ENG,Electrical and Computer Engineering,302,U32929716
+CAS,Mathematics,101,U83595654
+CAS,Mathematics,102,U83595654
+ENG,Systems Engineering,202,U83595654
+ENG,Systems Engineering,201,U83595654
+CAS,English,102,U22765989
+ENG,Electrical and Computer Engineering,301,U22765989
+ENG,Mechanical Engineering,202,U22765989
+ENG,Systems Engineering,101,U22765989
+CAS,Economics,301,U93869124
+CAS,Economics,201,U93869124
+CAS,English,102,U93869124
+CAS,Economics,101,U93869124
+ENG,Mechanical Engineering,302,U22483141
+CAS,Computer Science,102,U22483141
+CAS,Computer Science,595,U22483141
+ENG,Systems Engineering,302,U22483141
+ENG,Systems Engineering,201,U91426084
+CAS,Economics,201,U91426084
+CAS,Computer Science,202,U91426084
+CAS,Computer Science,595,U91426084
+ENG,Biomedical Engineering,301,U07688974
+CAS,Economics,102,U07688974
+CAS,Economics,301,U07688974
+ENG,Systems Engineering,302,U07688974
+ENG,Electrical and Computer Engineering,101,U05246724
+ENG,Systems Engineering,301,U05246724
+ENG,Electrical and Computer Engineering,302,U05246724
+CAS,Mathematics,202,U05246724
+ENG,Biomedical Engineering,301,U24296558
+ENG,Mechanical Engineering,202,U24296558
+CAS,English,101,U24296558
+CAS,English,302,U24296558
+CAS,English,302,U41433947
+CAS,Economics,302,U41433947
+ENG,Systems Engineering,201,U41433947
+CAS,English,101,U41433947
+CAS,English,202,U40540913
+ENG,Electrical and Computer Engineering,201,U40540913
+CAS,Economics,102,U40540913
+CAS,Economics,301,U40540913
+CAS,English,102,U71545810
+ENG,Electrical and Computer Engineering,201,U71545810
+ENG,Systems Engineering,302,U71545810
+CAS,English,202,U71545810
+CAS,Computer Science,201,U49408403
+CAS,English,201,U49408403
+ENG,Systems Engineering,102,U49408403
+CAS,Computer Science,101,U49408403
+ENG,Mechanical Engineering,102,U55208686
+ENG,Systems Engineering,102,U55208686
+ENG,Systems Engineering,302,U55208686
+CAS,Computer Science,301,U55208686
+CAS,English,302,U36808070
+ENG,Electrical and Computer Engineering,202,U36808070
+CAS,Economics,202,U36808070
+CAS,Computer Science,202,U36808070
+ENG,Electrical and Computer Engineering,101,U67822201
+ENG,Systems Engineering,201,U67822201
+ENG,Mechanical Engineering,101,U67822201
+ENG,Biomedical Engineering,301,U67822201
+CAS,Mathematics,101,U38285199
+ENG,Electrical and Computer Engineering,302,U38285199
+CAS,Computer Science,301,U38285199
+ENG,Systems Engineering,202,U38285199
+ENG,Biomedical Engineering,102,U72152243
+ENG,Biomedical Engineering,201,U72152243
+ENG,Systems Engineering,202,U72152243
+CAS,English,201,U72152243
+CAS,Computer Science,202,U66952981
+CAS,Economics,302,U66952981
+ENG,Electrical and Computer Engineering,201,U66952981
+CAS,Economics,301,U66952981
+ENG,Systems Engineering,201,U83510894
+CAS,Mathematics,102,U83510894
+CAS,Computer Science,301,U83510894
+CAS,Mathematics,301,U83510894
+CAS,Mathematics,101,U02292424
+ENG,Electrical and Computer Engineering,302,U02292424
+CAS,English,302,U02292424
+CAS,Computer Science,595,U02292424
+CAS,Mathematics,101,U86581967
+CAS,Economics,201,U86581967
+CAS,Computer Science,202,U86581967
+ENG,Electrical and Computer Engineering,201,U86581967
+CAS,Economics,201,U32078135
+ENG,Mechanical Engineering,201,U32078135
+CAS,Mathematics,102,U32078135
+ENG,Electrical and Computer Engineering,302,U32078135
+CAS,Computer Science,101,U13571667
+CAS,English,202,U13571667
+ENG,Electrical and Computer Engineering,102,U13571667
+CAS,Computer Science,595,U13571667
+ENG,Biomedical Engineering,201,U16764060
+CAS,Mathematics,302,U16764060
+CAS,Mathematics,201,U16764060
+ENG,Systems Engineering,301,U16764060
+ENG,Biomedical Engineering,201,U17672540
+CAS,Economics,101,U17672540
+CAS,English,101,U17672540
+ENG,Systems Engineering,201,U17672540
+ENG,Electrical and Computer Engineering,102,U91361726
+ENG,Systems Engineering,301,U91361726
+CAS,Mathematics,201,U91361726
+ENG,Biomedical Engineering,201,U91361726
+ENG,Electrical and Computer Engineering,201,U08453897
+ENG,Biomedical Engineering,301,U08453897
+ENG,Electrical and Computer Engineering,102,U08453897
+ENG,Biomedical Engineering,202,U08453897
+ENG,Systems Engineering,202,U48102610
+ENG,Electrical and Computer Engineering,201,U48102610
+ENG,Biomedical Engineering,302,U48102610
+ENG,Electrical and Computer Engineering,102,U48102610
+ENG,Systems Engineering,202,U86835044
+ENG,Biomedical Engineering,101,U86835044
+ENG,Systems Engineering,201,U86835044
+ENG,Systems Engineering,302,U86835044
+CAS,Computer Science,202,U54612774
+CAS,English,202,U54612774
+ENG,Systems Engineering,302,U54612774
+ENG,Systems Engineering,101,U54612774
+CAS,Mathematics,202,U21439605
+ENG,Electrical and Computer Engineering,102,U21439605
+CAS,English,201,U21439605
+ENG,Systems Engineering,101,U21439605
+CAS,Economics,202,U41442352
+CAS,Mathematics,301,U41442352
+CAS,English,302,U41442352
+ENG,Mechanical Engineering,202,U41442352
+ENG,Mechanical Engineering,202,U09585664
+CAS,Computer Science,102,U09585664
+ENG,Electrical and Computer Engineering,201,U09585664
+ENG,Electrical and Computer Engineering,102,U09585664
+CAS,English,202,U99036025
+CAS,Mathematics,101,U99036025
+CAS,English,101,U99036025
+CAS,English,201,U99036025
+CAS,Mathematics,102,U39191586
+CAS,Mathematics,101,U39191586
+ENG,Biomedical Engineering,201,U39191586
+CAS,English,201,U39191586
+ENG,Systems Engineering,202,U52193813
+CAS,Computer Science,201,U52193813
+CAS,Economics,301,U52193813
+CAS,Computer Science,101,U52193813
+CAS,Economics,102,U63033015
+ENG,Electrical and Computer Engineering,301,U63033015
+CAS,Computer Science,102,U63033015
+CAS,Economics,202,U63033015
+ENG,Electrical and Computer Engineering,302,U21208527
+CAS,English,201,U21208527
+CAS,English,301,U21208527
+ENG,Electrical and Computer Engineering,101,U21208527
+ENG,Mechanical Engineering,102,U59655268
+CAS,English,101,U59655268
+ENG,Mechanical Engineering,302,U59655268
+ENG,Systems Engineering,101,U59655268
+CAS,Mathematics,302,U32161519
+CAS,Computer Science,595,U32161519
+CAS,Economics,202,U32161519
+CAS,English,302,U32161519
+CAS,English,302,U86939423
+CAS,Computer Science,202,U86939423
+CAS,Economics,101,U86939423
+ENG,Electrical and Computer Engineering,201,U86939423
+ENG,Biomedical Engineering,201,U77338326
+CAS,Computer Science,102,U77338326
+CAS,Computer Science,301,U77338326
+CAS,Economics,301,U77338326
+ENG,Biomedical Engineering,201,U22525866
+ENG,Systems Engineering,101,U22525866
+ENG,Biomedical Engineering,101,U22525866
+ENG,Systems Engineering,301,U22525866
+ENG,Electrical and Computer Engineering,302,U30608065
+ENG,Biomedical Engineering,201,U30608065
+ENG,Electrical and Computer Engineering,202,U30608065
+CAS,English,201,U30608065
+CAS,English,102,U65536389
+CAS,Computer Science,595,U65536389
+CAS,English,302,U65536389
+CAS,Economics,201,U65536389
+ENG,Systems Engineering,101,U44420528
+ENG,Mechanical Engineering,101,U44420528
+ENG,Systems Engineering,102,U44420528
+ENG,Biomedical Engineering,302,U44420528
+CAS,Mathematics,201,U20817713
+ENG,Biomedical Engineering,302,U20817713
+CAS,English,201,U20817713
+CAS,Mathematics,301,U20817713
+ENG,Systems Engineering,201,U67625862
+CAS,English,202,U67625862
+CAS,Mathematics,202,U67625862
+CAS,English,301,U67625862
+CAS,English,301,U26642432
+CAS,Economics,102,U26642432
+ENG,Systems Engineering,102,U26642432
+CAS,English,201,U26642432
+CAS,Computer Science,202,U57311045
+ENG,Systems Engineering,202,U57311045
+CAS,English,101,U57311045
+ENG,Biomedical Engineering,102,U57311045
+CAS,Economics,202,U78612564
+ENG,Systems Engineering,201,U78612564
+ENG,Electrical and Computer Engineering,101,U78612564
+ENG,Biomedical Engineering,301,U78612564
+ENG,Electrical and Computer Engineering,201,U61365593
+CAS,Computer Science,202,U61365593
+CAS,English,102,U61365593
+ENG,Mechanical Engineering,101,U61365593
+ENG,Electrical and Computer Engineering,101,U35780161
+CAS,Mathematics,202,U35780161
+CAS,English,201,U35780161
+ENG,Biomedical Engineering,201,U35780161
+CAS,Mathematics,101,U10390501
+CAS,English,102,U10390501
+ENG,Mechanical Engineering,302,U10390501
+CAS,English,202,U10390501
+CAS,English,302,U91713539
+CAS,English,202,U91713539
+CAS,English,101,U91713539
+ENG,Biomedical Engineering,201,U91713539
+ENG,Biomedical Engineering,302,U75143431
+ENG,Systems Engineering,302,U75143431
+ENG,Mechanical Engineering,102,U75143431
+ENG,Biomedical Engineering,102,U75143431
+CAS,Mathematics,301,U85368637
+CAS,Economics,101,U85368637
+ENG,Biomedical Engineering,301,U85368637
+CAS,Mathematics,302,U85368637
+ENG,Biomedical Engineering,301,U36272837
+ENG,Electrical and Computer Engineering,102,U36272837
+ENG,Mechanical Engineering,302,U36272837
+CAS,English,301,U36272837
+ENG,Systems Engineering,202,U04826763
+CAS,English,202,U04826763
+CAS,Economics,301,U04826763
+CAS,Mathematics,302,U04826763
+ENG,Biomedical Engineering,202,U28269081
+CAS,Economics,201,U28269081
+CAS,Computer Science,595,U28269081
+CAS,Economics,101,U28269081
+ENG,Systems Engineering,201,U93279379
+ENG,Mechanical Engineering,302,U93279379
+CAS,English,302,U93279379
+ENG,Electrical and Computer Engineering,301,U93279379
+CAS,Economics,302,U04059807
+CAS,Computer Science,101,U04059807
+ENG,Systems Engineering,201,U04059807
+CAS,Economics,102,U04059807
+ENG,Electrical and Computer Engineering,301,U84568901
+CAS,Economics,101,U84568901
+ENG,Biomedical Engineering,201,U84568901
+CAS,English,102,U84568901
+CAS,English,202,U54126004
+CAS,Mathematics,102,U54126004
+ENG,Mechanical Engineering,301,U54126004
+ENG,Biomedical Engineering,302,U54126004
+CAS,Mathematics,301,U58328643
+CAS,English,201,U58328643
+CAS,Computer Science,301,U58328643
+CAS,Mathematics,101,U58328643
+ENG,Systems Engineering,201,U78828077
+ENG,Systems Engineering,102,U78828077
+CAS,Computer Science,302,U78828077
+CAS,Computer Science,301,U78828077
+CAS,Computer Science,595,U54805216
+CAS,Computer Science,101,U54805216
+ENG,Electrical and Computer Engineering,301,U54805216
+CAS,English,302,U54805216
+ENG,Electrical and Computer Engineering,102,U26986220
+CAS,Economics,102,U26986220
+CAS,Mathematics,302,U26986220
+CAS,Economics,201,U26986220
+CAS,Computer Science,202,U82591850
+ENG,Biomedical Engineering,102,U82591850
+CAS,Economics,202,U82591850
+CAS,English,301,U82591850
+CAS,English,201,U95623381
+CAS,Computer Science,201,U95623381
+ENG,Electrical and Computer Engineering,302,U95623381
+CAS,Computer Science,101,U95623381
+ENG,Systems Engineering,202,U59673327
+CAS,Computer Science,102,U59673327
+CAS,Mathematics,202,U59673327
+ENG,Electrical and Computer Engineering,201,U59673327
+CAS,Mathematics,302,U19794136
+ENG,Electrical and Computer Engineering,201,U19794136
+CAS,Economics,102,U19794136
+CAS,Economics,101,U19794136
+ENG,Mechanical Engineering,302,U49375487
+CAS,English,301,U49375487
+ENG,Systems Engineering,201,U49375487
+ENG,Systems Engineering,101,U49375487
+ENG,Systems Engineering,202,U46503752
+CAS,Mathematics,302,U46503752
+CAS,Computer Science,301,U46503752
+CAS,English,302,U46503752
+CAS,Computer Science,595,U33345597
+ENG,Electrical and Computer Engineering,201,U33345597
+CAS,Economics,202,U33345597
+ENG,Electrical and Computer Engineering,102,U33345597
+CAS,Mathematics,101,U92203753
+CAS,Mathematics,102,U92203753
+ENG,Electrical and Computer Engineering,102,U92203753
+CAS,Economics,101,U92203753
+ENG,Electrical and Computer Engineering,201,U13541003
+ENG,Systems Engineering,102,U13541003
+ENG,Mechanical Engineering,201,U13541003
+CAS,Computer Science,102,U13541003
+ENG,Systems Engineering,201,U80988042
+ENG,Mechanical Engineering,302,U80988042
+CAS,English,102,U80988042
+CAS,English,301,U80988042
+CAS,Economics,101,U13201676
+ENG,Systems Engineering,301,U13201676
+CAS,Mathematics,102,U13201676
+ENG,Electrical and Computer Engineering,302,U13201676
+CAS,Economics,101,U50636689
+CAS,English,301,U50636689
+ENG,Systems Engineering,301,U50636689
+CAS,Economics,102,U50636689
+CAS,English,302,U04029031
+ENG,Mechanical Engineering,301,U04029031
+ENG,Systems Engineering,301,U04029031
+CAS,Computer Science,201,U04029031
+ENG,Electrical and Computer Engineering,302,U75133093
+CAS,Mathematics,202,U75133093
+CAS,Computer Science,101,U75133093
+CAS,English,302,U75133093
+CAS,English,202,U93472293
+ENG,Electrical and Computer Engineering,101,U93472293
+CAS,Computer Science,302,U93472293
+ENG,Biomedical Engineering,101,U93472293
+CAS,Economics,101,U65188113
+CAS,English,301,U65188113
+ENG,Systems Engineering,201,U65188113
+CAS,Mathematics,202,U65188113
+ENG,Mechanical Engineering,302,U83066375
+CAS,Computer Science,595,U83066375
+CAS,Mathematics,301,U83066375
+ENG,Biomedical Engineering,202,U83066375
+CAS,English,302,U14514253
+ENG,Mechanical Engineering,102,U14514253
+ENG,Biomedical Engineering,102,U14514253
+CAS,Computer Science,202,U14514253
+ENG,Mechanical Engineering,102,U34907526
+ENG,Systems Engineering,301,U34907526
+ENG,Mechanical Engineering,302,U34907526
+CAS,English,302,U34907526
+CAS,Computer Science,101,U15514315
+CAS,Economics,202,U15514315
+CAS,Mathematics,102,U15514315
+ENG,Mechanical Engineering,301,U15514315
+ENG,Mechanical Engineering,102,U15216517
+CAS,English,201,U15216517
+ENG,Biomedical Engineering,101,U15216517
+CAS,Mathematics,202,U15216517
+CAS,English,201,U30236925
+CAS,Economics,102,U30236925
+ENG,Electrical and Computer Engineering,302,U30236925
+ENG,Biomedical Engineering,102,U30236925
+ENG,Electrical and Computer Engineering,301,U54267285
+CAS,Mathematics,302,U54267285
+CAS,Economics,302,U54267285
+CAS,Economics,201,U54267285
+ENG,Systems Engineering,101,U51972614
+ENG,Mechanical Engineering,102,U51972614
+ENG,Systems Engineering,201,U51972614
+ENG,Mechanical Engineering,301,U51972614
+CAS,Mathematics,201,U41151732
+CAS,Mathematics,102,U41151732
+CAS,Mathematics,301,U41151732
+CAS,English,101,U41151732
+CAS,Computer Science,201,U76590974
+CAS,Mathematics,101,U76590974
+CAS,Mathematics,301,U76590974
+ENG,Electrical and Computer Engineering,101,U76590974
+ENG,Mechanical Engineering,101,U78285754
+ENG,Systems Engineering,301,U78285754
+CAS,Economics,101,U78285754
+ENG,Electrical and Computer Engineering,202,U78285754
+CAS,English,202,U15270135
+CAS,Economics,201,U15270135
+CAS,Computer Science,301,U15270135
+ENG,Electrical and Computer Engineering,101,U15270135
+ENG,Mechanical Engineering,102,U38526661
+ENG,Mechanical Engineering,101,U38526661
+ENG,Systems Engineering,101,U38526661
+CAS,Mathematics,301,U38526661
+ENG,Biomedical Engineering,201,U40941586
+ENG,Systems Engineering,301,U40941586
+ENG,Biomedical Engineering,102,U40941586
+CAS,Computer Science,102,U40941586
+ENG,Electrical and Computer Engineering,202,U63460172
+CAS,Economics,101,U63460172
+CAS,English,201,U63460172
+ENG,Mechanical Engineering,102,U63460172
+ENG,Biomedical Engineering,101,U46707917
+ENG,Electrical and Computer Engineering,201,U46707917
+ENG,Biomedical Engineering,301,U46707917
+CAS,English,201,U46707917
+CAS,Mathematics,201,U38321274
+CAS,Economics,301,U38321274
+ENG,Electrical and Computer Engineering,301,U38321274
+CAS,English,101,U38321274
+ENG,Systems Engineering,202,U88942916
+CAS,English,301,U88942916
+CAS,Mathematics,201,U88942916
+ENG,Systems Engineering,102,U88942916
+CAS,Economics,301,U56874493
+ENG,Biomedical Engineering,102,U56874493
+ENG,Electrical and Computer Engineering,202,U56874493
+ENG,Mechanical Engineering,302,U56874493
+ENG,Electrical and Computer Engineering,201,U20689033
+CAS,Computer Science,301,U20689033
+ENG,Mechanical Engineering,102,U20689033
+CAS,Economics,202,U20689033
+ENG,Biomedical Engineering,101,U32178345
+CAS,Computer Science,301,U32178345
+ENG,Biomedical Engineering,201,U32178345
+ENG,Biomedical Engineering,302,U32178345
+ENG,Systems Engineering,101,U40030653
+ENG,Electrical and Computer Engineering,301,U40030653
+CAS,Computer Science,595,U40030653
+CAS,Mathematics,301,U40030653
+ENG,Electrical and Computer Engineering,202,U24441473
+ENG,Systems Engineering,202,U24441473
+ENG,Electrical and Computer Engineering,101,U24441473
+CAS,Economics,302,U24441473
+CAS,English,301,U40488105
+CAS,English,302,U40488105
+CAS,Economics,302,U40488105
+ENG,Systems Engineering,201,U40488105
+ENG,Systems Engineering,201,U32546622
+CAS,Computer Science,102,U32546622
+ENG,Electrical and Computer Engineering,201,U32546622
+CAS,English,302,U32546622
+CAS,Economics,101,U90319562
+CAS,Computer Science,102,U90319562
+ENG,Electrical and Computer Engineering,301,U90319562
+CAS,Economics,302,U90319562
+CAS,Computer Science,101,U76446705
+CAS,Economics,102,U76446705
+ENG,Biomedical Engineering,101,U76446705
+CAS,Computer Science,302,U76446705
+CAS,Computer Science,201,U89350068
+ENG,Biomedical Engineering,201,U89350068
+CAS,English,102,U89350068
+CAS,Mathematics,102,U89350068
+CAS,Mathematics,101,U23354016
+ENG,Electrical and Computer Engineering,102,U23354016
+ENG,Systems Engineering,202,U23354016
+ENG,Mechanical Engineering,201,U23354016
+CAS,Computer Science,301,U99952493
+ENG,Systems Engineering,201,U99952493
+CAS,Computer Science,302,U99952493
+CAS,Mathematics,102,U99952493
+ENG,Systems Engineering,102,U53802002
+CAS,English,101,U53802002
+ENG,Biomedical Engineering,101,U53802002
+ENG,Systems Engineering,101,U53802002
+ENG,Mechanical Engineering,301,U77989765
+CAS,English,102,U77989765
+ENG,Systems Engineering,301,U77989765
+ENG,Systems Engineering,101,U77989765
+ENG,Electrical and Computer Engineering,301,U05926401
+CAS,Computer Science,102,U05926401
+CAS,Economics,302,U05926401
+CAS,Computer Science,301,U05926401
+CAS,Computer Science,201,U78389766
+ENG,Biomedical Engineering,101,U78389766
+CAS,English,101,U78389766
+ENG,Mechanical Engineering,301,U78389766
+CAS,Computer Science,102,U16102553
+ENG,Biomedical Engineering,201,U16102553
+ENG,Electrical and Computer Engineering,302,U16102553
+CAS,Economics,201,U16102553
+CAS,Computer Science,302,U13251157
+ENG,Systems Engineering,202,U13251157
+ENG,Systems Engineering,101,U13251157
+CAS,English,202,U13251157
+ENG,Systems Engineering,102,U21939721
+CAS,Computer Science,101,U21939721
+ENG,Mechanical Engineering,102,U21939721
+CAS,Computer Science,102,U21939721
+ENG,Systems Engineering,101,U75904262
+ENG,Electrical and Computer Engineering,301,U75904262
+CAS,Economics,202,U75904262
+CAS,Mathematics,101,U75904262
+CAS,English,102,U56322293
+CAS,Computer Science,201,U56322293
+CAS,Economics,102,U56322293
+ENG,Electrical and Computer Engineering,202,U56322293
+ENG,Mechanical Engineering,202,U18803770
+CAS,English,202,U18803770
+ENG,Systems Engineering,302,U18803770
+ENG,Systems Engineering,201,U18803770
+CAS,English,302,U78496300
+ENG,Electrical and Computer Engineering,301,U78496300
+ENG,Electrical and Computer Engineering,102,U78496300
+CAS,Mathematics,101,U78496300
+ENG,Biomedical Engineering,201,U06441532
+ENG,Mechanical Engineering,302,U06441532
+ENG,Mechanical Engineering,102,U06441532
+ENG,Mechanical Engineering,101,U06441532
+CAS,English,302,U92831604
+ENG,Biomedical Engineering,102,U92831604
+CAS,English,301,U92831604
+ENG,Biomedical Engineering,301,U92831604
+ENG,Biomedical Engineering,101,U03597534
+ENG,Electrical and Computer Engineering,302,U03597534
+CAS,Computer Science,595,U03597534
+ENG,Electrical and Computer Engineering,102,U03597534
+CAS,Mathematics,301,U31387344
+ENG,Electrical and Computer Engineering,301,U31387344
+ENG,Electrical and Computer Engineering,101,U31387344
+ENG,Mechanical Engineering,302,U31387344
+CAS,Economics,202,U43190368
+ENG,Mechanical Engineering,302,U43190368
+CAS,Computer Science,201,U43190368
+CAS,English,301,U43190368
+ENG,Electrical and Computer Engineering,302,U08083999
+CAS,English,302,U08083999
+CAS,Computer Science,102,U08083999
+CAS,Computer Science,302,U08083999
+ENG,Systems Engineering,101,U28749248
+CAS,Computer Science,302,U28749248
+CAS,English,101,U28749248
+CAS,Mathematics,201,U28749248
+CAS,Economics,301,U36180144
+ENG,Electrical and Computer Engineering,301,U36180144
+ENG,Mechanical Engineering,101,U36180144
+CAS,Economics,201,U36180144
+CAS,Economics,202,U04253602
+CAS,Computer Science,102,U04253602
+ENG,Biomedical Engineering,101,U04253602
+ENG,Mechanical Engineering,102,U04253602
+ENG,Electrical and Computer Engineering,201,U36848273
+ENG,Systems Engineering,101,U36848273
+CAS,Computer Science,201,U36848273
+CAS,Mathematics,301,U36848273
+ENG,Systems Engineering,202,U01575872
+ENG,Mechanical Engineering,102,U01575872
+ENG,Electrical and Computer Engineering,102,U01575872
+ENG,Electrical and Computer Engineering,202,U01575872
+CAS,Computer Science,302,U31435374
+CAS,Mathematics,102,U31435374
+ENG,Systems Engineering,201,U31435374
+CAS,Economics,102,U31435374
+ENG,Electrical and Computer Engineering,202,U32980227
+CAS,Computer Science,201,U32980227
+ENG,Mechanical Engineering,302,U32980227
+ENG,Systems Engineering,301,U32980227
+ENG,Mechanical Engineering,301,U86989146
+CAS,English,102,U86989146
+ENG,Biomedical Engineering,201,U86989146
+ENG,Systems Engineering,301,U86989146
+CAS,Computer Science,202,U47922448
+ENG,Systems Engineering,301,U47922448
+CAS,Economics,102,U47922448
+CAS,Economics,301,U47922448
+CAS,Computer Science,202,U47063119
+CAS,Computer Science,302,U47063119
+CAS,Economics,301,U47063119
+ENG,Biomedical Engineering,202,U47063119
+CAS,Computer Science,202,U74555080
+ENG,Systems Engineering,202,U74555080
+ENG,Electrical and Computer Engineering,302,U74555080
+CAS,English,202,U74555080
+CAS,English,302,U34542209
+ENG,Systems Engineering,102,U34542209
+CAS,Mathematics,102,U34542209
+ENG,Biomedical Engineering,102,U34542209
+CAS,Economics,202,U07701215
+CAS,Computer Science,101,U07701215
+CAS,Economics,201,U07701215
+ENG,Electrical and Computer Engineering,101,U07701215
+CAS,English,202,U54047293
+ENG,Systems Engineering,202,U54047293
+ENG,Systems Engineering,102,U54047293
+CAS,English,302,U54047293
+ENG,Systems Engineering,301,U74224183
+CAS,Computer Science,202,U74224183
+ENG,Systems Engineering,101,U74224183
+CAS,Economics,201,U74224183
+ENG,Systems Engineering,102,U57893672
+ENG,Systems Engineering,302,U57893672
+CAS,Computer Science,201,U57893672
+CAS,Mathematics,102,U57893672
+ENG,Systems Engineering,302,U79734237
+CAS,English,102,U79734237
+CAS,Computer Science,102,U79734237
+CAS,English,301,U79734237
+ENG,Mechanical Engineering,201,U97363378
+CAS,Mathematics,301,U97363378
+ENG,Systems Engineering,302,U97363378
+CAS,English,201,U97363378
+CAS,English,201,U26996948
+CAS,Computer Science,202,U26996948
+ENG,Systems Engineering,301,U26996948
+ENG,Biomedical Engineering,101,U26996948
+CAS,Economics,202,U83078528
+ENG,Systems Engineering,302,U83078528
+CAS,Computer Science,301,U83078528
+ENG,Mechanical Engineering,102,U83078528
+CAS,Mathematics,101,U42714279
+CAS,Computer Science,101,U42714279
+CAS,Economics,301,U42714279
+CAS,Economics,202,U42714279
+ENG,Electrical and Computer Engineering,201,U84429642
+ENG,Systems Engineering,101,U84429642
+CAS,Mathematics,102,U84429642
+ENG,Biomedical Engineering,101,U84429642
+CAS,Computer Science,595,U61967979
+ENG,Biomedical Engineering,301,U61967979
+ENG,Electrical and Computer Engineering,101,U61967979
+CAS,Mathematics,301,U61967979
+ENG,Electrical and Computer Engineering,202,U32282379
+ENG,Electrical and Computer Engineering,101,U32282379
+CAS,Computer Science,302,U32282379
+ENG,Biomedical Engineering,202,U32282379
+CAS,Computer Science,101,U26081334
+ENG,Biomedical Engineering,301,U26081334
+CAS,Computer Science,595,U26081334
+CAS,Mathematics,301,U26081334
+CAS,Computer Science,101,U25741901
+ENG,Biomedical Engineering,201,U25741901
+ENG,Systems Engineering,101,U25741901
+CAS,Mathematics,202,U25741901
+ENG,Electrical and Computer Engineering,302,U67505166
+CAS,Economics,301,U67505166
+CAS,Computer Science,202,U67505166
+CAS,English,102,U67505166
+ENG,Mechanical Engineering,101,U26678478
+ENG,Electrical and Computer Engineering,101,U26678478
+CAS,Mathematics,202,U26678478
+CAS,Computer Science,101,U26678478
+ENG,Systems Engineering,302,U55787712
+CAS,Computer Science,201,U55787712
+CAS,Computer Science,595,U55787712
+CAS,Economics,102,U55787712
+ENG,Systems Engineering,202,U41297121
+CAS,Mathematics,301,U41297121
+CAS,Mathematics,302,U41297121
+ENG,Mechanical Engineering,201,U41297121
+ENG,Biomedical Engineering,202,U59781527
+ENG,Electrical and Computer Engineering,101,U59781527
+ENG,Electrical and Computer Engineering,202,U59781527
+ENG,Mechanical Engineering,201,U59781527
+CAS,Economics,302,U06738702
+CAS,Mathematics,101,U06738702
+CAS,English,301,U06738702
+CAS,Computer Science,102,U06738702
+CAS,Computer Science,301,U23766196
+CAS,Economics,101,U23766196
+CAS,Mathematics,102,U23766196
+ENG,Mechanical Engineering,202,U23766196
+ENG,Electrical and Computer Engineering,301,U38885870
+CAS,English,102,U38885870
+ENG,Mechanical Engineering,202,U38885870
+ENG,Electrical and Computer Engineering,202,U38885870
+CAS,Computer Science,595,U16835768
+CAS,English,202,U16835768
+CAS,Computer Science,201,U16835768
+ENG,Electrical and Computer Engineering,101,U16835768
+CAS,English,102,U14640618
+CAS,Mathematics,302,U14640618
+ENG,Biomedical Engineering,302,U14640618
+ENG,Systems Engineering,302,U14640618
+CAS,Mathematics,302,U58364738
+ENG,Mechanical Engineering,201,U58364738
+CAS,Mathematics,102,U58364738
+CAS,Computer Science,101,U58364738
+CAS,Computer Science,202,U69735626
+CAS,Computer Science,301,U69735626
+ENG,Mechanical Engineering,101,U69735626
+CAS,Economics,101,U69735626
+ENG,Electrical and Computer Engineering,201,U61166108
+CAS,Computer Science,202,U61166108
+ENG,Systems Engineering,301,U61166108
+CAS,English,102,U61166108
+CAS,Computer Science,301,U34396953
+ENG,Mechanical Engineering,302,U34396953
+ENG,Mechanical Engineering,202,U34396953
+ENG,Biomedical Engineering,201,U34396953
+CAS,Mathematics,102,U79413463
+ENG,Mechanical Engineering,201,U79413463
+CAS,Economics,201,U79413463
+ENG,Electrical and Computer Engineering,201,U79413463
+ENG,Electrical and Computer Engineering,302,U29975517
+CAS,English,301,U29975517
+ENG,Electrical and Computer Engineering,301,U29975517
+CAS,Computer Science,101,U29975517
+CAS,Mathematics,301,U31244083
+CAS,English,201,U31244083
+ENG,Biomedical Engineering,202,U31244083
+CAS,English,301,U31244083
+ENG,Mechanical Engineering,102,U52781198
+ENG,Biomedical Engineering,102,U52781198
+CAS,Mathematics,201,U52781198
+CAS,Economics,301,U52781198
+ENG,Biomedical Engineering,201,U63660769
+CAS,Economics,301,U63660769
+CAS,Mathematics,101,U63660769
+CAS,Economics,101,U63660769
+CAS,Mathematics,302,U89017439
+ENG,Biomedical Engineering,202,U89017439
+ENG,Systems Engineering,302,U89017439
+ENG,Electrical and Computer Engineering,301,U89017439
+ENG,Systems Engineering,302,U34490131
+ENG,Systems Engineering,101,U34490131
+CAS,Mathematics,202,U34490131
+ENG,Electrical and Computer Engineering,202,U34490131
+ENG,Electrical and Computer Engineering,302,U67959631
+ENG,Biomedical Engineering,201,U67959631
+ENG,Systems Engineering,102,U67959631
+CAS,Mathematics,102,U67959631
+CAS,English,101,U39709385
+CAS,Computer Science,301,U39709385
+CAS,Computer Science,595,U39709385
+CAS,Computer Science,201,U39709385
+CAS,Mathematics,302,U05763646
+ENG,Mechanical Engineering,101,U05763646
+CAS,Computer Science,201,U05763646
+ENG,Mechanical Engineering,202,U05763646
+ENG,Electrical and Computer Engineering,302,U08985588
+CAS,Mathematics,102,U08985588
+CAS,Computer Science,202,U08985588
+ENG,Biomedical Engineering,202,U08985588
+CAS,Economics,301,U55129650
+CAS,English,302,U55129650
+CAS,English,202,U55129650
+ENG,Biomedical Engineering,102,U55129650
+CAS,Mathematics,102,U34348277
+ENG,Mechanical Engineering,302,U34348277
+CAS,Computer Science,201,U34348277
+CAS,Computer Science,202,U34348277
+ENG,Mechanical Engineering,101,U13235250
+ENG,Systems Engineering,302,U13235250
+CAS,Economics,201,U13235250
+ENG,Systems Engineering,101,U13235250
+CAS,Computer Science,202,U57802099
+ENG,Systems Engineering,202,U57802099
+CAS,English,201,U57802099
+ENG,Biomedical Engineering,202,U57802099
+ENG,Biomedical Engineering,102,U49598498
+ENG,Mechanical Engineering,301,U49598498
+ENG,Electrical and Computer Engineering,302,U49598498
+ENG,Electrical and Computer Engineering,201,U49598498
+CAS,Computer Science,595,U17840152
+ENG,Electrical and Computer Engineering,101,U17840152
+ENG,Biomedical Engineering,301,U17840152
+ENG,Electrical and Computer Engineering,301,U17840152
+ENG,Biomedical Engineering,202,U90913841
+CAS,Computer Science,202,U90913841
+CAS,Computer Science,301,U90913841
+ENG,Mechanical Engineering,201,U90913841
+CAS,Computer Science,102,U33298807
+CAS,Mathematics,101,U33298807
+CAS,Economics,202,U33298807
+ENG,Mechanical Engineering,201,U33298807
+CAS,Economics,101,U73158365
+CAS,Computer Science,102,U73158365
+CAS,English,101,U73158365
+CAS,English,201,U73158365
+CAS,Computer Science,201,U16170629
+CAS,Mathematics,101,U16170629
+ENG,Biomedical Engineering,102,U16170629
+ENG,Electrical and Computer Engineering,301,U16170629
+CAS,English,201,U60068462
+CAS,Economics,201,U60068462
+CAS,Mathematics,101,U60068462
+ENG,Systems Engineering,301,U60068462
+CAS,Economics,102,U83252675
+ENG,Systems Engineering,102,U83252675
+CAS,Computer Science,301,U83252675
+CAS,Economics,201,U83252675
+ENG,Biomedical Engineering,201,U17933810
+ENG,Systems Engineering,102,U17933810
+ENG,Biomedical Engineering,302,U17933810
+CAS,Mathematics,201,U17933810
+CAS,Economics,101,U78617278
+CAS,Computer Science,202,U78617278
+CAS,English,101,U78617278
+ENG,Mechanical Engineering,102,U78617278
+CAS,Mathematics,102,U45596203
+CAS,Economics,202,U45596203
+ENG,Mechanical Engineering,101,U45596203
+ENG,Systems Engineering,302,U45596203
+ENG,Biomedical Engineering,102,U83723268
+ENG,Biomedical Engineering,301,U83723268
+ENG,Electrical and Computer Engineering,301,U83723268
+ENG,Systems Engineering,202,U83723268
+CAS,English,102,U77694880
+ENG,Systems Engineering,101,U77694880
+ENG,Electrical and Computer Engineering,301,U77694880
+ENG,Mechanical Engineering,101,U77694880
+CAS,Computer Science,302,U55948003
+CAS,Mathematics,302,U55948003
+CAS,English,302,U55948003
+CAS,Economics,202,U55948003
+ENG,Systems Engineering,302,U59675910
+CAS,Computer Science,302,U59675910
+CAS,Computer Science,202,U59675910
+CAS,Mathematics,301,U59675910
+CAS,English,101,U27210459
+CAS,Economics,301,U27210459
+CAS,Economics,102,U27210459
+CAS,Mathematics,301,U27210459
+CAS,Mathematics,101,U36525394
+ENG,Mechanical Engineering,102,U36525394
+CAS,Computer Science,595,U36525394
+CAS,Computer Science,202,U36525394
+ENG,Biomedical Engineering,301,U66220623
+ENG,Systems Engineering,102,U66220623
+CAS,Mathematics,102,U66220623
+CAS,English,102,U66220623
+ENG,Systems Engineering,301,U75046862
+CAS,Economics,101,U75046862
+ENG,Biomedical Engineering,101,U75046862
+ENG,Systems Engineering,302,U75046862
+CAS,Computer Science,101,U13438280
+ENG,Electrical and Computer Engineering,101,U13438280
+ENG,Systems Engineering,201,U13438280
+CAS,Computer Science,202,U13438280
+ENG,Biomedical Engineering,302,U52327569
+CAS,English,301,U52327569
+ENG,Mechanical Engineering,301,U52327569
+CAS,English,302,U52327569
+ENG,Electrical and Computer Engineering,201,U59748913
+ENG,Biomedical Engineering,101,U59748913
+ENG,Electrical and Computer Engineering,301,U59748913
+CAS,Economics,301,U59748913
+CAS,English,302,U22072438
+CAS,Mathematics,201,U22072438
+ENG,Electrical and Computer Engineering,201,U22072438
+CAS,English,301,U22072438
+CAS,Computer Science,301,U16889244
+ENG,Mechanical Engineering,201,U16889244
+CAS,Computer Science,101,U16889244
+CAS,Computer Science,202,U16889244
+ENG,Mechanical Engineering,101,U61621067
+CAS,Mathematics,102,U61621067
+CAS,Computer Science,202,U61621067
+CAS,Economics,102,U61621067
+CAS,Economics,301,U62123921
+ENG,Electrical and Computer Engineering,301,U62123921
+ENG,Mechanical Engineering,302,U62123921
+ENG,Systems Engineering,101,U62123921
+ENG,Biomedical Engineering,302,U59015589
+ENG,Biomedical Engineering,102,U59015589
+CAS,Computer Science,302,U59015589
+CAS,Mathematics,202,U59015589
+ENG,Electrical and Computer Engineering,301,U31924118
+CAS,Computer Science,595,U31924118
+CAS,Mathematics,302,U31924118
+ENG,Electrical and Computer Engineering,101,U31924118
+ENG,Mechanical Engineering,302,U58078821
+CAS,Mathematics,202,U58078821
+ENG,Mechanical Engineering,101,U58078821
+ENG,Electrical and Computer Engineering,101,U58078821
+CAS,English,302,U18725431
+CAS,English,301,U18725431
+ENG,Mechanical Engineering,101,U18725431
+ENG,Biomedical Engineering,302,U18725431
+ENG,Electrical and Computer Engineering,202,U14952642
+CAS,Economics,201,U14952642
+CAS,Economics,301,U14952642
+ENG,Electrical and Computer Engineering,301,U14952642
