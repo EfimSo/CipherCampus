@@ -18,6 +18,13 @@ The signature process works as follows:
 4. Only reviews with valid signatures are accepted into the system
 
 This enhancement makes our system more robust against malicious attacks while maintaining the privacy benefits of our zero-knowledge proofs.
+
+### Nullifier
+
+
+### SQL Schema Changes
+
+
 ---
 
 ## Topics Covered
@@ -26,6 +33,12 @@ This enhancement makes our system more robust against malicious attacks while ma
 - Privacy and Scalability in Blockchain
 - Cryptographic Protocols
 - Decentralized Applications (dApps)
+
+---
+
+## Inspiration
+
+
 
 ---
 
@@ -96,6 +109,26 @@ Prints a Prover.toml-compatible block, index can be modified for different leave
 - Noir (for circuit implementation)
 - Barretenberg (for proof generation)
 - Merkle Trees (for data integrity)
+
+## Frontend breakdown 
+- ReviewForm.jsx: The main component that handles user input and proof generation
+- rootRetrieval.js: A utility function that fetches the current root from the backend
+- mappings.js: Contains constants and mappings for courses, professors, grades, and majors
+- The frontend is built using Vite and React, and when the user first open the page, they will be seeing the two dropdowns for college and department. The user can select the college and the department they want to see, and all the classes in that department will be displayed for the user to reference. 
+- The user can also select the button "Write Anonymous Review" to start the review process. The user will be prompted to enter the school and the semester to retrive the root from a contract. They will need to be able to type in review text, the rating, the professor, the course, the semester, the school, and the public key. The user can also select the checkbox "Include Grade" and "Include Major" to include the grade and major in the review. After gathering the information, which the user should be provided, the user will click the "Submit Review".
+- "Submit Review" will trigger a function call to a node server that is currently part of front end, and the node server will generate a proof and send it to the backend. After the proof  
+
+
+## Backend breakdown
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or higher)
+- Python 3.8+
+- Docker (optional, for development)
+- Barretenberg (for proof generation)
+
 
 ---
 
