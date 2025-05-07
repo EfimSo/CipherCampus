@@ -4,16 +4,16 @@
 
 - Current course rating platforms lack reliable verification of reviewer enrollment, undermining the credibility of student evaluations and impairing decision-making for future students.
 
-  ## High‑level Solution:
+## High‑level Solution:
 
-  Our solution revolves around two key components:
+Our solution revolves around two key components:
 
-  1. **Blockchain Merkle roots**: Each school stores the Merkle root of enrolled students
-     for corresponding courses on the blockchain. This provides a public,
-     tamper-evident record of enrolled students.
-  2. **Off-chain Noir ZK proof**: Before accepting a review, a Noir ZK proof is generated
-     to confirm the reviewer's membership in the course. This proof is computed
-     off-chain to ensure the privacy of the reviewer's personal information.
+1. **Blockchain Merkle roots**: Each school stores the Merkle root of enrolled students
+   for corresponding courses on the blockchain. This provides a public,
+   tamper-evident record of enrolled students.
+2. **Off-chain Noir ZK proof**: Before accepting a review, a Noir ZK proof is generated
+   to confirm the reviewer's membership in the course. This proof is computed
+   off-chain to ensure the privacy of the reviewer's personal information.
 
 ## High‑level Solution:
 
@@ -63,6 +63,43 @@ This enhancement makes our system more robust against malicious attacks while ma
 - Secure proof generation and verification
 
 ---
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- Python 3.8+
+- Barretenberg (for proof generation)
+
+---
+
+### Frontend
+
+- React
+- Material-UI (MUI)
+- Vite build system
+- TypeScript
+
+## Frontend breakdown
+
+- ReviewForm.jsx: The main component that handles user input and proof generation
+- rootRetrieval.js: A utility function that fetches the current root from the backend
+- mappings.js: Contains constants and mappings for courses, professors, grades, and majors
+- The frontend is built using Vite and React, and when the user first open the page, they will be seeing the two dropdowns for college and department. The user can select the college and the department they want to see, and all the classes in that department will be displayed for the user to reference.
+- The user can also select the button "Write Anonymous Review" to start the review process. The user will be prompted to enter the school and the semester to retrive the root from a contract. They will need to be able to type in review text, the rating, the professor, the course, the semester, the school, and the public key. The user can also select the checkbox "Include Grade" and "Include Major" to include the grade and major in the review. After gathering the information, which the user should be provided, the user will click the "Submit Review".
+- "Submit Review" will trigger a function call to a node server that is currently part of front end, and the node server will generate a proof and send it to the backend. After the proof gets verified, we will sign the review with the private key and send it to the backend. There is another endpoint that generates a signature for the review, and the signature will be sent to the backend along with all the review information.
+- We call the backend (without the private key after modifciation), and the backend return a reciept on whether it is successful or not.
+
+### Backend
+
+- Flask
+- SQLAlchemy (for database)
+- Python (for proof verification)
+
+### Zero-Knowledge
+
+- Noir (for circuit implementation)
+- Barretenberg (for proof generation)
+- Merkle Trees (for data integrity)
 
 ## Zero Knowledge Directory Structure
 
@@ -123,45 +160,7 @@ npx ts-node --transpile-only compute_proof.ts
 
 Prints a Prover.toml-compatible block, index can be modified for different leaves.
 
-### Frontend
-
-- React
-- Material-UI (MUI)
-- Vite build system
-- TypeScript
-
-### Backend
-
-- Flask
-- SQLAlchemy (for database)
-- Python (for proof verification)
-
-### Zero-Knowledge
-
-- Noir (for circuit implementation)
-- Barretenberg (for proof generation)
-- Merkle Trees (for data integrity)
-
-## Frontend breakdown
-
-- ReviewForm.jsx: The main component that handles user input and proof generation
-- rootRetrieval.js: A utility function that fetches the current root from the backend
-- mappings.js: Contains constants and mappings for courses, professors, grades, and majors
-- The frontend is built using Vite and React, and when the user first open the page, they will be seeing the two dropdowns for college and department. The user can select the college and the department they want to see, and all the classes in that department will be displayed for the user to reference.
-- The user can also select the button "Write Anonymous Review" to start the review process. The user will be prompted to enter the school and the semester to retrive the root from a contract. They will need to be able to type in review text, the rating, the professor, the course, the semester, the school, and the public key. The user can also select the checkbox "Include Grade" and "Include Major" to include the grade and major in the review. After gathering the information, which the user should be provided, the user will click the "Submit Review".
-- "Submit Review" will trigger a function call to a node server that is currently part of front end, and the node server will generate a proof and send it to the backend. After the proof gets verified, we will sign the review with the private key and send it to the backend. There is another endpoint that generates a signature for the review, and the signature will be sent to the backend along with all the review information.
-- We call the backend (without the private key after modifciation), and the backend return a reciept on whether it is successful or not.
-
 ## Backend breakdown
-
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- Python 3.8+
-- Docker (optional, for development)
-- Barretenberg (for proof generation)
 
 ---
 
