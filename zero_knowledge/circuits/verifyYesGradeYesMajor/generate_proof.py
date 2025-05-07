@@ -64,14 +64,14 @@ def build_parser() -> argparse.ArgumentParser:
     # Simple scalar (string/integer) arguments
     parser.add_argument("--leaf_index", required=True,
                         help="Index of the Merkle-tree leaf.")
-    parser.add_argument("--pk_x", required=True,
-                        help="Public-key X coordinate (hex).")
-    parser.add_argument("--pk_y", required=True,
-                        help="Public-key Y coordinate (hex).")
-    parser.add_argument("--sk_lo", required=True,
-                        help="Secret-key low word (hex).")
-    parser.add_argument("--sk_hi", required=True,
-                        help="Secret-key high word (hex).")
+    parser.add_argument("--pk_x_hi", required=True,
+                        help="Public-key X coordinate higher 128 bits (hex).")
+    parser.add_argument("--pk_x_lo", required=True,
+                        help="Public-key X coordinate lower 128 bits (hex).")
+    parser.add_argument("--pk_y_hi", required=True,
+                        help="Public-key Y coordinate higher 128 bits (hex).")
+    parser.add_argument("--pk_y_lo", required=True,
+                        help="Public-key Y coordinate lower 128 bits (hex).")
     parser.add_argument("--professor", required=True, type=int,
                         help="Professor identifier.")
     parser.add_argument("--grade", required=True, type=int,
