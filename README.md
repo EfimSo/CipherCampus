@@ -44,6 +44,7 @@ This enhancement makes our system more robust against malicious attacks while ma
 
 ## Zero Knowledge Directory Structure
 
+```text
 zero_knowledge/
 ├── circuits/                         # ZK circuits for different disclosure settings
 │   ├── verifyNoGradeNoMajor/
@@ -68,6 +69,7 @@ zero_knowledge/
 │   └── package-lock.json
 │
 └── contract_info.txt
+```
 
 #### Install Dependencies:
 ```bash
