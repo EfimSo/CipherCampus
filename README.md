@@ -50,7 +50,7 @@ This enhancement makes our system more robust against malicious attacks while ma
 
 ```text
 zero_knowledge/
-├── circuits/                         # ZK circuits for different disclosure settings
+├── circuits/                        # ZK circuits for different disclosure settings
 │   ├── verifyNoGradeNoMajor/
 │   ├── verifyNoGradeYesMajor/
 │   ├── verifyYesGradeNoMajor/
