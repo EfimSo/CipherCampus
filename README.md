@@ -9,6 +9,21 @@ This project combines the spirit of **Boston University** with the cutting-edge 
 We aim to explore privacy-enhancing cryptographic protocols, blockchain applications, and decentralized identity — all symbolized by our fierce and fearless mascot, **Rhett the Terrier**.
 
 ---
+## Changes after the Presentation
+
+
+### Digital Signatures for Review Integrity
+To enhance the security and integrity of the review system, we've implemented a digital signature mechanism using ECDSA with the secp256k1 curve. This addition provides several key security benefits review authenticity and data integrity.
+
+
+The signature process works as follows:
+1. Students generate their private/public key pair using secp256k1
+2. When submitting a review, the student's private key signs the review text
+3. The signature is verified against the student's public key before storing the review
+4. Only reviews with valid signatures are accepted into the system
+
+This enhancement makes our system more robust against malicious attacks while maintaining the privacy benefits of our zero-knowledge proofs.
+---
 
 ## Topics Covered
 - Zero-Knowledge Proof Systems (ZKPs)
