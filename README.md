@@ -1,16 +1,12 @@
-# Zero-Knowledge Proofs + Ethereum + BU Terrier
-
-![Zero-Knowledge Terrier](pr00fesor.png)
-
-## Project Overview
-
-This project combines the spirit of **Boston University** with the cutting-edge technology of **Zero-Knowledge Proofs** and **Ethereum**.
-
-We aim to explore privacy-enhancing cryptographic protocols, blockchain applications, and decentralized identity — all symbolized by our fierce and fearless mascot, **Rhett the Terrier**.
+## Features
+- Anonymous course review submission
+- Zero-knowledge proof verification
+- Optional grade and major disclosure
+- Secure proof generation and verification
 
 ---
-## Changes after the Presentation
 
+## Changes after the Presentation
 
 ### Digital Signatures for Review Integrity
 To enhance the security and integrity of the review system, we've implemented a digital signature mechanism using ECDSA with the secp256k1 curve. This addition provides several key security benefits review authenticity and data integrity.
@@ -30,13 +26,6 @@ This enhancement makes our system more robust against malicious attacks while ma
 - Privacy and Scalability in Blockchain
 - Cryptographic Protocols
 - Decentralized Applications (dApps)
-
----
-
-## Inspiration
-
-Boston University's relentless pursuit of innovation meets the next frontier of cryptography and blockchain.  
-Protect your identity, secure your data, and unleash your Terrier spirit!
 
 ---
 
@@ -74,6 +63,7 @@ npm  i  csv-parse @aztec/bb.js
 pip install pandas cryptography
 ```
 
+Note: The tree is already generated so, thes following two steps may be skipped.
 #### Generate courses_assigned.csv from courses.csv, appending keys, grades, professors, and majors:
 ```bash
 python3 modify_courses.py
@@ -84,26 +74,13 @@ python3 modify_courses.py
 npx ts-node --transpile-only build_full_merkle_tree.ts
 ```
 
-#### Generate Merkle Proof:
+#### Generate Merkle Proof for any Leaf:
 ```bash
 npx ts-node --transpile-only compute_proof.ts
 ```
 Prints a Prover.toml-compatible block, index can be modified for different leaves.
 
 
-## Quick Links
-- [Learn more about Zero-Knowledge Proofs](https://zkproof.org/)
-- [Ethereum Official Site](https://ethereum.org/)
-
-
-## Features
-- Anonymous course review submission
-- Zero-knowledge proof verification
-- Optional grade and major disclosure
-- Secure proof generation and verification
-- Modern, hacker-themed UI
-
-## Technical Stack
 ### Frontend
 - React
 - Material-UI (MUI)
@@ -119,17 +96,6 @@ Prints a Prover.toml-compatible block, index can be modified for different leave
 - Noir (for circuit implementation)
 - Barretenberg (for proof generation)
 - Merkle Trees (for data integrity)
-
-
-
-## Setup Instructions
-
-### Prerequisites
-- Node.js (v14 or higher)
-- Python 3.8+
-- Docker (optional, for development)
-- Barretenberg (for proof generation)
-
 
 ---
 
