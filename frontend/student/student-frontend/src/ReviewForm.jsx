@@ -20,8 +20,6 @@ const ReviewPage = () => {
   const [rating, setRating] = useState("");
   const [pkX, setPkX] = useState("");
   const [pkY, setPkY] = useState("");
-  const [skLo, setSkLo] = useState("");
-  const [skHi, setSkHi] = useState("");
   const [sk, setSk] = useState(""); // newly added given the changed schema 
   const [path, setPath] = useState("");
   const [root, setRoot] = useState("");
@@ -82,12 +80,13 @@ const ReviewPage = () => {
 
       
   const splitHex256 = (hex) => {
-        if (!hex || hex.length !== 64) {
+        const trimmed = hex.startsWith("0x") ? hex.slice(2) : hex;
+        if (!trimmed || trimmed.length !== 64) {
           throw new Error("Public key hex must be 64 characters (256 bits).");
         }
         return {
-          hi: "0x" + hex.slice(0, 32),
-          lo: "0x" + hex.slice(32),
+          hi: "0x" + trimmed.slice(0, 32),
+          lo: "0x" + trimmed.slice(32),
         };
       };
   
@@ -177,7 +176,8 @@ const ReviewPage = () => {
       college,
       "public_keyX": pkX,
       "public_keyY": pkY,
-      "signature": signature
+      "signature": signature,
+      "professor_name": professor
     };
 
     try {
@@ -217,8 +217,7 @@ const ReviewPage = () => {
       rating={rating} setRating={setRating}
       pkX={pkX} setPkX={setPkX}
       pkY={pkY} setPkY={setPkY}
-      skLo={sk} setSkLo={setSk}
-      skHi={skHi} setSkHi={setSkHi}
+      sk={sk} setSk={setSk}
       submitHandler={handleSubmit}
       isCollegeDisabled={isCollegeDisabled}
       departments={departments}

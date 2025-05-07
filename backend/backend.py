@@ -29,6 +29,8 @@ class Review(db.Model):
     college = db.Column(db.Text)
     department = db.Column(db.Text)
     signature = db.Column(db.Text)
+    public_keyX = db.Column(db.Text)
+    public_keyY = db.Column(db.Text)
 
     def __str__(self):
         return str(review_serialize(self))
@@ -55,7 +57,10 @@ def review_serialize(review):
         'class_name': review.class_name,
         "major": review.major,
         "college": review.college,
-        "department": review.department
+        "department": review.department,
+        "public_keyX": review.public_keyX,
+        "public_keyY": review.public_keyY,
+        "signature": review.signature
     }
 
 def nullifier_serialize(nullifier):
@@ -152,10 +157,6 @@ def write_review():
         except: arg_dict["rating"] = 1.0
 
         arg_dict["recommend"] = True if arg_dict["recommend"] in ["true", "True"] else False
-        
-        del arg_dict["public_keyX"]
-        del arg_dict["public_keyY"]
-        del arg_dict["signature"]
         
         review = Review(**arg_dict)
         db.session.add(review)

@@ -16,8 +16,7 @@ const ReviewForm = ({
   rating, setRating,
   pkX, setPkX,
   pkY, setPkY,
-  skLo, setSkLo,
-  skHi, setSkHi,
+  sk, setSk,
   submitHandler,
   path, setPath,
   grade, setGrade,
@@ -85,10 +84,9 @@ const ReviewForm = ({
       </Section>
 
       <Section title="Proof Inputs">
-        <LabeledTextField label="pkX" value={pkX} onChange={(e) => setPkX(e.target.value)} />
-        <LabeledTextField label="pkY" value={pkY} onChange={(e) => setPkY(e.target.value)} />
-        <LabeledTextField label="skLo" value={skLo} onChange={(e) => setSkLo(e.target.value)} />
-        <LabeledTextField label="skHi" value={skHi} onChange={(e) => setSkHi(e.target.value)} />
+        <LabeledTextField label="Public Key X coordinate" value={pkX} onChange={(e) => setPkX(e.target.value)} />
+        <LabeledTextField label="Public Key Y coordinate" value={pkY} onChange={(e) => setPkY(e.target.value)} />
+        <LabeledTextField label="Secret Key" value={sk} onChange={(e) => setSk(e.target.value)} />
         <LabeledTextField label="Leaf Index" value={leafIndex} onChange={(e) => setLeafIndex(e.target.value)} />
         <LabeledTextField label="Path (one per row)" value={path} onChange={(e) => setPath(e.target.value)} multiline rows={18} />
       </Section>

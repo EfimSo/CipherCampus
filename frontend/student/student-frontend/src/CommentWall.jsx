@@ -75,12 +75,16 @@ function CommentWall() {
                       secondary={
                         <>
                           <Typography variant="body2"><strong>Review:</strong> {rev.text}</Typography>
+                          {rev.professor_name && <Typography variant="body2"><strong>Professor:</strong> {rev.professor_name}</Typography>}
                           {rev.grade && <Typography variant="body2"><strong>Grade:</strong> {rev.grade === "NOT_USED" ? "Not disclosed" : rev.grade}</Typography>}
                           {rev.major && <Typography variant="body2"><strong>Major:</strong> {rev.major === "NOT_USED" ? "Not disclosed" : rev.major}</Typography>}
                           {rev.rating && <Typography variant="body2"><strong>Rating:</strong> {rev.rating}</Typography>}
-                          {typeof rev.recommend === 'boolean' && (
-                            <Typography variant="body2"><strong>Recommend:</strong> {rev.recommend ? 'Yes' : 'No'}</Typography>
+                          {rev.recommend && (
+                            <Typography variant="body2"><strong>Recommend:</strong> {rev.recommend === "True" ? 'Yes' : 'No'}</Typography>
                           )}
+                          {rev.public_keyX && <Typography variant="body2"><strong>Public Key X Coordinate:</strong> {rev.public_keyX}</Typography>}    
+                          {rev.public_keyY && <Typography variant="body2"><strong>Public Key Y Coordinate:</strong> {rev.public_keyY}</Typography>}    
+                          {rev.signature && <Typography variant="body2" noWrap={true}><strong>Signature:</strong> {rev.signature}</Typography>}    
                         </>
                       }
                     />

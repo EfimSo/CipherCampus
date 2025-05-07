@@ -4,8 +4,8 @@ from cryptography.exceptions import InvalidSignature
 
 
 def check_signature(signature, pkX, pkY, message):
-    x_bytes = bytes.fromhex(pkX)
-    y_bytes = bytes.fromhex(pkY)
+    x_bytes = bytes.fromhex(pkX) if not pkX[:2] == "0x" else bytes.fromhex(pkX[2:])
+    y_bytes = bytes.fromhex(pkY) if not pkY[:2] == "0x" else bytes.fromhex(pkY[2:])
 
     encoded_point = b"\x04" + x_bytes + y_bytes 
 
