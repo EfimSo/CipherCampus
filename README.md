@@ -1,4 +1,6 @@
 # CipherCampus
+Github Repository link:
+https://github.com/EfimSo/CipherCampus
 
 ## Problem Statement:
 
@@ -45,6 +47,7 @@ We added backend nullifiers by implementing a new SQL table mapping courses to p
 
 ### Encryption Changes
 The original encryption scheme used (grumpkin) was specialized to be used in the noir circuit. It was not popularly supported by Python or Javascript libraries, which forced us to switch to different elyptic curve (SECP256R1). We removed the private key from the Noir circuit inputs. We made public key a public input. In order to keep the public key below the module size of the noir circut, we had to split both the x and y-coordinates of the public key into low and high values (first and last 16 bytes). We also used the PEM format to encode the private key to be input into the front-end. The key is used without the begin and end tags which are appended by the frontend. 
+
 ---
 
 ## Topics Covered
@@ -248,4 +251,5 @@ cd display
 python3 -m http.server 8000
 ```
 
-> This is a static site used as a demo for displaying proofs or results.
+This is a static site used as a demo for displaying proofs or results.
+https://efimso.github.io/cc/
