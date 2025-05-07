@@ -8,19 +8,14 @@ https://github.com/EfimSo/CipherCampus
 
 ## High‑level Solution:
 
-Our solution revolves around two key components:
+Our solution revolves around three key components:
 
 1. **Blockchain Merkle roots**: Each school stores the Merkle root of enrolled students
-   for corresponding courses on the blockchain. This provides a public,
-   tamper-evident record of enrolled students.
+   for corresponding courses on the blockchain. This provides a public record of enrolled students.
 2. **Off-chain Noir ZK proof**: Before accepting a review, a Noir ZK proof is generated
    to confirm the reviewer's membership in the course. This proof is computed
    off-chain to ensure the privacy of the reviewer's personal information.
-
-## High‑level Solution:
-
-- Put each school’s Merkle root of enrolled students for corresponding courses on blockchain.
-  Employ an off‑chain Noir ZK proof to confirm a reviewer’s membership in the course before accepting their review.
+3. **Digital Signatures**: The reviewer signs the review text hash with their private key. The signature is validated under the public key which is proven to be in the Merkle tree subtree for the specific class using the ZK proof. This ensures the reviewer is the owner of the public key tied to the student identity. 
 
 ## Changes after the Presentation
 ### Demo Video
@@ -41,8 +36,8 @@ The signature process works as follows:
 
 This enhancement makes our system more robust against malicious attacks while maintaining the privacy benefits of our zero-knowledge proofs. The school is unable to submit reviews on students' behalf as they are able to generate proofs but not sign. 
 
-### Nullifier
-We added backend nullifiers by implementing a new SQL table mapping courses to public keys. If the user submits a review with the same public key, for the same class, the server returns a 500 code error. View the response in the network tab to see the error code. 
+### Nullifiers
+We added backend nullifiers by implementing a new SQL table mapping courses to public keys. If the user submits a review with the same public key, for the same class, the server returns a 500 code error. View the response in the network tab to see the nullifier error message. 
 
 
 ### Encryption Changes
@@ -68,6 +63,7 @@ The original encryption scheme used (grumpkin) was specialized to be used in the
 - Zero-knowledge proof verification
 - Optional grade and major disclosure
 - Secure proof generation and verification
+- Digital Signatures for tamper-resistant identities and message integrity
 
 ---
 
@@ -76,6 +72,7 @@ The original encryption scheme used (grumpkin) was specialized to be used in the
 - Node.js (v14 or higher)
 - Python 3.8+
 - Barretenberg (for proof generation)
+- Nargo
 
 ---
 
@@ -85,16 +82,20 @@ The original encryption scheme used (grumpkin) was specialized to be used in the
 - Material-UI (MUI)
 - Vite build system
 - TypeScript
+- Node (proof and signature generation server)
 
 ## Frontend breakdown
 
-- ReviewForm.jsx: The main component that handles user input and proof generation
+- ReviewForm.jsx: The main component that handles user input and proof generation. Split into two files:
+   - frontend/student/student-frontend/src/ReviewForm.jsx handles state and API interaction
+   - frontend/student/student-frontend/src/forms/ReviewForm.jsx defines the input form JSX
+- CommentWall.jsx defines the review retrieval and page display.
 - rootRetrieval.js: A utility function that fetches the current root from the backend
 - mappings.js: Contains constants and mappings for courses, professors, grades, and majors
 - The frontend is built using Vite and React, and when the user first open the page, they will be seeing the two dropdowns for college and department. The user can select the college and the department they want to see, and all the classes in that department will be displayed for the user to reference.
 - The user can also select the button "Write Anonymous Review" to start the review process. The user will be prompted to enter the school and the semester to retrive the root from a contract. They will need to be able to type in review text, the rating, the professor, the course, the semester, the school, and the public key. The user can also select the checkbox "Include Grade" and "Include Major" to include the grade and major in the review. After gathering the information, which the user should be provided, the user will click the "Submit Review".
-- "Submit Review" will trigger a function call to a node server that is currently part of front end, and the node server will generate a proof and send it to the backend. After the proof gets verified, we will sign the review with the private key and send it to the backend. There is another endpoint that generates a signature for the review, and the signature will be sent to the backend along with all the review information.
-- We call the backend (without the private key after modifciation), and the backend return a reciept on whether it is successful or not.
+- "Submit Review" will trigger a function call to a node server that is currently part of front end, and the node server will generate a proof and send it to the backend. After the proof gets verified, we will sign the review with the private key and send it to the backend. There is another node server endpoint that generates a signature for the review, and the signature will be sent to the backend along with all the review information.
+- We call the backend (without the private key after modifciation), and the backend return a receipt on whether it is successful or not.
 
 ### Backend
 
@@ -198,7 +199,7 @@ npm run dev
 ### 2. Proof Generation Server
 
 **Location:** `/frontend/server.js`  
-**Port:** `http://localhost:3001` (or whatever `server.js` is configured to use)
+**Port:** `http://localhost:3002`
 
 #### Start the Server:
 
@@ -208,14 +209,14 @@ npm install
 node server.js
 ```
 
-> This server handles proof generation and must run separately from the Vite frontend.
+> This server handles proof and signature generation and must run separately from the Vite frontend. Executes Nargo and Barretenberg commands for ZK proof generation. 
 
 ---
 
 ### 3. Backend (Python)
 
 **Location:** `/backend`  
-**Port:** `http://localhost:5000` (or based on what's set in `backend.py`)
+**Port:** `http://localhost:5001`
 
 #### Create and Activate Virtual Environment:
 
@@ -241,6 +242,8 @@ pip install -r requirements.txt
 
 ### 4. Demo Website (Static Display)
 
+Deployed at https://efimso.github.io/cc/
+
 **Location:** `/display`  
 **Port:** `http://localhost:8000`
 
@@ -251,5 +254,4 @@ cd display
 python3 -m http.server 8000
 ```
 
-This is a static site used as a demo for displaying proofs or results.
-https://efimso.github.io/cc/
+This is a static site used as a place for displaying and marketing the project.
