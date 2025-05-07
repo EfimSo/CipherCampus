@@ -15,7 +15,6 @@ We aim to explore privacy-enhancing cryptographic protocols, blockchain applicat
 ### Digital Signatures for Review Integrity
 To enhance the security and integrity of the review system, we've implemented a digital signature mechanism using ECDSA with the secp256k1 curve. This addition provides several key security benefits review authenticity and data integrity.
 
-
 The signature process works as follows:
 1. Students generate their private/public key pair using secp256k1
 2. When submitting a review, the student's private key signs the review text
@@ -40,6 +39,57 @@ Boston University's relentless pursuit of innovation meets the next frontier of 
 Protect your identity, secure your data, and unleash your Terrier spirit!
 
 ---
+
+## Zero Knowledge Directory Structure
+
+zero_knowledge/
+├── circuits/                         # ZK circuits for different disclosure settings
+│   ├── verifyNoGradeNoMajor/
+│   ├── verifyNoGradeYesMajor/
+│   ├── verifyYesGradeNoMajor/
+│   └── verifyYesGradeYesMajor/
+│
+├── tree_creation/                   
+│   ├── build_full_merkle_tree.ts    # Builds a Merkle tree from the dataset
+│   ├── compute_proof.ts             # Computes Merkle proof for the first student
+│   ├── compute_root_from_json.ts    # Extracts root from a saved tree
+│   ├── courses.csv                  # Raw input course enrollments
+│   ├── courses_assigned.csv         # Processed data with public keys, grades, etc.
+│   ├── full_tree.json               # Serialized Merkle tree
+│   ├── modify_courses.py            # Assigns keys, professors, grades, majors
+│   ├── parse_pks.py                 # Parses public key files if needed
+│   ├── parsed_keys.json             # JSON-formatted key list (optional)
+│   ├── private_keys.pem             # Private keys in PEM format
+│   ├── public_keys.txt              # Public key coordinates (x, y) in hex
+│   ├── contract_info.txt            # Contains deployed contract addresses/info
+│   ├── package.json
+│   └── package-lock.json
+│
+└── contract_info.txt
+
+#### Install Dependencies:
+```bash
+npm install
+npm  i  csv-parse @aztec/bb.js
+pip install pandas cryptography
+```
+
+#### Generate courses_assigned.csv from courses.csv, appending keys, grades, professors, and majors:
+```bash
+python3 modify_courses.py
+```
+
+#### Build Merkle Tree:
+```bash
+npx ts-node --transpile-only build_full_merkle_tree.ts
+```
+
+#### Generate Merkle Proof:
+```bash
+npx ts-node --transpile-only compute_proof.ts
+```
+Prints a Prover.toml-compatible block, index can be modified for different leaves.
+
 
 ## Quick Links
 - [Learn more about Zero-Knowledge Proofs](https://zkproof.org/)
