@@ -124,7 +124,7 @@ const ReviewPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus("Generating ZK proof...");
-    /*
+    
     let proofHex;
     try {
       const proofBytes = await generateProof();
@@ -137,17 +137,17 @@ const ReviewPage = () => {
       setStatus(`Proof generation failed: ${err.message}`);
       return;
     }
-      */
+      
     setStatus("Submitting...");
 
     // Send the message to sign to the backend
-const res = await fetch("http://localhost:3002/sign-review", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ message: review, sk }),
-});
-const { signature } = await res.json();
-console.log("Received signature:", signature);
+    const res = await fetch("http://localhost:3002/sign-review", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: review, sk }),
+    });
+    const { signature } = await res.json();
+    console.log("Received signature:", signature);
 
 
 
@@ -160,7 +160,10 @@ console.log("Received signature:", signature);
       "proof": proofHex,
       rating,
       department,
-      college
+      college,
+      "public_keyX": pkX,
+      "public_keyY": pkY,
+      "signature": signature
     };
 
     try {
