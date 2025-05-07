@@ -1,7 +1,7 @@
 Contract Name: SchoolRootRegistry
 
-Contract Address: 0xE8eba6Ff334b8aDF50c5b635ef6653b884E0e01b
-Network: Sepolia (or specify your target network)
+Contract Address: 0x63f19271B12d9A914ff9ae3239f4A7275568dab3
+Network: Sepolia
 
 Description:
 Stores and publishes Merkle roots for each school and semester in a simple on‑chain registry. Only the contract owner may add or update roots. Off‑chain clients can retrieve the latest root and its timestamp for proof verification.
